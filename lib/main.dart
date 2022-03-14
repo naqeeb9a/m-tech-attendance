@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mtech_attendance/app%20screens/bottom%20nav%20screens/bottom_tab_bar.dart';
+import 'package:mtech_attendance/app%20screens/login.dart';
 import 'package:mtech_attendance/utils/config.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: AppColors.primaryColor,
       ),
-      home: const AppTabBar(),
+      home: const LoginScreen(),
     );
   }
 }

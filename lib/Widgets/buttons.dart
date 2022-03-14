@@ -13,14 +13,21 @@ Widget coloredButton(context, text, color,
     onTap: function == "" ? () {} : function,
     child: Container(
       width: width == "" ? CustomSizes().dynamicWidth(context, 1) : width,
-      height: CustomSizes().dynamicWidth(context, .12),
+      height: CustomSizes().dynamicWidth(context, .15),
       decoration: color == AppColors.noColor
           ? BoxDecoration(
               color: color,
               border: Border.all(width: 1, color: AppColors.customWhite),
             )
           : BoxDecoration(
-              color: color,
+                gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [
+                    color,
+                    AppColors.customPurple,
+                  ],
+                ),
               borderRadius: BorderRadius.circular(
                 CustomSizes().dynamicWidth(
                   context,
