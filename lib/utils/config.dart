@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
-class CustomColors {
+class AppColors {
   static const customWhite = Color(0xffffffff);
   static const customSkimColor = Colors.white60;
-  static const customGrey = Color(0xff707070);
+  static const customGrey = Color(0xff7a7c81);
   static const customBlack = Color(0xff000000);
-  static const customBlue = Color(0xff05B4E2);
+  static const customDarkGrey = Color(0xff3e4a59);
+  static const customBlue = Color(0xff3e82e0);
+  static const customPurple = Color(0xff9583e1);
   static const customPink = Color(0xffFA2C67);
   static const noColor = Colors.transparent;
 

@@ -24,36 +24,36 @@ Widget inputTextField(context, label, myController,
           : TextInputType.emailAddress,
       obscureText: password == true ? obscureText : false,
       cursorColor:
-          white == true ? CustomColors.customWhite : CustomColors.customBlack,
+          white == true ? AppColors.customWhite : AppColors.customBlack,
       cursorWidth: 2.0,
       cursorHeight: CustomSizes().dynamicHeight(context, .03),
       style: TextStyle(
         color:
-            white == true ? CustomColors.customWhite : CustomColors.customBlack,
+            white == true ? AppColors.customWhite : AppColors.customBlack,
         fontSize: CustomSizes().dynamicWidth(context, .04),
       ),
       decoration: InputDecoration(
         hintStyle: TextStyle(
             color: white == true
-                ? CustomColors.customWhite
-                : CustomColors.customBlack),
+                ? AppColors.customWhite
+                : AppColors.customBlack),
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
               color: white == true
-                  ? CustomColors.customWhite
-                  : CustomColors.customBlack),
+                  ? AppColors.customWhite
+                  : AppColors.customBlack),
         ),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
               color: white == true
-                  ? CustomColors.customWhite
-                  : CustomColors.customBlack),
+                  ? AppColors.customWhite
+                  : AppColors.customBlack),
         ),
         border: UnderlineInputBorder(
           borderSide: BorderSide(
               color: white == true
-                  ? CustomColors.customWhite
-                  : CustomColors.customBlack),
+                  ? AppColors.customWhite
+                  : AppColors.customBlack),
         ),
         contentPadding: EdgeInsets.symmetric(
           horizontal: CustomSizes().dynamicWidth(context, .05),

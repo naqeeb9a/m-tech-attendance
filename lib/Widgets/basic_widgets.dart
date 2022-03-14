@@ -9,13 +9,13 @@ Widget chip(context, title) {
   return Container(
     height: CustomSizes().dynamicHeight(context, .03),
     decoration: BoxDecoration(
-      color: CustomColors.customWhite,
+      color: AppColors.customWhite,
       borderRadius: BorderRadius.all(
         Radius.circular(
           CustomSizes().dynamicWidth(context, 1),
         ),
       ),
-      border: Border.all(color: CustomColors.customBlack),
+      border: Border.all(color: AppColors.customBlack),
     ),
     padding: EdgeInsets.symmetric(
       horizontal: CustomSizes().dynamicWidth(context, .02),
@@ -25,7 +25,7 @@ Widget chip(context, title) {
         context,
         title,
         0.022,
-        CustomColors.customBlack,
+        AppColors.customBlack,
       ),
     ),
   );
@@ -38,7 +38,7 @@ Widget retry(context, {retryFunc = ""}) {
     children: [
       Image.asset(
         "assets/oops.png",
-        color: CustomColors.customGrey.withOpacity(0.4),
+        color: AppColors.customGrey.withOpacity(0.4),
         width: CustomSizes().dynamicWidth(context, .24),
       ),
       CustomSizes().heightBox(context, .03),
@@ -46,14 +46,14 @@ Widget retry(context, {retryFunc = ""}) {
         context,
         "Oops...",
         0.07,
-        CustomColors.customBlack,
+        AppColors.customBlack,
         alignText: TextAlign.center,
         bold: true,
       ),
       CustomSizes().heightBox(context, .03),
       Image.asset(
         "assets/no_net.png",
-        color: CustomColors.customBlack,
+        color: AppColors.customBlack,
         width: CustomSizes().dynamicWidth(context, .1),
       ),
       CustomSizes().heightBox(context, .02),
@@ -61,7 +61,7 @@ Widget retry(context, {retryFunc = ""}) {
         context,
         "No Internet Connection",
         0.036,
-        CustomColors.customBlack,
+        AppColors.customBlack,
         alignText: TextAlign.center,
       ),
       retryFunc == "" ? CustomSizes().heightBox(context, .04) : 0.0,
@@ -69,7 +69,7 @@ Widget retry(context, {retryFunc = ""}) {
           ? coloredButton(
               context,
               "Retry",
-              CustomColors.customBlack,
+              AppColors.customBlack,
               width: CustomSizes().dynamicWidth(context, .4),
               function: retryFunc == "" ? () {} : retryFunc,
             )

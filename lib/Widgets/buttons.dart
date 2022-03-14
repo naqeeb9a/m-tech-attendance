@@ -14,10 +14,10 @@ Widget coloredButton(context, text, color,
     child: Container(
       width: width == "" ? CustomSizes().dynamicWidth(context, 1) : width,
       height: CustomSizes().dynamicWidth(context, .12),
-      decoration: color == CustomColors.noColor
+      decoration: color == AppColors.noColor
           ? BoxDecoration(
               color: color,
-              border: Border.all(width: 1, color: CustomColors.customWhite),
+              border: Border.all(width: 1, color: AppColors.customWhite),
             )
           : BoxDecoration(
               color: color,
@@ -33,8 +33,8 @@ Widget coloredButton(context, text, color,
           text,
           style: TextStyle(
             color: fontColor == true
-                ? CustomColors.customWhite
-                : CustomColors.customBlack,
+                ? AppColors.customWhite
+                : AppColors.customBlack,
             fontWeight: FontWeight.bold,
             fontSize: CustomSizes().dynamicWidth(context, fontSize),
           ),
@@ -56,12 +56,12 @@ Widget retry(context) {
         // ),
         CustomSizes().heightBox(context, 0.02),
         text(context, "Check your internet or try again later", 0.03,
-            CustomColors.customWhite),
+            AppColors.customWhite),
         CustomSizes().heightBox(context, 0.1),
         coloredButton(
           context,
           "Retry",
-          CustomColors.customWhite,
+          AppColors.customWhite,
           width: CustomSizes().dynamicWidth(context, .4),
           function: () {},
         ),

@@ -44,15 +44,15 @@ PreferredSizeWidget customAppBar(context,
       CustomSizes().dynamicWidth(context, .14),
     ),
     child: AppBar(
-      backgroundColor: CustomColors.customWhite,
+      backgroundColor: AppColors.customWhite,
       elevation: elevate == true ? 1.0 : 0.0,
-      foregroundColor: CustomColors.customBlack,
+      foregroundColor: AppColors.customBlack,
       iconTheme: const IconThemeData(
-        color: CustomColors.customBlack,
+        color: AppColors.customBlack,
       ),
       centerTitle: onlyText,
       title: onlyText == true
-          ? text(context, titleText, 0.04, CustomColors.customBlack, bold: true)
+          ? text(context, titleText, 0.04, AppColors.customBlack, bold: true)
           : SizedBox(
               height: CustomSizes().dynamicWidth(context, .15),
               width: CustomSizes().dynamicWidth(context, 1),
@@ -74,8 +74,8 @@ PreferredSizeWidget customAppBar(context,
                       CircleAvatar(
                         radius: CustomSizes().dynamicWidth(context, .045),
                         backgroundColor: gender == "Boy"
-                            ? CustomColors.customBlue
-                            : CustomColors.customPink,
+                            ? AppColors.customBlue
+                            : AppColors.customPink,
                         child: Center(
                           child: CircleAvatar(
                             backgroundImage: NetworkImage(image),
@@ -89,7 +89,7 @@ PreferredSizeWidget customAppBar(context,
                     context,
                     title,
                     0.046,
-                    CustomColors.customBlack,
+                    AppColors.customBlack,
                     bold: true,
                   ),
                   Container(),
