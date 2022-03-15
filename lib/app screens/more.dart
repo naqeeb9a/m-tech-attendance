@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mtech_attendance/Widgets/text_widget.dart';
 
@@ -46,20 +47,462 @@ class _MoreScreenState extends State<MoreScreen> {
                   ),
                 ),
               ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                child: Image.asset(
+                  "assets/main_bottom.png",
+                  color: AppColors.customBlue,
+                  width: CustomSizes().dynamicWidth(context, 0.15),
+                ),
+              ),
               SizedBox(
                 width: CustomSizes().dynamicWidth(context, 1),
-                height: CustomSizes().dynamicHeight(context, 1),
-                child: Column(
-                  children: [
-                    CustomSizes().heightBox(context, 0.1),
+                height: CustomSizes().dynamicHeight(context, .9),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                                radius:
+                                    CustomSizes().dynamicHeight(context, 0.05),
+                                backgroundImage: const NetworkImage(
+                                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOOFMe-CzzMAgkPdsGK1wsKLtoF33HXGK98A&usqp=CAU")),
+                            text(context, "Elon Musk", 0.035,
+                                AppColors.customBlack,
+                                bold: true),
+                            text(context, "Tech Department", 0.03,
+                                AppColors.customGrey),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: CustomSizes().dynamicWidth(context, 0.9),
+                        height: CustomSizes().dynamicHeight(context, 0.14),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: CustomSizes().dynamicWidth(context, 0.05),
+                            vertical: CustomSizes()
+                                .dynamicHeight(context, 0.022),),
+                        decoration: BoxDecoration(
+                          color: AppColors.customGrey.withOpacity(0.05),
+                          borderRadius: BorderRadius.circular(
+                            CustomSizes().dynamicWidth(context, 0.04),
+                          ),
+                          border: Border.all(
+                            color: AppColors.customGrey.withOpacity(0.15),
+                          ),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.mail_outline_outlined,
+                                  size:
+                                      CustomSizes().dynamicHeight(context, 0.03),
+                                  color: AppColors.customGrey.withOpacity(0.2),
+                                ),
+                                CustomSizes().widthBox(context, 0.04),
+                                text(context, "elonmusk@cmcmtech.pk", 0.04,
+                                    AppColors.customBlack,bold: true),
+                              ],
+                            ),
+                            Padding(
+                              padding:  EdgeInsets.only(left : CustomSizes().dynamicWidth(context, 0.11)),
+                              child: Divider(thickness: CustomSizes().dynamicWidth(context, 0.002),),
+                            ),
+                            // Row(
+                            //   children: [
+                            //     Icon(
+                            //       Icons.phone,
+                            //       size:
+                            //       CustomSizes().dynamicHeight(context, 0.03),
+                            //       color: AppColors.customGrey.withOpacity(0.2),
+                            //     ),
+                            //     CustomSizes().widthBox(context, 0.04),
+                            //     text(context, "+92321456789", 0.04,
+                            //         AppColors.customBlack,bold: true),
+                            //   ],
+                            // ),
+                            // Padding(
+                            //   padding:  EdgeInsets.only(left : CustomSizes().dynamicWidth(context, 0.11)),
+                            //   child: Divider(thickness: CustomSizes().dynamicWidth(context, 0.002),),
+                            // ),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.perm_identity_outlined,
+                                  size:
+                                  CustomSizes().dynamicHeight(context, 0.03),
+                                  color: AppColors.customGrey.withOpacity(0.2),
+                                ),
+                                CustomSizes().widthBox(context, 0.04),
+                                text(context, "Mobile App Developer", 0.04,
+                                    AppColors.customBlack,bold: true),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: CustomSizes().dynamicWidth(context, 0.9),
+                        height: CustomSizes().dynamicHeight(context, 0.14),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: CustomSizes().dynamicWidth(context, 0.05),
+                          vertical: CustomSizes()
+                              .dynamicHeight(context, 0.022),),
+                        decoration: BoxDecoration(
+                          color: AppColors.customGrey.withOpacity(0.05),
+                          borderRadius: BorderRadius.circular(
+                            CustomSizes().dynamicWidth(context, 0.04),
+                          ),
+                          border: Border.all(
+                            color: AppColors.customGrey.withOpacity(0.15),
+                          ),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.phone,
+                                  size:
+                                  CustomSizes().dynamicHeight(context, 0.03),
+                                  color: AppColors.customGrey.withOpacity(0.2),
+                                ),
+                                CustomSizes().widthBox(context, 0.04),
+                                text(context, "+92321456789", 0.04,
+                                    AppColors.customBlack,bold: true),
+                              ],
+                            ),
+                            Padding(
+                              padding:  EdgeInsets.only(left : CustomSizes().dynamicWidth(context, 0.11)),
+                              child: Divider(thickness: CustomSizes().dynamicWidth(context, 0.002),),
+                            ),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.home_outlined,
+                                  size:
+                                  CustomSizes().dynamicHeight(context, 0.03),
+                                  color: AppColors.customGrey.withOpacity(0.2),
+                                ),
+                                CustomSizes().widthBox(context, 0.04),
+                                text(context, "Garden Town , Lahore", 0.04,
+                                    AppColors.customBlack,bold: true),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
 
-                    CircleAvatar(
-                      radius: CustomSizes().dynamicHeight(context, 0.05),
-                      backgroundImage: NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOOFMe-CzzMAgkPdsGK1wsKLtoF33HXGK98A&usqp=CAU")
-                    ),
-                    text(context, "Elon Musk", 0.035, AppColors.customBlack,bold:true),
-                    text(context, "Developer", 0.03, AppColors.customGrey),
-                  ],
+                      Container(
+                        width: CustomSizes().dynamicWidth(context, 0.9),
+                        height: CustomSizes().dynamicHeight(context, 0.25),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: CustomSizes().dynamicWidth(context, 0.05),
+                          vertical: CustomSizes().dynamicHeight(context, 0.022),
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.customGrey.withOpacity(0.05),
+                          borderRadius: BorderRadius.circular(
+                            CustomSizes().dynamicWidth(context, 0.04),
+                          ),
+                          border: Border.all(
+                            color: AppColors.customGrey.withOpacity(0.15),
+                          ),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.assignment_outlined,
+                                  size: CustomSizes()
+                                      .dynamicHeight(context, 0.03),
+                                  color: AppColors.customGrey.withOpacity(0.2),
+                                ),
+                                CustomSizes().widthBox(context, 0.04),
+                                text(context, "My Leaves", 0.04,
+                                    AppColors.customBlack,
+                                    bold: true),
+                              ],
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: CustomSizes()
+                                      .dynamicWidth(context, 0.11)),
+                              child: Divider(
+                                thickness:
+                                    CustomSizes().dynamicWidth(context, 0.002),
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.perm_identity_outlined,
+                                  size: CustomSizes()
+                                      .dynamicHeight(context, 0.03),
+                                  color: AppColors.customGrey.withOpacity(0.2),
+                                ),
+                                CustomSizes().widthBox(context, 0.04),
+                                text(context, "Update Profile", 0.04,
+                                    AppColors.customBlack,
+                                    bold: true),
+                              ],
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: CustomSizes()
+                                      .dynamicWidth(context, 0.11)),
+                              child: Divider(
+                                thickness:
+                                CustomSizes().dynamicWidth(context, 0.002),
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.notifications_none_sharp,
+                                  size: CustomSizes()
+                                      .dynamicHeight(context, 0.03),
+                                  color: AppColors.customGrey.withOpacity(0.2),
+                                ),
+                                CustomSizes().widthBox(context, 0.04),
+                                text(context, "Notification Settings", 0.04,
+                                    AppColors.customBlack,
+                                    bold: true),
+                              ],
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: CustomSizes()
+                                      .dynamicWidth(context, 0.11)),
+                              child: Divider(
+                                thickness:
+                                    CustomSizes().dynamicWidth(context, 0.002),
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.question_mark_outlined,
+                                  size: CustomSizes()
+                                      .dynamicHeight(context, 0.03),
+                                  color: AppColors.customGrey.withOpacity(0.2),
+                                ),
+                                CustomSizes().widthBox(context, 0.04),
+                                text(context, "About CMC M-Tech", 0.04,
+                                    AppColors.customBlack,
+                                    bold: true),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      // Container(
+                      //   width: CustomSizes().dynamicWidth(context, 0.9),
+                      //   height: CustomSizes().dynamicHeight(context, 0.14),
+                      //   padding: EdgeInsets.symmetric(
+                      //       horizontal: CustomSizes().dynamicWidth(context, 0.05),
+                      //       vertical: CustomSizes()
+                      //           .dynamicHeight(context, 0.022),),
+                      //   decoration: BoxDecoration(
+                      //     color: AppColors.customGrey.withOpacity(0.05),
+                      //     borderRadius: BorderRadius.circular(
+                      //       CustomSizes().dynamicWidth(context, 0.04),
+                      //     ),
+                      //     border: Border.all(
+                      //       color: AppColors.customGrey.withOpacity(0.15),
+                      //     ),
+                      //   ),
+                      //   child: Column(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       Row(
+                      //         children: [
+                      //           Icon(
+                      //             Icons.assignment_outlined,
+                      //             size:
+                      //                 CustomSizes().dynamicHeight(context, 0.03),
+                      //             color: AppColors.customGrey.withOpacity(0.2),
+                      //           ),
+                      //           CustomSizes().widthBox(context, 0.04),
+                      //           text(context, "My Leaves", 0.04,
+                      //               AppColors.customBlack,bold: true),
+                      //         ],
+                      //       ),
+                      //       Padding(
+                      //         padding:  EdgeInsets.only(left : CustomSizes().dynamicWidth(context, 0.11)),
+                      //         child: Divider(thickness: CustomSizes().dynamicWidth(context, 0.002),),
+                      //       ),
+                      //       Row(
+                      //         children: [
+                      //           Icon(
+                      //             Icons.perm_identity_outlined,
+                      //             size:
+                      //             CustomSizes().dynamicHeight(context, 0.03),
+                      //             color: AppColors.customGrey.withOpacity(0.2),
+                      //           ),
+                      //           CustomSizes().widthBox(context, 0.04),
+                      //           text(context, "Update Profile", 0.04,
+                      //               AppColors.customBlack,bold: true),
+                      //         ],
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      //
+
+                      // Container(
+                      //   width: CustomSizes().dynamicWidth(context, 0.9),
+                      //   height: CustomSizes().dynamicHeight(context, 0.2),
+                      //   padding: EdgeInsets.symmetric(
+                      //     horizontal: CustomSizes().dynamicWidth(context, 0.05),
+                      //     vertical: CustomSizes()
+                      //         .dynamicHeight(context, 0.022),),
+                      //   decoration: BoxDecoration(
+                      //     color: AppColors.customGrey.withOpacity(0.05),
+                      //     borderRadius: BorderRadius.circular(
+                      //       CustomSizes().dynamicWidth(context, 0.04),
+                      //     ),
+                      //     border: Border.all(
+                      //       color: AppColors.customGrey.withOpacity(0.15),
+                      //     ),
+                      //   ),
+                      //   child: Column(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       Row(
+                      //         children: [
+                      //           Icon(
+                      //             Icons.notifications_none_sharp ,
+                      //             size:
+                      //             CustomSizes().dynamicHeight(context, 0.03),
+                      //             color: AppColors.customGrey.withOpacity(0.2),
+                      //           ),
+                      //           CustomSizes().widthBox(context, 0.04),
+                      //           text(context, "Notification Settings", 0.04,
+                      //               AppColors.customBlack,bold: true),
+                      //         ],
+                      //       ),
+                      //       Padding(
+                      //         padding:  EdgeInsets.only(left : CustomSizes().dynamicWidth(context, 0.11)),
+                      //         child: Divider(thickness: CustomSizes().dynamicWidth(context, 0.002),),
+                      //       ),
+                      //       Row(
+                      //         children: [
+                      //           Icon(
+                      //             Icons.key_sharp,
+                      //             size:
+                      //             CustomSizes().dynamicHeight(context, 0.03),
+                      //             color: AppColors.customGrey.withOpacity(0.2),
+                      //           ),
+                      //           CustomSizes().widthBox(context, 0.04),
+                      //           text(context, "Change Password", 0.04,
+                      //               AppColors.customBlack,bold: true),
+                      //         ],
+                      //       ),
+                      //       Padding(
+                      //         padding:  EdgeInsets.only(left : CustomSizes().dynamicWidth(context, 0.11)),
+                      //         child: Divider(thickness: CustomSizes().dynamicWidth(context, 0.002),),
+                      //       ),
+                      //       Row(
+                      //         children: [
+                      //           Icon(
+                      //             Icons.access_alarms_outlined,
+                      //             size:
+                      //             CustomSizes().dynamicHeight(context, 0.03),
+                      //             color: AppColors.customGrey.withOpacity(0.2),
+                      //           ),
+                      //           CustomSizes().widthBox(context, 0.04),
+                      //           text(context, "Reminder Settings", 0.04,
+                      //               AppColors.customBlack,bold: true),
+                      //         ],
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+
+                      // Container(
+                      //   width: CustomSizes().dynamicWidth(context, 0.9),
+                      //   height: CustomSizes().dynamicHeight(context, 0.2),
+                      //   padding: EdgeInsets.symmetric(
+                      //     horizontal: CustomSizes().dynamicWidth(context, 0.05),
+                      //     vertical: CustomSizes()
+                      //         .dynamicHeight(context, 0.022),),
+                      //   decoration: BoxDecoration(
+                      //     color: AppColors.customGrey.withOpacity(0.05),
+                      //     borderRadius: BorderRadius.circular(
+                      //       CustomSizes().dynamicWidth(context, 0.04),
+                      //     ),
+                      //     border: Border.all(
+                      //       color: AppColors.customGrey.withOpacity(0.15),
+                      //     ),
+                      //   ),
+                      //   child: Column(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       Row(
+                      //         children: [
+                      //           Icon(
+                      //             Icons.privacy_tip_outlined ,
+                      //             size:
+                      //             CustomSizes().dynamicHeight(context, 0.03),
+                      //             color: AppColors.customGrey.withOpacity(0.2),
+                      //           ),
+                      //           CustomSizes().widthBox(context, 0.04),
+                      //           text(context, "Privacy Policy", 0.04,
+                      //               AppColors.customBlack,bold: true),
+                      //         ],
+                      //       ),
+                      //       Padding(
+                      //         padding:  EdgeInsets.only(left : CustomSizes().dynamicWidth(context, 0.11)),
+                      //         child: Divider(thickness: CustomSizes().dynamicWidth(context, 0.002),),
+                      //       ),
+                      //       Row(
+                      //         children: [
+                      //           Icon(
+                      //             Icons.my_library_books_outlined ,
+                      //             size:
+                      //             CustomSizes().dynamicHeight(context, 0.03),
+                      //             color: AppColors.customGrey.withOpacity(0.2),
+                      //           ),
+                      //           CustomSizes().widthBox(context, 0.04),
+                      //           text(context, "Term & Conditions", 0.04,
+                      //               AppColors.customBlack,bold: true),
+                      //         ],
+                      //       ),
+                      //       Padding(
+                      //         padding:  EdgeInsets.only(left : CustomSizes().dynamicWidth(context, 0.11)),
+                      //         child: Divider(thickness: CustomSizes().dynamicWidth(context, 0.002),),
+                      //       ),
+                      //       Row(
+                      //         children: [
+                      //           Icon(
+                      //             Icons.question_mark_outlined,
+                      //             size:
+                      //             CustomSizes().dynamicHeight(context, 0.03),
+                      //             color: AppColors.customGrey.withOpacity(0.2),
+                      //           ),
+                      //           CustomSizes().widthBox(context, 0.04),
+                      //           text(context, "Help & FeedBack", 0.04,
+                      //               AppColors.customBlack,bold: true),
+                      //         ],
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      CustomSizes().heightBox(context, 0.025),
+                    ],
+                  ),
                 ),
               ),
             ],
