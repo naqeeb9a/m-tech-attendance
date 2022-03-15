@@ -3,7 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:mtech_attendance/app%20screens/bottom%20nav%20screens/attendance.dart';
 import 'package:mtech_attendance/app%20screens/bottom%20nav%20screens/home.dart';
-import 'package:mtech_attendance/app%20screens/more.dart';
+import 'package:mtech_attendance/app%20screens/more_screen.dart';
+import 'package:mtech_attendance/app%20screens/notification.dart';
 
 
 import '../../utils/config.dart';
@@ -34,7 +35,7 @@ class _AppTabBarState extends State<AppTabBar>
               HomePage(),
               HomePage(),
               AttendancePage(),
-              HomePage(),
+              NotificationScreen(),
               MoreScreen(),
             ],
           ),

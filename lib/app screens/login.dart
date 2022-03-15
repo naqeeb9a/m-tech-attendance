@@ -56,7 +56,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-
                       Image.asset(
                         "assets/logo.png",
                         height: CustomSizes().dynamicHeight(context, .08),
@@ -126,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-topBar(context, text1) {
+topBar(context, text1, {settingIcon = false}) {
   return Padding(
     padding: EdgeInsets.symmetric(
       vertical: CustomSizes().dynamicHeight(context, 0.02),
@@ -134,14 +133,16 @@ topBar(context, text1) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        InkWell(
-          onTap: () => CustomRoutes().pop(context),
-          child: Icon(
-            Icons.arrow_back_ios,
-            size: CustomSizes().dynamicWidth(context, 0.05),
-            color: AppColors.customBlack,
-          ),
-        ),
+        settingIcon == true
+            ? SizedBox()
+            : InkWell(
+                onTap: () => CustomRoutes().pop(context),
+                child: Icon(
+                  Icons.arrow_back_ios,
+                  size: CustomSizes().dynamicWidth(context, 0.05),
+                  color: AppColors.customBlack,
+                ),
+              ),
         Align(
           alignment: Alignment.center,
           child: text(
@@ -151,15 +152,19 @@ topBar(context, text1) {
             AppColors.customBlack,
           ),
         ),
-        CircleAvatar(
-          radius: CustomSizes().dynamicWidth(context, 0.035),
-          backgroundColor: Colors.transparent,
-          child: Icon(
-            Icons.arrow_back_ios,
-            size: CustomSizes().dynamicWidth(context, 0.03),
-            color: Colors.transparent,
-          ),
-        ),
+        settingIcon == true
+            ? Icon(Icons.tune_outlined,
+                size: CustomSizes().dynamicWidth(context, 0.06),
+                color: AppColors.customBlue)
+            : CircleAvatar(
+                radius: CustomSizes().dynamicWidth(context, 0.035),
+                backgroundColor: Colors.transparent,
+                child: Icon(
+                  Icons.arrow_back_ios,
+                  size: CustomSizes().dynamicWidth(context, 0.03),
+                  color: Colors.transparent,
+                ),
+              ),
       ],
     ),
   );
