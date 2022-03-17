@@ -89,7 +89,46 @@ class _HomePageState extends State<HomePage> {
                   AppColors.customGrey,
                 ),
                 CustomSizes().heightBox(context, .1),
-                Container(
+                DateFormat.yMMMMEEEEd().format(DateTime.now()).toString() == "02:00 PM"? Container(
+                  width: CustomSizes().dynamicWidth(context, .5),
+                  height: CustomSizes().dynamicWidth(context, .5),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: const LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      colors: [
+
+                        AppColors.customPurple,
+                        AppColors.customPink,
+                      ],
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.customBlue.withOpacity(0.4),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset:
+                        const Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      LottieBuilder.asset(
+                        "assets/animations/button_press.json",
+                        height: CustomSizes().dynamicHeight(context, .16),
+                      ),
+                      text(
+                        context,
+                        "CHECK OUT",
+                        .04,
+                        AppColors.customWhite,
+                      ),
+                    ],
+                  ),
+                ):Container(
                   width: CustomSizes().dynamicWidth(context, .5),
                   height: CustomSizes().dynamicWidth(context, .5),
                   decoration: BoxDecoration(
@@ -141,7 +180,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     timeCard(context, "10:00", "Check In"),
                     timeCard(context, "06:00", "Check Out"),
-                    timeCard(context, "08:00", "Working Hr's"),
+                    timeCard(context, "08:00", "Working Hrs"),
                   ],
                 ),
               ],
@@ -157,7 +196,7 @@ Widget timeCard(context, time, status) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      Icon(
+      const Icon(
         Icons.access_time_rounded,
       ),
       CustomSizes().heightBox(context, .04),

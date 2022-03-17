@@ -39,6 +39,7 @@ dependencies:
   geolocator: ^8.2.0
   geocoding: ^2.0.4
   syncfusion_flutter_calendar: ^19.4.55
+  percent_indicator: ^3.4.0
 
 dev_dependencies:
   flutter_test:

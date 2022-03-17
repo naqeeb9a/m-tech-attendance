@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mtech_attendance/Widgets/text_widget.dart';
+import 'package:mtech_attendance/app%20screens/my_leave.dart';
+import 'package:mtech_attendance/utils/app_routes.dart';
 
 import '../utils/config.dart';
 import '../utils/dynamic_sizes.dart';
@@ -83,9 +85,9 @@ class _MoreScreenState extends State<MoreScreen> {
                         width: CustomSizes().dynamicWidth(context, 0.9),
                         height: CustomSizes().dynamicHeight(context, 0.14),
                         padding: EdgeInsets.symmetric(
-                            horizontal: CustomSizes().dynamicWidth(context, 0.05),
-                            vertical: CustomSizes()
-                                .dynamicHeight(context, 0.022),),
+                          horizontal: CustomSizes().dynamicWidth(context, 0.05),
+                          vertical: CustomSizes().dynamicHeight(context, 0.022),
+                        ),
                         decoration: BoxDecoration(
                           color: AppColors.customGrey.withOpacity(0.05),
                           borderRadius: BorderRadius.circular(
@@ -102,18 +104,24 @@ class _MoreScreenState extends State<MoreScreen> {
                               children: [
                                 Icon(
                                   Icons.mail_outline_outlined,
-                                  size:
-                                      CustomSizes().dynamicHeight(context, 0.03),
+                                  size: CustomSizes()
+                                      .dynamicHeight(context, 0.03),
                                   color: AppColors.customGrey.withOpacity(0.2),
                                 ),
                                 CustomSizes().widthBox(context, 0.04),
                                 text(context, "elonmusk@cmcmtech.pk", 0.04,
-                                    AppColors.customBlack,bold: true),
+                                    AppColors.customBlack,
+                                    bold: true),
                               ],
                             ),
                             Padding(
-                              padding:  EdgeInsets.only(left : CustomSizes().dynamicWidth(context, 0.11)),
-                              child: Divider(thickness: CustomSizes().dynamicWidth(context, 0.002),),
+                              padding: EdgeInsets.only(
+                                  left: CustomSizes()
+                                      .dynamicWidth(context, 0.11)),
+                              child: Divider(
+                                thickness:
+                                    CustomSizes().dynamicWidth(context, 0.002),
+                              ),
                             ),
                             // Row(
                             //   children: [
@@ -136,13 +144,14 @@ class _MoreScreenState extends State<MoreScreen> {
                               children: [
                                 Icon(
                                   Icons.perm_identity_outlined,
-                                  size:
-                                  CustomSizes().dynamicHeight(context, 0.03),
+                                  size: CustomSizes()
+                                      .dynamicHeight(context, 0.03),
                                   color: AppColors.customGrey.withOpacity(0.2),
                                 ),
                                 CustomSizes().widthBox(context, 0.04),
                                 text(context, "Mobile App Developer", 0.04,
-                                    AppColors.customBlack,bold: true),
+                                    AppColors.customBlack,
+                                    bold: true),
                               ],
                             ),
                           ],
@@ -153,8 +162,8 @@ class _MoreScreenState extends State<MoreScreen> {
                         height: CustomSizes().dynamicHeight(context, 0.14),
                         padding: EdgeInsets.symmetric(
                           horizontal: CustomSizes().dynamicWidth(context, 0.05),
-                          vertical: CustomSizes()
-                              .dynamicHeight(context, 0.022),),
+                          vertical: CustomSizes().dynamicHeight(context, 0.022),
+                        ),
                         decoration: BoxDecoration(
                           color: AppColors.customGrey.withOpacity(0.05),
                           borderRadius: BorderRadius.circular(
@@ -171,30 +180,37 @@ class _MoreScreenState extends State<MoreScreen> {
                               children: [
                                 Icon(
                                   Icons.phone,
-                                  size:
-                                  CustomSizes().dynamicHeight(context, 0.03),
+                                  size: CustomSizes()
+                                      .dynamicHeight(context, 0.03),
                                   color: AppColors.customGrey.withOpacity(0.2),
                                 ),
                                 CustomSizes().widthBox(context, 0.04),
                                 text(context, "+92321456789", 0.04,
-                                    AppColors.customBlack,bold: true),
+                                    AppColors.customBlack,
+                                    bold: true),
                               ],
                             ),
                             Padding(
-                              padding:  EdgeInsets.only(left : CustomSizes().dynamicWidth(context, 0.11)),
-                              child: Divider(thickness: CustomSizes().dynamicWidth(context, 0.002),),
+                              padding: EdgeInsets.only(
+                                  left: CustomSizes()
+                                      .dynamicWidth(context, 0.11)),
+                              child: Divider(
+                                thickness:
+                                    CustomSizes().dynamicWidth(context, 0.002),
+                              ),
                             ),
                             Row(
                               children: [
                                 Icon(
                                   Icons.home_outlined,
-                                  size:
-                                  CustomSizes().dynamicHeight(context, 0.03),
+                                  size: CustomSizes()
+                                      .dynamicHeight(context, 0.03),
                                   color: AppColors.customGrey.withOpacity(0.2),
                                 ),
                                 CustomSizes().widthBox(context, 0.04),
                                 text(context, "Garden Town , Lahore", 0.04,
-                                    AppColors.customBlack,bold: true),
+                                    AppColors.customBlack,
+                                    bold: true),
                               ],
                             ),
                           ],
@@ -220,19 +236,28 @@ class _MoreScreenState extends State<MoreScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.assignment_outlined,
-                                  size: CustomSizes()
-                                      .dynamicHeight(context, 0.03),
-                                  color: AppColors.customGrey.withOpacity(0.2),
-                                ),
-                                CustomSizes().widthBox(context, 0.04),
-                                text(context, "My Leaves", 0.04,
-                                    AppColors.customBlack,
-                                    bold: true),
-                              ],
+                            GestureDetector(
+                              onTap: () {
+                                CustomRoutes().push(
+                                  context,
+                                  const LeaveScreen(),
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.assignment_outlined,
+                                    size: CustomSizes()
+                                        .dynamicHeight(context, 0.03),
+                                    color:
+                                        AppColors.customGrey.withOpacity(0.2),
+                                  ),
+                                  CustomSizes().widthBox(context, 0.04),
+                                  text(context, "My Leaves", 0.04,
+                                      AppColors.customBlack,
+                                      bold: true),
+                                ],
+                              ),
                             ),
                             Padding(
                               padding: EdgeInsets.only(
@@ -263,7 +288,7 @@ class _MoreScreenState extends State<MoreScreen> {
                                       .dynamicWidth(context, 0.11)),
                               child: Divider(
                                 thickness:
-                                CustomSizes().dynamicWidth(context, 0.002),
+                                    CustomSizes().dynamicWidth(context, 0.002),
                               ),
                             ),
                             Row(

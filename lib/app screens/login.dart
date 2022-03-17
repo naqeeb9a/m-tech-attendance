@@ -134,7 +134,7 @@ topBar(context, text1, {settingIcon = false}) {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         settingIcon == true
-            ? SizedBox()
+            ? const SizedBox()
             : InkWell(
                 onTap: () => CustomRoutes().pop(context),
                 child: Icon(
@@ -150,12 +150,26 @@ topBar(context, text1, {settingIcon = false}) {
             text1,
             0.06,
             AppColors.customBlack,
+            bold: true
           ),
         ),
         settingIcon == true
-            ? Icon(Icons.tune_outlined,
-                size: CustomSizes().dynamicWidth(context, 0.06),
-                color: AppColors.customBlue)
+            ? InkWell(
+                onTap: () {
+                  showDialog(
+                    barrierColor: AppColors.customBlack.withOpacity(0.8),
+                    barrierDismissible: true,
+                    useSafeArea: true,
+                    context: context,
+                    builder: (context) {
+                      return filterContainer(context);
+                    },
+                  );
+                },
+                child: Icon(Icons.tune_outlined,
+                    size: CustomSizes().dynamicWidth(context, 0.06),
+                    color: AppColors.customBlue),
+              )
             : CircleAvatar(
                 radius: CustomSizes().dynamicWidth(context, 0.035),
                 backgroundColor: Colors.transparent,
@@ -168,4 +182,81 @@ topBar(context, text1, {settingIcon = false}) {
       ],
     ),
   );
+}
+
+Widget filterContainer(context) {
+  return StatefulBuilder(builder: (context, StateSetter setState) {
+    return Align(
+      alignment: Alignment.center,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(
+          CustomSizes().dynamicWidth(context, .04),
+        ),
+        child: Material(
+          child: Container(
+            height: CustomSizes().dynamicHeight(context, .35),
+            width: CustomSizes().dynamicWidth(context, .95),
+            padding: EdgeInsets.symmetric(
+                horizontal: CustomSizes().dynamicWidth(context, .04),
+                vertical: CustomSizes().dynamicHeight(context, .02)),
+            decoration: BoxDecoration(
+              color: AppColors.customWhite,
+              borderRadius: BorderRadius.circular(
+                CustomSizes().dynamicWidth(context, .04),
+              ),
+             border : Border.all(
+               color: AppColors.customBlue,
+               width: CustomSizes().dynamicWidth(context, .0035)
+             )
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(Icons.tune_outlined,
+                        size: CustomSizes().dynamicWidth(context, 0.06),
+                        color: AppColors.customBlue),
+                    GestureDetector(
+                      onTap: () {
+                        CustomRoutes().pop(context);
+                      },
+                      child: Icon(
+                        Icons.close_rounded,
+                        color: AppColors.customBlack,
+                        size: CustomSizes().dynamicWidth(context, .05),
+                      ),
+                    ),
+                  ],
+                ),
+                CustomSizes().heightBox(context, 0.01),
+                text(
+                  context, "Late Check In",0.04,AppColors.customBlack,
+                ),
+                Divider(thickness: CustomSizes().dynamicWidth(context, 0.002),),
+                text(
+                  context, "Late Check Out",0.04,AppColors.customBlack,
+                ),
+                Divider(thickness: CustomSizes().dynamicWidth(context, 0.002),),
+                text(
+                  context, "Leave Approvals",0.04,AppColors.customBlack,
+                ),
+                Divider(thickness: CustomSizes().dynamicWidth(context, 0.002),),
+                text(
+                  context, "HR Announcements",0.04,AppColors.customBlack,
+                ),
+                Divider(thickness: CustomSizes().dynamicWidth(context, 0.002),),
+                text(
+                  context, "Public Announcements",0.04,AppColors.customBlack,
+                ),
+                //Divider(thickness: CustomSizes().dynamicWidth(context, 0.002),),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  });
 }
