@@ -50,6 +50,8 @@ class _HomePageState extends State<HomePage> {
     getCountryName();
   }
 
+  var format = DateFormat("HH:mm");
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -89,84 +91,96 @@ class _HomePageState extends State<HomePage> {
                   AppColors.customGrey,
                 ),
                 CustomSizes().heightBox(context, .1),
-                DateFormat.yMMMMEEEEd().format(DateTime.now()).toString() == "02:00 PM"? Container(
-                  width: CustomSizes().dynamicWidth(context, .5),
-                  height: CustomSizes().dynamicWidth(context, .5),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: const LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
-                      colors: [
-
-                        AppColors.customPurple,
-                        AppColors.customPink,
-                      ],
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.customBlue.withOpacity(0.4),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset:
-                        const Offset(0, 3), // changes position of shadow
+                format
+                            .parse(DateFormat('EEEE')
+                                        .format(DateTime.now())
+                                        .toString() ==
+                                    "Saturday"
+                                ? "12:00"
+                                : "14:00")
+                            .difference(format.parse(DateFormat('HH:mm')
+                                .format(DateTime.now())
+                                .toString()))
+                            .inHours <=
+                        0
+                    ? Container(
+                        width: CustomSizes().dynamicWidth(context, .5),
+                        height: CustomSizes().dynamicWidth(context, .5),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: const LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            colors: [
+                              AppColors.customPurple,
+                              AppColors.customPink,
+                            ],
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.customBlue.withOpacity(0.4),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: const Offset(
+                                  0, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            LottieBuilder.asset(
+                              "assets/animations/button_press.json",
+                              height: CustomSizes().dynamicHeight(context, .16),
+                            ),
+                            text(
+                              context,
+                              "CHECK OUT",
+                              .04,
+                              AppColors.customWhite,
+                            ),
+                          ],
+                        ),
+                      )
+                    : Container(
+                        width: CustomSizes().dynamicWidth(context, .5),
+                        height: CustomSizes().dynamicWidth(context, .5),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: const LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            colors: [
+                              AppColors.customBlue,
+                              AppColors.customPurple,
+                            ],
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.customBlue.withOpacity(0.4),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: const Offset(
+                                  0, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            LottieBuilder.asset(
+                              "assets/animations/button_press.json",
+                              height: CustomSizes().dynamicHeight(context, .16),
+                            ),
+                            text(
+                              context,
+                              "CHECK IN",
+                              .04,
+                              AppColors.customWhite,
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      LottieBuilder.asset(
-                        "assets/animations/button_press.json",
-                        height: CustomSizes().dynamicHeight(context, .16),
-                      ),
-                      text(
-                        context,
-                        "CHECK OUT",
-                        .04,
-                        AppColors.customWhite,
-                      ),
-                    ],
-                  ),
-                ):Container(
-                  width: CustomSizes().dynamicWidth(context, .5),
-                  height: CustomSizes().dynamicWidth(context, .5),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: const LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
-                      colors: [
-                        AppColors.customBlue,
-                        AppColors.customPurple,
-                      ],
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.customBlue.withOpacity(0.4),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset:
-                            const Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      LottieBuilder.asset(
-                        "assets/animations/button_press.json",
-                        height: CustomSizes().dynamicHeight(context, .16),
-                      ),
-                      text(
-                        context,
-                        "CHECK IN",
-                        .04,
-                        AppColors.customWhite,
-                      ),
-                    ],
-                  ),
-                ),
                 CustomSizes().heightBox(context, .1),
                 text(
                   context,
