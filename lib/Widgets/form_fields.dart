@@ -73,3 +73,75 @@ Widget inputTextField(context, label, myController,
     ),
   );
 }
+
+Widget inputTextField3(context, label, myController,
+    {function,
+      function2,
+      password = false,
+      white = false,
+      icon = false,
+      dynamic iconData = ""}) {
+  return TextFormField(
+    autovalidateMode: AutovalidateMode.onUserInteraction,
+    validator: (function == "")
+        ? () {
+      return null;
+    }
+        : function,
+    controller: myController,
+    textInputAction: TextInputAction.next,
+    keyboardType: password == true
+        ? TextInputType.visiblePassword
+        : TextInputType.emailAddress,
+    obscureText: password == true ? obscureText : false,
+    cursorColor: white == true ? AppColors.customWhite : AppColors.customBlack,
+    cursorWidth: 2.0,
+    cursorHeight: CustomSizes().dynamicHeight(context, .03),
+    style: TextStyle(
+      color: white == true ? AppColors.customWhite : AppColors.customBlack,
+      fontSize: CustomSizes().dynamicWidth(context, .04),
+    ),
+    maxLines: 5,
+    decoration: InputDecoration(
+      filled: true,
+      fillColor: AppColors.customWhite,
+      suffixIcon: icon == true
+          ? Icon(
+        iconData,
+        size: CustomSizes().dynamicHeight(context, 0.02),
+        color: AppColors.customGrey,
+      )
+          : const SizedBox(),
+      hintStyle: TextStyle(
+          color: white == true ? AppColors.customWhite : AppColors.customGrey),
+      enabledBorder: OutlineInputBorder(
+        borderRadius:
+        BorderRadius.circular(CustomSizes().dynamicWidth(context, .01)),
+        borderSide: BorderSide(
+            width: CustomSizes().dynamicWidth(context, 0),
+            color:
+            white == true ? AppColors.customWhite : AppColors.customGrey),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius:
+        BorderRadius.circular(CustomSizes().dynamicWidth(context, .01)),
+        borderSide: BorderSide(
+            width: CustomSizes().dynamicWidth(context, 0.004),
+            color:
+            white == true ? AppColors.customWhite : AppColors.customBlue),
+      ),
+      border: OutlineInputBorder(
+        borderRadius:
+        BorderRadius.circular(CustomSizes().dynamicWidth(context, 0.01)),
+        borderSide: BorderSide(
+            width: CustomSizes().dynamicWidth(context, 0),
+            color:
+            white == true ? AppColors.customWhite : AppColors.customGrey),
+      ),
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: CustomSizes().dynamicWidth(context, .05),
+        vertical: CustomSizes().dynamicWidth(context, .025),
+      ),
+    ),
+  );
+}
