@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/config.dart';
@@ -5,7 +6,12 @@ import '../utils/constants.dart';
 import '../utils/dynamic_sizes.dart';
 
 Widget inputTextField(context, label, myController,
-    {function, function2, password = false, white = false, icon: false}) {
+    {function,
+    function2,
+    password = false,
+    white = false,
+    icon = false,
+    dynamic iconData = ""}) {
   return TextFormField(
     autovalidateMode: AutovalidateMode.onUserInteraction,
     validator: (function == "")
@@ -30,31 +36,34 @@ Widget inputTextField(context, label, myController,
       labelText: label,
       suffixIcon: icon == true
           ? Icon(
-              Icons.error_outline_outlined,
+              iconData,
               size: CustomSizes().dynamicHeight(context, 0.02),
               color: AppColors.customGrey,
             )
-          : const Icon(Icons.error, color: Colors.transparent),
+          : const SizedBox(),
       hintStyle: TextStyle(
           color: white == true ? AppColors.customWhite : AppColors.customGrey),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(CustomSizes().dynamicWidth(context, 1)),
+        borderRadius:
+            BorderRadius.circular(CustomSizes().dynamicWidth(context, 1)),
         borderSide: BorderSide(
             width: CustomSizes().dynamicWidth(context, 0.001),
             color:
                 white == true ? AppColors.customWhite : AppColors.customGrey),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(CustomSizes().dynamicWidth(context, 1)),
+        borderRadius:
+            BorderRadius.circular(CustomSizes().dynamicWidth(context, 1)),
         borderSide: BorderSide(
             width: CustomSizes().dynamicWidth(context, 0.004),
             color:
                 white == true ? AppColors.customWhite : AppColors.customBlue),
       ),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(CustomSizes().dynamicWidth(context, 1)),
+        borderRadius:
+            BorderRadius.circular(CustomSizes().dynamicWidth(context, 1)),
         borderSide: BorderSide(
-          width: CustomSizes().dynamicWidth(context, 0.001),
+            width: CustomSizes().dynamicWidth(context, 0.001),
             color:
                 white == true ? AppColors.customWhite : AppColors.customGrey),
       ),

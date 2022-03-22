@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:mtech_attendance/Widgets/text_widget.dart';
 import 'package:mtech_attendance/app%20screens/login.dart';
 
-import '../utils/app_routes.dart';
-import '../utils/config.dart';
-import '../utils/constants.dart';
-import '../utils/dynamic_sizes.dart';
+import '../../utils/app_routes.dart';
+import '../../utils/config.dart';
+import '../../utils/constants.dart';
+import '../../utils/dynamic_sizes.dart';
 import 'dart:math' as math;
 
 class NotificationScreen extends StatefulWidget {
@@ -305,7 +305,7 @@ Widget customNotificationCard(context,
               pending == true
                   ? Container(
                       width: CustomSizes().dynamicWidth(context, 0.3),
-                      height: CustomSizes().dynamicHeight(context, 0.03),
+                      height: CustomSizes().dynamicHeight(context, 0.04),
                       decoration: BoxDecoration(
                         color: Colors.amber,
                         borderRadius: BorderRadius.circular(
@@ -321,7 +321,7 @@ Widget customNotificationCard(context,
                   : approve == true
                       ? Container(
                           width: CustomSizes().dynamicWidth(context, 0.3),
-                          height: CustomSizes().dynamicHeight(context, 0.03),
+                          height: CustomSizes().dynamicHeight(context, 0.04),
                           decoration: BoxDecoration(
                             color: AppColors.customBlue,
                             borderRadius: BorderRadius.circular(
@@ -338,7 +338,7 @@ Widget customNotificationCard(context,
                           ? Container(
                               width: CustomSizes().dynamicWidth(context, 0.3),
                               height:
-                                  CustomSizes().dynamicHeight(context, 0.03),
+                                  CustomSizes().dynamicHeight(context, 0.04),
                               decoration: BoxDecoration(
                                 color: Colors.green,
                                 borderRadius: BorderRadius.circular(
@@ -356,7 +356,7 @@ Widget customNotificationCard(context,
               approve == true
                   ? Container(
                       width: CustomSizes().dynamicWidth(context, 0.3),
-                      height: CustomSizes().dynamicHeight(context, 0.03),
+                      height: CustomSizes().dynamicHeight(context, 0.04),
                       decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(

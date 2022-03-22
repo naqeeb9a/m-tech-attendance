@@ -4,8 +4,8 @@ import 'package:mtech_attendance/Widgets/text_widget.dart';
 import 'package:mtech_attendance/app%20screens/my_leave.dart';
 import 'package:mtech_attendance/utils/app_routes.dart';
 
-import '../utils/config.dart';
-import '../utils/dynamic_sizes.dart';
+import '../../utils/config.dart';
+import '../../utils/dynamic_sizes.dart';
 import 'dart:math' as math;
 
 class MoreScreen extends StatefulWidget {

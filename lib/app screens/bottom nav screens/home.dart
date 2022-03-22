@@ -4,6 +4,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mtech_attendance/Widgets/text_widget.dart';
+import 'package:mtech_attendance/app%20screens/qr_screen.dart';
+import 'package:mtech_attendance/utils/app_routes.dart';
 import 'package:mtech_attendance/utils/config.dart';
 import 'package:mtech_attendance/utils/dynamic_sizes.dart';
 
@@ -103,82 +105,94 @@ class _HomePageState extends State<HomePage> {
                                 .toString()))
                             .inHours <=
                         0
-                    ? Container(
-                        width: CustomSizes().dynamicWidth(context, .5),
-                        height: CustomSizes().dynamicWidth(context, .5),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: const LinearGradient(
-                            begin: Alignment.topRight,
-                            end: Alignment.bottomLeft,
-                            colors: [
-                              AppColors.customPurple,
-                              AppColors.customPink,
+                    ? GestureDetector(
+                        onTap: () {
+                          CustomRoutes().push(context, const QRScreen());
+                        },
+                        child: Container(
+                          width: CustomSizes().dynamicWidth(context, .5),
+                          height: CustomSizes().dynamicWidth(context, .5),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: const LinearGradient(
+                              begin: Alignment.topRight,
+                              end: Alignment.bottomLeft,
+                              colors: [
+                                AppColors.customPurple,
+                                AppColors.customPink,
+                              ],
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.customBlue.withOpacity(0.4),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: const Offset(
+                                    0, 3), // changes position of shadow
+                              ),
                             ],
                           ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.customBlue.withOpacity(0.4),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: const Offset(
-                                  0, 3), // changes position of shadow
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            LottieBuilder.asset(
-                              "assets/animations/button_press.json",
-                              height: CustomSizes().dynamicHeight(context, .16),
-                            ),
-                            text(
-                              context,
-                              "CHECK OUT",
-                              .04,
-                              AppColors.customWhite,
-                            ),
-                          ],
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              LottieBuilder.asset(
+                                "assets/animations/button_press.json",
+                                height:
+                                    CustomSizes().dynamicHeight(context, .16),
+                              ),
+                              text(
+                                context,
+                                "CHECK OUT",
+                                .04,
+                                AppColors.customWhite,
+                              ),
+                            ],
+                          ),
                         ),
                       )
-                    : Container(
-                        width: CustomSizes().dynamicWidth(context, .5),
-                        height: CustomSizes().dynamicWidth(context, .5),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: const LinearGradient(
-                            begin: Alignment.topRight,
-                            end: Alignment.bottomLeft,
-                            colors: [
-                              AppColors.customBlue,
-                              AppColors.customPurple,
+                    : GestureDetector(
+                        onTap: () {
+                          CustomRoutes().push(context, const QRScreen());
+                        },
+                        child: Container(
+                          width: CustomSizes().dynamicWidth(context, .5),
+                          height: CustomSizes().dynamicWidth(context, .5),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: const LinearGradient(
+                              begin: Alignment.topRight,
+                              end: Alignment.bottomLeft,
+                              colors: [
+                                AppColors.customBlue,
+                                AppColors.customPurple,
+                              ],
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.customBlue.withOpacity(0.4),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: const Offset(
+                                    0, 3), // changes position of shadow
+                              ),
                             ],
                           ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.customBlue.withOpacity(0.4),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: const Offset(
-                                  0, 3), // changes position of shadow
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            LottieBuilder.asset(
-                              "assets/animations/button_press.json",
-                              height: CustomSizes().dynamicHeight(context, .16),
-                            ),
-                            text(
-                              context,
-                              "CHECK IN",
-                              .04,
-                              AppColors.customWhite,
-                            ),
-                          ],
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              LottieBuilder.asset(
+                                "assets/animations/button_press.json",
+                                height:
+                                    CustomSizes().dynamicHeight(context, .16),
+                              ),
+                              text(
+                                context,
+                                "CHECK IN",
+                                .04,
+                                AppColors.customWhite,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                 CustomSizes().heightBox(context, .1),

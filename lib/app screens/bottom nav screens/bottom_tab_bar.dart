@@ -1,11 +1,11 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mtech_attendance/app%20screens/bottom%20nav%20screens/attendance.dart';
 import 'package:mtech_attendance/app%20screens/bottom%20nav%20screens/home.dart';
-import 'package:mtech_attendance/app%20screens/more_screen.dart';
-import 'package:mtech_attendance/app%20screens/notification.dart';
-
+import 'package:mtech_attendance/app%20screens/bottom%20nav%20screens/more_screen.dart';
+import 'package:mtech_attendance/app%20screens/bottom%20nav%20screens/notification.dart';
 
 import '../../utils/config.dart';
 import '../../utils/dynamic_sizes.dart';
@@ -71,32 +71,30 @@ class _AppTabBarState extends State<AppTabBar>
                         customTab(
                           context,
                           iconSize,
-                          "Home",
                           Icons.home_rounded,
                         ),
                         customTab(
                           context,
                           iconSize,
-                          "My Teams",
-                          Icons.group,
+                          CupertinoIcons.group_solid,
+                          // Icons.group,
                         ),
                         customTab(
                           context,
                           iconSize,
-                          "Attendance",
+                          // CupertinoIcons.paper,
                           Icons.speaker_notes,
                         ),
                         customTab(
                           context,
                           iconSize,
-                          "Notifications",
-                          Icons.notifications,
+                          CupertinoIcons.bell_solid,
                         ),
                         customTab(
                           context,
                           iconSize,
-                          "More",
-                          Icons.menu_rounded,
+                          CupertinoIcons.bars,
+                          // Icons.menu_rounded,
                         ),
                       ],
                     ),
@@ -111,14 +109,13 @@ class _AppTabBarState extends State<AppTabBar>
   }
 }
 
-Widget customTab(context, iconSize, label, icon) {
+Widget customTab(context, iconSize, icon) {
   return Tab(
     icon: Icon(
       icon,
       color: AppColors.customBlue,
       size: CustomSizes().dynamicHeight(context, iconSize),
     ),
-    text: label,
     iconMargin: EdgeInsets.only(
       bottom: CustomSizes().dynamicHeight(context, .002),
     ),
