@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mtech_attendance/Widgets/text_widget.dart';
+import 'package:mtech_attendance/app%20screens/about.dart';
 import 'package:mtech_attendance/app%20screens/my_leave.dart';
 import 'package:mtech_attendance/utils/app_routes.dart';
 
@@ -314,19 +315,28 @@ class _MoreScreenState extends State<MoreScreen> {
                                     CustomSizes().dynamicWidth(context, 0.002),
                               ),
                             ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.question_mark_outlined,
-                                  size: CustomSizes()
-                                      .dynamicHeight(context, 0.03),
-                                  color: AppColors.customGrey.withOpacity(0.2),
-                                ),
-                                CustomSizes().widthBox(context, 0.04),
-                                text(context, "About CMC M-Tech", 0.04,
-                                    AppColors.customBlack,
-                                    bold: true),
-                              ],
+                            InkWell(
+                              onTap: () {
+                                CustomRoutes().push(
+                                  context,
+                                  About(),
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.question_mark_outlined,
+                                    size: CustomSizes()
+                                        .dynamicHeight(context, 0.03),
+                                    color:
+                                        AppColors.customGrey.withOpacity(0.2),
+                                  ),
+                                  CustomSizes().widthBox(context, 0.04),
+                                  text(context, "About CMC M-Tech", 0.04,
+                                      AppColors.customBlack,
+                                      bold: true),
+                                ],
+                              ),
                             ),
                           ],
                         ),
