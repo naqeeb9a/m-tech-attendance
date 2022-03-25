@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mtech_attendance/app%20screens/bottom%20nav%20screens/attendance.dart';
 import 'package:mtech_attendance/app%20screens/bottom%20nav%20screens/home.dart';
 import 'package:mtech_attendance/app%20screens/bottom%20nav%20screens/more_screen.dart';
+import 'package:mtech_attendance/app%20screens/bottom%20nav%20screens/my_teams.dart';
 import 'package:mtech_attendance/app%20screens/bottom%20nav%20screens/notification.dart';
 
 import '../../utils/config.dart';
@@ -33,7 +34,7 @@ class _AppTabBarState extends State<AppTabBar>
             physics: const NeverScrollableScrollPhysics(),
             children: const [
               HomePage(),
-              HomePage(),
+              MyTeams(),
               AttendancePage(),
               NotificationScreen(),
               MoreScreen(),

@@ -77,3 +77,25 @@ Widget retry(context, {retryFunc = ""}) {
     ],
   );
 }
+
+Widget Kuchbhirakhomagarmastrakho (context,icon,text1,color){
+  return Container(
+    height: CustomSizes().dynamicHeight(context, 0.15),
+    width: CustomSizes().dynamicWidth(context, 0.2),
+    child: Column(
+      children: [
+        Container(
+          height: CustomSizes().dynamicHeight(context, 0.08),
+          width: CustomSizes().dynamicWidth(context, 0.17),
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Icon(icon),
+        ),
+        CustomSizes().heightBox(context, 0.01),
+        text(context, text1, 0.0335, AppColors.customBlack,),
+      ],
+    ),
+  );
+}
