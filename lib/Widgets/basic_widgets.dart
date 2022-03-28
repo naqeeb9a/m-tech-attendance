@@ -31,7 +31,6 @@ Widget chip(context, title) {
   );
 }
 
-
 Widget retry(context, {retryFunc = ""}) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -78,24 +77,46 @@ Widget retry(context, {retryFunc = ""}) {
   );
 }
 
-Widget Kuchbhirakhomagarmastrakho (context,icon,text1,color){
-  return Container(
-    height: CustomSizes().dynamicHeight(context, 0.15),
-    width: CustomSizes().dynamicWidth(context, 0.2),
-    child: Column(
-      children: [
-        Container(
-          height: CustomSizes().dynamicHeight(context, 0.08),
-          width: CustomSizes().dynamicWidth(context, 0.17),
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(10),
+Widget teamTopBox(context, icon, text1, color1, color2,{function}) {
+  return GestureDetector(
+    onTap: function == "" ? () {} : function,
+    child: SizedBox(
+      height: CustomSizes().dynamicHeight(context, 0.105),
+      width: CustomSizes().dynamicWidth(context, 0.2),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            height: CustomSizes().dynamicHeight(context, 0.06),
+            width: CustomSizes().dynamicWidth(context, 0.13),
+            decoration: BoxDecoration(
+              color: color1,
+              gradient: LinearGradient(
+                begin: Alignment.bottomLeft,
+                end: Alignment.topRight,
+                colors: [
+                  color1,
+                  color2,
+                ],
+              ),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(
+              icon,
+              color: AppColors.customWhite,
+              size: CustomSizes().dynamicHeight(context, .025),
+            ),
           ),
-          child: Icon(icon),
-        ),
-        CustomSizes().heightBox(context, 0.01),
-        text(context, text1, 0.0335, AppColors.customBlack,),
-      ],
+          CustomSizes().heightBox(context, 0.01),
+          text(
+            context,
+            text1,
+            0.03,
+            AppColors.customBlack,
+            bold: true
+          ),
+        ],
+      ),
     ),
   );
 }

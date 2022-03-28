@@ -17,9 +17,10 @@ class MyTeams extends StatefulWidget {
 class _MyTeamsState extends State<MyTeams> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SizedBox(
+    return Scaffold(
+      backgroundColor: AppColors.customWhite,
+      body: SafeArea(
+        child: SizedBox(
           width: CustomSizes().dynamicWidth(context, 1),
           height: CustomSizes().dynamicHeight(context, 1),
           child: Stack(
@@ -58,79 +59,60 @@ class _MyTeamsState extends State<MyTeams> {
                 ),
               ),
               Center(
-                child: Container(
+                child: SizedBox(
                   width: CustomSizes().dynamicWidth(context, 0.9),
                   height: CustomSizes().dynamicHeight(context, 1),
                   child: Column(
                     children: [
-                      topBar(context, "My Team"),
-                      CustomSizes().heightBox(context, 0.1),
+                      Padding(
+                        padding:  EdgeInsets.only(top : CustomSizes().dynamicHeight(context, .025)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const SizedBox(),
+                            text(context, "My Teams",0.05, AppColors.customBlack,bold: true),
+                            Icon(CupertinoIcons.square_grid_2x2_fill,color: AppColors.customBlue1,size:CustomSizes().dynamicWidth(context, .06),),
+                          ],
+                        ),
+                      ),
+                      CustomSizes().heightBox(context, 0.08),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Kuchbhirakhomagarmastrakho(
+                          teamTopBox(
                               context,
                               Icons.fact_check_outlined,
                               "  Team\nReports",
-                              AppColors.customPink),
-                          Kuchbhirakhomagarmastrakho(
+                              AppColors.customBlue1,
+                               AppColors.customLightBlue),
+                          teamTopBox(
                               context,
                               Icons.check_box_outlined,
                               "  Todo &\nSchedules",
-                              AppColors.customPurple),
-                          Kuchbhirakhomagarmastrakho(
+                              AppColors.customOrange,
+                              AppColors.customLightOrange),
+                          teamTopBox(
                               context,
                               Icons.location_on_outlined,
                               "  Office &\nLocations",
-                              AppColors.customBlue),
-                          Kuchbhirakhomagarmastrakho(
+                              AppColors.customLightPurple,
+                           AppColors.customDarkPurple),
+                          teamTopBox(
                               context,
                               Icons.person_search_outlined,
                               "       Team\nManagement",
-                              AppColors.customRed),
+                              AppColors.customGreen,
+                          AppColors.customSeaGreen),
                         ],
-                      ),
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: text(
-                            context, "Present", 0.035, AppColors.customGrey),
                       ),
                       CustomSizes().heightBox(context, 0.05),
                       Row(
                         children: [
-                          Container(
-                            width: CustomSizes().dynamicWidth(context, 0.43),
-                            height: CustomSizes().dynamicHeight(context, 0.07),
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                text(context, "Oman Team", 0.03, AppColors.customBlack),
-                                CustomSizes().widthBox(context, 0.12),
-                                Icon(Icons.keyboard_arrow_down_outlined)
-                              ],
-                            ),
-                          ),
-                          CustomSizes().widthBox(context, 0.04),
-                          Container(
-                            width: CustomSizes().dynamicWidth(context, 0.43),
-                            height: CustomSizes().dynamicHeight(context, 0.07),
-                            decoration: BoxDecoration(
-                              border: Border.all(),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                text(context, "25 March 2021", 0.03, AppColors.customBlack),
-                                CustomSizes().widthBox(context, 0.12),
-                                Icon(Icons.keyboard_arrow_down_outlined)
-                              ],
-                            ),
-                          ),
+                          text(
+                              context, "Present", 0.03, AppColors.customGrey,bold: true),
                         ],
-                      )
+                      ),
+
                     ],
                   ),
                 ),

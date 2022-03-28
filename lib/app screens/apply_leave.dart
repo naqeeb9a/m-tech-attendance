@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:dropdown_button2/custom_dropdown_button2.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mtech_attendance/Widgets/form_fields.dart';
 
@@ -28,7 +29,7 @@ class _ApplyLeaveState extends State<ApplyLeave> {
     'UnPaid Leave',
   ];
   DateTimeRange dateRange =
-      DateTimeRange(start: DateTime.now(), end: DateTime(2022, 03, 24));
+      DateTimeRange(start: DateTime(2022, 03, 22), end: DateTime(2022, 03, 24));
 
   TextEditingController reason = TextEditingController();
 
@@ -41,6 +42,16 @@ class _ApplyLeaveState extends State<ApplyLeave> {
       child: Scaffold(
         body: Stack(
           children: [
+        // Image.asset(
+        //       "assets/loginbottom.png",
+        //       color: AppColors.customBlue.withOpacity(0.28),
+        //       width: CustomSizes().dynamicWidth(context, 0.4),
+        //     ),
+        // Image.asset(
+        //         'assets/signup_top.png',
+        //         color: AppColors.customBlue,
+        //         width: CustomSizes().dynamicWidth(context, 0.25),
+        //       ),
             Positioned(
               top: 0,
               left: 0,
@@ -143,7 +154,12 @@ class _ApplyLeaveState extends State<ApplyLeave> {
                       hint: 'Choose Type of Leave',
                       value: selectedValue,
                       dropdownItems: items,
-                      dropdownWidth:   CustomSizes().dynamicWidth(context, .9),
+                      dropdownWidth:   CustomSizes().dynamicWidth(context, .92),
+                      dropdownDecoration: BoxDecoration(
+                        color: AppColors.customWhite,
+                        borderRadius: BorderRadius.circular(CustomSizes().dynamicWidth(context, .015),),
+                        border: Border.all(color: AppColors.customBlue),
+                      ),
                       buttonWidth:
                       CustomSizes().dynamicWidth(context, 1),
                       icon: Icon(
@@ -163,6 +179,92 @@ class _ApplyLeaveState extends State<ApplyLeave> {
                       },
                     ),
                   ),
+                  // Container(
+                  //   height: CustomSizes().dynamicHeight(context, .065),decoration: BoxDecoration(
+                  //     color: AppColors.customWhite,
+                  //     borderRadius : BorderRadius.circular(CustomSizes().dynamicWidth(context, .01)),
+                  //     boxShadow: [
+                  //       BoxShadow(
+                  //         color: Colors.grey.withOpacity(0.25),
+                  //         spreadRadius: 3,
+                  //         blurRadius: 4,
+                  //         offset: Offset(0, 3), // changes position of shadow
+                  //       ),
+                  //     ],
+                  //   ),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //     children: [
+                  //       text(context , "Choose the leave Type",0.04,AppColors.customGrey),
+                  //      PopupMenuButton(
+                  //          // color: AppColors.customBlack,
+                  //          shape: ContinuousRectangleBorder(
+                  //            borderRadius: BorderRadius.circular(30),
+                  //          ),
+                  //          offset: Offset(CustomSizes().dynamicWidth(context, 0), 50),
+                  //          icon: Icon(Icons.keyboard_arrow_down_outlined,
+                  //              color: AppColors.customGrey,
+                  //              size: CustomSizes().dynamicHeight(context, 0.04)),
+                  //          itemBuilder: (context){
+                  //            return [
+                  //              PopupMenuItem(
+                  //                child: SizedBox(
+                  //                  width: CustomSizes().dynamicWidth(context, 1),
+                  //                  height: CustomSizes().dynamicHeight(context, 0.3),
+                  //                  child: Column(
+                  //                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //                    children: [
+                  //                      Row(
+                  //                        children: [
+                  //                          Icon(Icons.circle,color :AppColors.customBlue,size: CustomSizes().dynamicWidth(context, 0.02),),
+                  //                          text(context,"  Causal Leave",0.04,AppColors.customDarkGrey)
+                  //                        ],
+                  //                      ),
+                  //                      Row(
+                  //                        children: [
+                  //                          Icon(Icons.circle,color :AppColors.customBlue,size: CustomSizes().dynamicWidth(context, 0.02),),
+                  //                          text(context,"  Causal Leave",0.04,AppColors.customDarkGrey)
+                  //                        ],
+                  //                      ),
+                  //                      Row(
+                  //                        children: [
+                  //                          Icon(Icons.circle,color :AppColors.customBlue,size: CustomSizes().dynamicWidth(context, 0.02),),
+                  //                          text(context,"  Causal Leave",0.04,AppColors.customDarkGrey)
+                  //                        ],
+                  //                      ),
+                  //                      Row(
+                  //                        children: [
+                  //                          Icon(Icons.circle,color :AppColors.customBlue,size: CustomSizes().dynamicWidth(context, 0.02),),
+                  //                          text(context,"  Causal Leave",0.04,AppColors.customDarkGrey)
+                  //                        ],
+                  //                      ),
+                  //                      Row(
+                  //                        children: [
+                  //                          Icon(Icons.circle,color :AppColors.customBlue,size: CustomSizes().dynamicWidth(context, 0.02),),
+                  //                          text(context,"  Causal Leave",0.04,AppColors.customDarkGrey)
+                  //                        ],
+                  //                      ),
+                  //                      Row(
+                  //                        children: [
+                  //                          Icon(Icons.circle,color :AppColors.customBlue,size: CustomSizes().dynamicWidth(context, 0.02),),
+                  //                          text(context,"  Causal Leave",0.04,AppColors.customDarkGrey)
+                  //                        ],
+                  //                      ),
+                  //                      Row(
+                  //                        children: [
+                  //                          Icon(Icons.circle,color :AppColors.customBlue,size: CustomSizes().dynamicWidth(context, 0.02),),
+                  //                          text(context,"  Causal Leave",0.04,AppColors.customDarkGrey)
+                  //                        ],
+                  //                      )
+                  //                    ],
+                  //                  ),
+                  //                ),
+                  //              ),
+                  //            ];
+                  //          })
+                  //     ],
+                  //   ),
+                  // ),
                   CustomSizes().heightBox(context, 0.015),
                   Row(
                     children: [
