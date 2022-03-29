@@ -1,13 +1,16 @@
+import 'package:dialogs/dialogs/message_dialog.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mtech_attendance/Widgets/form_fields.dart';
-import 'package:mtech_attendance/app%20screens/bottom%20nav%20screens/bottom_tab_bar.dart';
 import 'package:mtech_attendance/utils/dynamic_sizes.dart';
 
 import '../Widgets/buttons.dart';
 import '../Widgets/text_widget.dart';
+import '../functions/apis.dart';
 import '../utils/app_routes.dart';
 import '../utils/config.dart';
+import 'bottom nav screens/bottom_tab_bar.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -19,6 +22,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+  bool loadingCheck = false;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -53,58 +58,123 @@ class _LoginScreenState extends State<LoginScreen> {
                     horizontal: CustomSizes().dynamicWidth(context, 0.04)),
                 width: CustomSizes().dynamicWidth(context, 1),
                 height: CustomSizes().dynamicHeight(context, 1),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      "assets/logo.png",
-                      height: CustomSizes().dynamicHeight(context, .08),
-                    ),
-                    CustomSizes().heightBox(context, 0.16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        text(
-                          context,
-                          "Employee ID",
-                          0.035,
-                          AppColors.customGrey,
-                        ),
-                      ],
-                    ),
-                    CustomSizes().heightBox(context, 0.02),
-                    inputTextField(
-                      context,
-                      "Employee ID",
-                      email,
-                      icon: true,
-                      iconData: CupertinoIcons.person_crop_circle,
-                    ),
-                    CustomSizes().heightBox(context, 0.03),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        text(
-                          context,
-                          "Password",
-                          0.035,
-                          AppColors.customGrey,
-                        ),
-                      ],
-                    ),
-                    CustomSizes().heightBox(context, 0.03),
-                    inputTextField(context, "Password", password),
-                    CustomSizes().heightBox(context, 0.04),
-                    coloredButton(
-                      context,
-                      "Login",
-                      AppColors.customBlue,
-                      function: () => CustomRoutes().pushAndRemoveUntil(
-                        context,
-                        const AppTabBar(),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "assets/logo.png",
+                        height: CustomSizes().dynamicHeight(context, .08),
                       ),
-                    ),
-                  ],
+                      CustomSizes().heightBox(context, .2),
+                      inputTextField(
+                        context,
+                        "Employee Email",
+                        email,
+                        icon: true,
+                        iconData: CupertinoIcons.person_crop_circle,
+                        function: (value) {
+                          if (EmailValidator.validate(value)) {
+                          } else {
+                            return "Enter Valid Email";
+                          }
+                          return null;
+                        },
+                      ),
+                      CustomSizes().heightBox(context, .06),
+                      inputTextField(
+                        context,
+                        "Password",
+                        password,
+                        function: (value) {
+                          if (value.isEmpty) {
+                            return 'Enter Valid Password';
+                          }
+                          return null;
+                        },
+                      ),
+                      CustomSizes().heightBox(context, 0.04),
+                      loadingCheck == true
+                          ? const CircularProgressIndicator.adaptive(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                AppColors.customBlue,
+                              ),
+                            )
+                          : coloredButton(
+                              context,
+                              "Login",
+                              AppColors.customBlue,
+                              width: CustomSizes().dynamicWidth(context, 0.75),
+                              function: () async {
+                                if (!_formKey.currentState!.validate()) {
+                                  return;
+                                } else {
+                                  setState(() {
+                                    loadingCheck = true;
+                                  });
+                                  var response = await Functions().loginFunc(
+                                    email.text.toString(),
+                                    password.text.toString(),
+                                  );
+                                  if (response == "Success") {
+                                    MessageDialog messageDialog = MessageDialog(
+                                      dialogBackgroundColor:
+                                          AppColors.customWhite,
+                                      buttonOkColor: AppColors.customBlue,
+                                      title: '$response',
+                                      titleColor: AppColors.customBlack,
+                                      message: 'Login Successfully',
+                                      messageColor: AppColors.customBlack,
+                                      dialogRadius: CustomSizes()
+                                          .dynamicWidth(context, 0.025),
+                                    );
+                                    messageDialog.show(
+                                      context,
+                                      barrierColor: Colors.white,
+                                    );
+
+                                    CustomRoutes().pushAndRemoveUntil(
+                                      context,
+                                      const AppTabBar(),
+                                    );
+                                    email.clear();
+                                    password.clear();
+                                  } else {
+                                    setState(() {
+                                      loadingCheck = false;
+                                    });
+                                    MessageDialog messageDialog = MessageDialog(
+                                      dialogBackgroundColor:
+                                          AppColors.customWhite,
+                                      buttonOkColor: AppColors.customBlack,
+                                      title: 'Error',
+                                      titleColor: AppColors.customBlack,
+                                      message: "$response",
+                                      messageColor: AppColors.customBlack,
+                                      buttonOkText: 'Ok',
+                                      dialogRadius: CustomSizes()
+                                          .dynamicWidth(context, 0.025),
+                                      buttonRadius: CustomSizes()
+                                          .dynamicWidth(context, 0.05),
+                                    );
+                                    messageDialog.show(context,
+                                        barrierColor: Colors.white);
+                                  }
+                                }
+                              },
+                            ),
+                      // coloredButton(
+                      //   context,
+                      //   "Login",
+                      //   AppColors.customBlue,
+                      //   function: () => CustomRoutes().pushAndRemoveUntil(
+                      //     context,
+                      //     const AppTabBar(),
+                      //   ),
+                      // ),
+                    ],
+                  ),
                 ),
               ),
             ],
