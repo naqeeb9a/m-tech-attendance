@@ -1,13 +1,15 @@
+import 'dart:math' as math;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mtech_attendance/Widgets/text_widget.dart';
 import 'package:mtech_attendance/app%20screens/about.dart';
 import 'package:mtech_attendance/app%20screens/my_leave.dart';
 import 'package:mtech_attendance/utils/app_routes.dart';
+import 'package:mtech_attendance/utils/constants.dart';
 
 import '../../utils/config.dart';
 import '../../utils/dynamic_sizes.dart';
-import 'dart:math' as math;
 
 class MoreScreen extends StatefulWidget {
   const MoreScreen({Key? key}) : super(key: key);
@@ -74,11 +76,19 @@ class _MoreScreenState extends State<MoreScreen> {
                                     CustomSizes().dynamicHeight(context, 0.05),
                                 backgroundImage: const NetworkImage(
                                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOOFMe-CzzMAgkPdsGK1wsKLtoF33HXGK98A&usqp=CAU")),
-                            text(context, "Elon Musk", 0.035,
-                                AppColors.customBlack,
-                                bold: true),
-                            text(context, "Tech Department", 0.03,
-                                AppColors.customGrey),
+                            text(
+                              context,
+                              "${userData["first_name"]} ${userData["last_name"]}",
+                              0.035,
+                              AppColors.customBlack,
+                              bold: true,
+                            ),
+                            text(
+                              context,
+                              "Tech Department",
+                              0.03,
+                              AppColors.customGrey,
+                            ),
                           ],
                         ),
                       ),
@@ -110,7 +120,7 @@ class _MoreScreenState extends State<MoreScreen> {
                                   color: AppColors.customGrey.withOpacity(0.2),
                                 ),
                                 CustomSizes().widthBox(context, 0.04),
-                                text(context, "elonmusk@cmcmtech.pk", 0.04,
+                                text(context, userData["email"] ?? "-----", 0.04,
                                     AppColors.customBlack,
                                     bold: true),
                               ],
