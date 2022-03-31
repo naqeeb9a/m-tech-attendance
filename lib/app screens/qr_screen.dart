@@ -1,11 +1,17 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:dialogs/dialogs/message_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mtech_attendance/utils/config.dart';
 import 'package:mtech_attendance/utils/dynamic_sizes.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../Widgets/text_widget.dart';
+import '../utils/app_routes.dart';
+import '../utils/constants.dart';
 
 class QRScreen extends StatefulWidget {
   const QRScreen({Key? key}) : super(key: key);
@@ -45,11 +51,59 @@ class _QRScreenState extends State<QRScreen> {
   }
 
   checkQr(tableCode) async {
+    dynamic data = jsonDecode(tableCode);
+
     await controller!.pauseCamera();
+    if (lat.toStringAsFixed(2) == data['lat'].toStringAsFixed(2) &&
+        long.toStringAsFixed(2) == data['long'].toStringAsFixed(2)) {
+      print(data['id']);
+      print(DateFormat('HH:mm').format(DateTime.now()));
+      if (DateFormat('HH:mm').format(DateTime.now()) == data['id']) {
+        print("attendacne marked");
+      }
+      else {
+        MessageDialog messageDialog = MessageDialog(
+          dialogBackgroundColor: AppColors.customWhite,
+          buttonOkColor: AppColors.customBlue,
+          title: 'Alert',
+          titleColor: AppColors.customBlack,
+          message: 'Scan Again & Time not Matched',
+          messageColor: AppColors.customBlack,
+          dialogRadius: CustomSizes().dynamicWidth(context, 0.025),
+          buttonOkOnPressed: ()async{
+            CustomRoutes().pop(context);
+           await controller!.resumeCamera();
+          },
+        );
+        messageDialog.show(
+          context,
+          barrierColor: Colors.white,
+        );
+      }
+    } else {
+      MessageDialog messageDialog = MessageDialog(
+        dialogBackgroundColor: AppColors.customWhite,
+        buttonOkColor: AppColors.customBlue,
+        title: 'Error',
+        titleColor: AppColors.customBlack,
+        message: 'Location Not Matched',
+        messageColor: AppColors.customBlack,
+        dialogRadius: CustomSizes().dynamicWidth(context, 0.025),
+        buttonOkOnPressed: ()async{
+          CustomRoutes().pop(context);
+          await controller!.resumeCamera();
+        },
+      );
+      messageDialog.show(
+        context,
+        barrierColor: Colors.white,
+      );
+    }
+
     // Navigator.push(
     //   context,
     //   MaterialPageRoute(
-    //     builder: (context) => QRInfo(
+    //     builder: (context) => MarkAttendance(
     //       qrApi: tableCode,
     //     ),
     //   ),
@@ -163,4 +217,20 @@ class _QRScreenState extends State<QRScreen> {
       ),
     );
   }
+}
+
+Widget anime(context) {
+  print("kuch arha ha k nhi");
+  return SizedBox(
+    width: CustomSizes().dynamicWidth(context, 0.8),
+    height: CustomSizes().dynamicHeight(context, 0.6),
+    child: Column(
+      children: [
+        LottieBuilder.asset(
+          "assets/animations/success.json",
+          height: CustomSizes().dynamicHeight(context, .16),
+        ),
+      ],
+    ),
+  );
 }

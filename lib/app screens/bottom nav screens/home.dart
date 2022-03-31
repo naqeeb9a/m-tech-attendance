@@ -10,6 +10,8 @@ import 'package:mtech_attendance/utils/app_routes.dart';
 import 'package:mtech_attendance/utils/config.dart';
 import 'package:mtech_attendance/utils/dynamic_sizes.dart';
 
+import '../../utils/constants.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -20,6 +22,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String countryName = "getting...";
   LocationPermission? permission;
+
 
   getCountryName() async {
     permission = await Geolocator.checkPermission();
@@ -38,6 +41,8 @@ class _HomePageState extends State<HomePage> {
         await placemarkFromCoordinates(position.latitude, position.longitude);
 
     setState(() {
+       lat = position.latitude;
+       long = position.longitude;
       countryName = placeMarks[0].street.toString() +
           ", " +
           placeMarks[0].subLocality.toString() +
