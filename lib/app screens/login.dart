@@ -148,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       dialogBackgroundColor:
                                           AppColors.customWhite,
                                       buttonOkColor: AppColors.customBlack,
-                                      title: 'Error',
+                                      title: 'error',
                                       titleColor: AppColors.customBlack,
                                       message: "$response",
                                       messageColor: AppColors.customBlack,
