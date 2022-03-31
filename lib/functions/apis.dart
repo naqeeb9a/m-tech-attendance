@@ -25,11 +25,29 @@ class Functions {
       loginResponse.clear();
       userData = jsonDecode(response.body)['data'];
       loginResponse.setString("LoginResponse", json.encode(userData));
-      return "Success";
-      // return jsonDecode(response.body)["message"];
+      return jsonDecode(response.body)["message"];
     } else {
-      return "Error";
+      return jsonDecode(response.body)["message"];
     }
   }
 
+  markAttendance() async {
+    var jsonBody = {
+      "email": userData["email"],
+    };
+
+    var url = Uri.https(baseUrl, version + markAttendanceApi);
+
+    final response = await http.post(
+      url,
+      headers: headers,
+      body: jsonEncode(jsonBody),
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)["message"];
+    } else {
+      return jsonDecode(response.body)["message"];
+    }
+  }
 }

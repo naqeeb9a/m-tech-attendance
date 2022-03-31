@@ -4,6 +4,9 @@ dynamic userData = [];
 String baseUrl = "employee.mtechtesting.com";
 String version = "api/";
 String login = "login";
+String markAttendanceApi = "checkin";
+
+
 dynamic  lat,long;
 dynamic headers = {
   'Content-Type': 'application/json',

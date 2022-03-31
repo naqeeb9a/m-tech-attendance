@@ -20,17 +20,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String countryName = "getting...";
+  String locationName = "getting...";
   LocationPermission? permission;
 
-
-  getCountryName() async {
+  getLocation() async {
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         setState(() {
-          countryName = "Permission Denied!!";
+          locationName = "Permission Denied!!";
         });
         return Future.error('Location permissions are denied');
       }
@@ -41,9 +40,9 @@ class _HomePageState extends State<HomePage> {
         await placemarkFromCoordinates(position.latitude, position.longitude);
 
     setState(() {
-       lat = position.latitude;
-       long = position.longitude;
-      countryName = placeMarks[0].street.toString() +
+      lat = position.latitude;
+      long = position.longitude;
+      locationName = placeMarks[0].street.toString() +
           ", " +
           placeMarks[0].subLocality.toString() +
           ", " +
@@ -55,10 +54,21 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getCountryName();
+    getLocation();
   }
 
   var format = DateFormat("HH:mm");
+
+  timeDifference() {
+    return format
+        .parse(
+            DateFormat('EEEE').format(DateTime.now()).toString() == "Saturday"
+                ? "12:00"
+                : "14:00")
+        .difference(
+            format.parse(DateFormat('HH:mm').format(DateTime.now()).toString()))
+        .inMinutes;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,160 +109,79 @@ class _HomePageState extends State<HomePage> {
                   AppColors.customGrey,
                 ),
                 CustomSizes().heightBox(context, .1),
-                format
-                            .parse(DateFormat('EEEE')
-                                        .format(DateTime.now())
-                                        .toString() ==
-                                    "Saturday"
-                                ? "12:00"
-                                : "14:00")
-                            .difference(format.parse(DateFormat('HH:mm')
-                                .format(DateTime.now())
-                                .toString()))
-                            .inHours <=
-                        0
-                    ? GestureDetector(
-                        onTap: () {
-                          if (countryName == "getting...") {
-                            MessageDialog messageDialog = MessageDialog(
-                              dialogBackgroundColor:
-                              AppColors.customWhite,
-                              buttonOkColor: AppColors.customBlue,
-                              title: 'Alert',
-                              titleColor: AppColors.customBlue,
-                              message: "Enable the Location to further proceed!!!",
-                              messageColor: AppColors.customBlack,
-                              buttonOkText: 'Ok',
-                              dialogRadius: CustomSizes()
-                                  .dynamicWidth(context, 0.025),
-                              buttonRadius: CustomSizes()
-                                  .dynamicWidth(context, 0.05),
-                              buttonOkOnPressed: () async {
-                                CustomRoutes().pop(context);
-                                 await getCountryName();
-
-                              },
-                            );
-                            messageDialog.show(context,
-                                barrierColor: Colors.white);
-                          } else {
-                            CustomRoutes().push(context, const QRScreen());
-                          }
+                GestureDetector(
+                  onTap: () {
+                    if (locationName == "getting...") {
+                      MessageDialog messageDialog = MessageDialog(
+                        dialogBackgroundColor: AppColors.customWhite,
+                        buttonOkColor: AppColors.customBlue,
+                        title: 'Alert',
+                        titleColor: AppColors.customBlue,
+                        message: "Enable the Location to further proceed!!!",
+                        messageColor: AppColors.customBlack,
+                        buttonOkText: 'Ok',
+                        dialogRadius:
+                            CustomSizes().dynamicWidth(context, 0.025),
+                        buttonRadius: CustomSizes().dynamicWidth(context, 0.05),
+                        buttonOkOnPressed: () async {
+                          CustomRoutes().pop(context);
+                          await getLocation();
                         },
-                        child: Container(
-                          width: CustomSizes().dynamicWidth(context, .5),
-                          height: CustomSizes().dynamicWidth(context, .5),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: const LinearGradient(
-                              begin: Alignment.topRight,
-                              end: Alignment.bottomLeft,
-                              colors: [
+                      );
+                      messageDialog.show(context, barrierColor: Colors.white);
+                    } else {
+                      CustomRoutes().push(context, const QRScreen());
+                    }
+                  },
+                  child: Container(
+                    width: CustomSizes().dynamicWidth(context, .5),
+                    height: CustomSizes().dynamicWidth(context, .5),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomLeft,
+                        colors: timeDifference() <= 0
+                            ? [
                                 AppColors.customPurple,
                                 AppColors.customPink,
-                              ],
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.customBlue.withOpacity(0.4),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset: const Offset(
-                                    0, 3), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              LottieBuilder.asset(
-                                "assets/animations/button_press.json",
-                                height:
-                                    CustomSizes().dynamicHeight(context, .16),
-                              ),
-                              text(
-                                context,
-                                "CHECK OUT",
-                                .04,
-                                AppColors.customWhite,
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    : GestureDetector(
-                        onTap: () {
-                          if (countryName == "getting...") {
-                            MessageDialog messageDialog = MessageDialog(
-                              dialogBackgroundColor:
-                              AppColors.customWhite,
-                              buttonOkColor: AppColors.customBlue,
-                              title: 'Alert',
-                              titleColor: AppColors.customBlue,
-                              message: "Enable the Location to further proceed!!!",
-                              messageColor: AppColors.customBlack,
-                              buttonOkText: 'Ok',
-                              dialogRadius: CustomSizes()
-                                  .dynamicWidth(context, 0.025),
-                              buttonRadius: CustomSizes()
-                                  .dynamicWidth(context, 0.05),
-                              buttonOkOnPressed: () async {
-                                CustomRoutes().pop(context);
-                                await getCountryName();
-
-                              },
-                            );
-                            messageDialog.show(context,
-                                barrierColor: Colors.white);
-                          } else {
-                            CustomRoutes().push(context, const QRScreen());
-                          }
-                        },
-                        child: Container(
-                          width: CustomSizes().dynamicWidth(context, .5),
-                          height: CustomSizes().dynamicWidth(context, .5),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: const LinearGradient(
-                              begin: Alignment.topRight,
-                              end: Alignment.bottomLeft,
-                              colors: [
+                              ]
+                            : [
                                 AppColors.customBlue,
                                 AppColors.customPurple,
                               ],
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.customBlue.withOpacity(0.4),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset: const Offset(
-                                    0, 3), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              LottieBuilder.asset(
-                                "assets/animations/button_press.json",
-                                height:
-                                    CustomSizes().dynamicHeight(context, .16),
-                              ),
-                              text(
-                                context,
-                                "CHECK IN",
-                                .04,
-                                AppColors.customWhite,
-                              ),
-                            ],
-                          ),
-                        ),
                       ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.customBlue.withOpacity(0.4),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset:
+                              const Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        LottieBuilder.asset(
+                          "assets/animations/button_press.json",
+                          height: CustomSizes().dynamicHeight(context, .16),
+                        ),
+                        text(
+                          context,
+                          timeDifference() <= 0 ? "CHECK OUT" : "CHECK IN",
+                          .04,
+                          AppColors.customWhite,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 CustomSizes().heightBox(context, .1),
                 text(
                   context,
-                  "Location: $countryName",
+                  "Location: $locationName",
                   .03,
                   AppColors.customGrey,
                 ),
