@@ -87,6 +87,59 @@ class _IndividualAttendanceState extends State<IndividualAttendance> {
                         ),
                       CustomSizes().heightBox(context, .02),
                       const Divider(),
+                      CustomSizes().heightBox(context, 0.02),
+
+                      Padding(
+                        padding:  EdgeInsets.symmetric(horizontal: CustomSizes().dynamicWidth(context, 0.05)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                         children: [
+                           Icon(Icons.arrow_back_ios),
+                           Row(
+                             children: [
+                               Icon(Icons.calendar_month,color: AppColors.customBlue,),
+                               text(context, "December 2022", 0.05, AppColors.customBlue),
+                             ],
+                           ),
+                           Icon(Icons.arrow_forward_ios),
+                         ],
+                        ),
+                      ),
+                      CustomSizes().heightBox(context, 0.02),
+                      const Divider(),
+                      CustomSizes().heightBox(context, 0.02),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: CustomSizes().dynamicWidth(context, 0.05)),
+                        child: IntrinsicHeight(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              timeWidget(context, "06/15", "Present"),
+                              VerticalDivider(
+                                thickness:
+                                CustomSizes().dynamicWidth(context, .003),
+                              ),
+                              timeWidget(context, "09:25", "Avg Clock In"),
+                              VerticalDivider(
+                                thickness:
+                                CustomSizes().dynamicWidth(context, .003),
+                              ),
+                              timeWidget(context, "05:56", "Avg Clock Out"),
+                            ],
+                          ),
+                        ),
+                      ),
+                      CustomSizes().heightBox(context, 0.04),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          text(context, "Date", 0.04, AppColors.customBlack),
+                          text(context, "Clock In", 0.04, AppColors.customBlack),
+                          text(context, "Clock Out", 0.04, AppColors.customBlack),
+                          text(context, "Working Hr's", 0.04, AppColors.customBlack),
+                        ],
+                      ),
+                      myTeamCard(context, "https://globeecho.com/wp-content/uploads/2021/08/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg", "naqeeb", "malik", "09:00am", "06:00pm")
                     ],
                   ),
                 ),
