@@ -32,38 +32,4 @@ class Functions {
     }
   }
 
-  vendorsList() async {
-    var url = Uri.https(baseUrl, version + getVendors);
-
-    var response = await http.get(url, headers: authHeaders);
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body)["data"];
-    } else {
-      return jsonDecode(response.body)["message"];
-    }
-  }
-
-  transactionFunc(key, userId, vendorId, total, discount) async {
-    var jsonBody = {
-      "transection_key": key,
-      "user_id": userId,
-      "vendor_id": vendorId,
-      "total_amount": total,
-      "discount": discount,
-    };
-
-    var url = Uri.https(baseUrl, version + qrTransection);
-
-    final response = await http.post(
-      url,
-      headers: headers,
-      body: jsonEncode(jsonBody),
-    );
-
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body)["message"];
-    } else {
-      return jsonDecode(response.body)["message"];
-    }
-  }
 }

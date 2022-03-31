@@ -85,7 +85,7 @@ class _MoreScreenState extends State<MoreScreen> {
                             ),
                             text(
                               context,
-                              "Tech Department",
+                              "${userData["department"]}",
                               0.03,
                               AppColors.customGrey,
                             ),
@@ -149,7 +149,7 @@ class _MoreScreenState extends State<MoreScreen> {
                                 CustomSizes().widthBox(context, 0.04),
                                 text(
                                   context,
-                                  "Mobile App Developer",
+                                  "${userData["department"]}",
                                   0.04,
                                   AppColors.customBlack,
                                   bold: true,
@@ -189,7 +189,7 @@ class _MoreScreenState extends State<MoreScreen> {
                                 CustomSizes().widthBox(context, 0.04),
                                 text(
                                   context,
-                                  "+92321456789",
+                                  "${userData["phone"]}",
                                   0.04,
                                   AppColors.customBlack,
                                   bold: true,
@@ -216,7 +216,7 @@ class _MoreScreenState extends State<MoreScreen> {
                                 CustomSizes().widthBox(context, 0.04),
                                 text(
                                   context,
-                                  "Garden Town , Lahore",
+                                  "${userData["address"]}",
                                   0.04,
                                   AppColors.customBlack,
                                   bold: true,
