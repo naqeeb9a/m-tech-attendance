@@ -177,7 +177,31 @@ class _HomePageState extends State<HomePage> {
                       )
                     : GestureDetector(
                         onTap: () {
-                          CustomRoutes().push(context, const QRScreen());
+                          if (countryName == "getting...") {
+                            MessageDialog messageDialog = MessageDialog(
+                              dialogBackgroundColor:
+                              AppColors.customWhite,
+                              buttonOkColor: AppColors.customBlue,
+                              title: 'Alert',
+                              titleColor: AppColors.customBlue,
+                              message: "Enable the Location to further proceed!!!",
+                              messageColor: AppColors.customBlack,
+                              buttonOkText: 'Ok',
+                              dialogRadius: CustomSizes()
+                                  .dynamicWidth(context, 0.025),
+                              buttonRadius: CustomSizes()
+                                  .dynamicWidth(context, 0.05),
+                              buttonOkOnPressed: () async {
+                                CustomRoutes().pop(context);
+                                await getCountryName();
+
+                              },
+                            );
+                            messageDialog.show(context,
+                                barrierColor: Colors.white);
+                          } else {
+                            CustomRoutes().push(context, const QRScreen());
+                          }
                         },
                         child: Container(
                           width: CustomSizes().dynamicWidth(context, .5),
