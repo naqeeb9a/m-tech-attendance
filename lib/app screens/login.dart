@@ -117,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     email.text.toString(),
                                     password.text.toString(),
                                   );
-                                  if (response == "Success") {
+                                  if (response == "success") {
                                     MessageDialog messageDialog = MessageDialog(
                                       dialogBackgroundColor:
                                           AppColors.customWhite,
