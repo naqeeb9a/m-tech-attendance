@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dialogs/dialogs/message_dialog.dart';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
+import 'package:mtech_attendance/functions/apis.dart';
 import 'package:mtech_attendance/utils/config.dart';
 import 'package:mtech_attendance/utils/dynamic_sizes.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -52,62 +53,85 @@ class _QRScreenState extends State<QRScreen> {
 
   checkQr(tableCode) async {
     dynamic data = jsonDecode(tableCode);
-
     await controller!.pauseCamera();
-    if (lat.toStringAsFixed(2) == data['lat'].toStringAsFixed(2) &&
-        long.toStringAsFixed(2) == data['long'].toStringAsFixed(2)) {
-      print(data['id']);
-      print(DateFormat('HH:mm').format(DateTime.now()));
-      if (DateFormat('HH:mm').format(DateTime.now()) == data['id']) {
-        print("attendacne marked");
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        var response = await Functions().markAttendance();
+        if (lat.toStringAsFixed(2) == data['lat'].toStringAsFixed(2) &&
+            long.toStringAsFixed(2) == data['long'].toStringAsFixed(2)) {
+          if (DateFormat('HH:mm').format(DateTime.now()) == data['id']) {
+            if (response == "checked in succesfully !" ||
+                response == "checked out  succesfully !") {
+              CustomRoutes().pop(context);
+              CoolAlert.show(
+                context: context,
+                lottieAsset: "assets/animations/success.json",
+                type: CoolAlertType.success,
+                title: "Success",
+                text: "$response",
+                backgroundColor: AppColors.customBlue,
+                confirmBtnColor: AppColors.customBlue,
+                animType: CoolAlertAnimType.scale,
+              );
+            } else {
+              CoolAlert.show(
+                  context: context,
+                  type: CoolAlertType.warning,
+                  title: "Alert",
+                  text: "$response",
+                  backgroundColor: AppColors.customBlue,
+                  confirmBtnColor: AppColors.customBlue,
+                  animType: CoolAlertAnimType.scale,
+                  onConfirmBtnTap: () async {
+                    CustomRoutes().pop(context);
+                    await controller!.resumeCamera();
+                  });
+            }
+          } else {
+            CoolAlert.show(
+                context: context,
+                type: CoolAlertType.warning,
+                title: "Alert",
+                text: "Scan Again!!! Time not matched",
+                backgroundColor: AppColors.customBlue,
+                confirmBtnColor: AppColors.customBlue,
+                animType: CoolAlertAnimType.scale,
+                onConfirmBtnTap: () async {
+                  CustomRoutes().pop(context);
+                  await controller!.resumeCamera();
+                });
+          }
+        } else {
+          CoolAlert.show(
+              context: context,
+              lottieAsset: "assets/animations/failed.json",
+              type: CoolAlertType.error,
+              title: "Error",
+              text: "Location Not Matched",
+              backgroundColor: AppColors.customBlue,
+              confirmBtnColor: AppColors.customBlue,
+              animType: CoolAlertAnimType.scale,
+              onConfirmBtnTap: () async {
+                CustomRoutes().pop(context);
+                await controller!.resumeCamera();
+              });
+        }
       }
-      else {
-        MessageDialog messageDialog = MessageDialog(
-          dialogBackgroundColor: AppColors.customWhite,
-          buttonOkColor: AppColors.customBlue,
-          title: 'Alert',
-          titleColor: AppColors.customBlack,
-          message: 'Scan Again & Time not Matched',
-          messageColor: AppColors.customBlack,
-          dialogRadius: CustomSizes().dynamicWidth(context, 0.025),
-          buttonOkOnPressed: ()async{
+    } on SocketException catch (_) {
+      CoolAlert.show(
+          context: context,
+          type: CoolAlertType.warning,
+          title: "No Internet",
+          text: "Internet is not connected",
+          backgroundColor: AppColors.customBlue,
+          confirmBtnColor: AppColors.customBlue,
+          animType: CoolAlertAnimType.scale,
+          onConfirmBtnTap: () async {
             CustomRoutes().pop(context);
-           await controller!.resumeCamera();
-          },
-        );
-        messageDialog.show(
-          context,
-          barrierColor: Colors.white,
-        );
-      }
-    } else {
-      MessageDialog messageDialog = MessageDialog(
-        dialogBackgroundColor: AppColors.customWhite,
-        buttonOkColor: AppColors.customBlue,
-        title: 'Error',
-        titleColor: AppColors.customBlack,
-        message: 'Location Not Matched',
-        messageColor: AppColors.customBlack,
-        dialogRadius: CustomSizes().dynamicWidth(context, 0.025),
-        buttonOkOnPressed: ()async{
-          CustomRoutes().pop(context);
-          await controller!.resumeCamera();
-        },
-      );
-      messageDialog.show(
-        context,
-        barrierColor: Colors.white,
-      );
+            await controller!.resumeCamera();
+          });
     }
-
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => MarkAttendance(
-    //       qrApi: tableCode,
-    //     ),
-    //   ),
-    // ).then((value) => controller!.resumeCamera());
   }
 
   @override
@@ -220,7 +244,6 @@ class _QRScreenState extends State<QRScreen> {
 }
 
 Widget anime(context) {
-  print("kuch arha ha k nhi");
   return SizedBox(
     width: CustomSizes().dynamicWidth(context, 0.8),
     height: CustomSizes().dynamicHeight(context, 0.6),

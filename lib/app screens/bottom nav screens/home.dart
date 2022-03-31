@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:dialogs/dialogs/message_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -112,23 +113,20 @@ class _HomePageState extends State<HomePage> {
                 GestureDetector(
                   onTap: () {
                     if (locationName == "getting...") {
-                      MessageDialog messageDialog = MessageDialog(
-                        dialogBackgroundColor: AppColors.customWhite,
-                        buttonOkColor: AppColors.customBlue,
-                        title: 'Alert',
-                        titleColor: AppColors.customBlue,
-                        message: "Enable the Location to further proceed!!!",
-                        messageColor: AppColors.customBlack,
-                        buttonOkText: 'Ok',
-                        dialogRadius:
-                            CustomSizes().dynamicWidth(context, 0.025),
-                        buttonRadius: CustomSizes().dynamicWidth(context, 0.05),
-                        buttonOkOnPressed: () async {
-                          CustomRoutes().pop(context);
-                          await getLocation();
-                        },
+                      CoolAlert.show(
+                          context: context,
+                          lottieAsset: "assets/animations/failed.json",
+                          type: CoolAlertType.error,
+                          title: "Error",
+                          text: "Enable the Location to further proceed!!!",
+                          backgroundColor: AppColors.customBlue,
+                          confirmBtnColor: AppColors.customBlue,
+                          animType: CoolAlertAnimType.scale,
+                          onConfirmBtnTap: ()async{
+                            CustomRoutes().pop(context);
+                            await getLocation();
+                          }
                       );
-                      messageDialog.show(context, barrierColor: Colors.white);
                     } else {
                       CustomRoutes().push(context, const QRScreen());
                     }

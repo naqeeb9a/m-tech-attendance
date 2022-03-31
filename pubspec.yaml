@@ -48,6 +48,7 @@ dependencies:
   email_validator: ^2.0.1
   dialogs: ^0.0.7
   date_time_picker: ^2.1.0
+  cool_alert: ^1.1.0
 
 
 dev_dependencies:

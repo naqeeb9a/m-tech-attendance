@@ -19,7 +19,6 @@ class _MarkAttendanceState extends State<MarkAttendance> {
   @override
   Widget build(BuildContext context) {
     data=jsonDecode(widget.qrApi).toString();
-    print(widget.qrApi.toString());
     return Scaffold(
       body: SafeArea(
         child: SizedBox(
