@@ -61,15 +61,14 @@ class _QRScreenState extends State<QRScreen> {
         if (lat.toStringAsFixed(2) == data['lat'].toStringAsFixed(2) &&
             long.toStringAsFixed(2) == data['long'].toStringAsFixed(2)) {
           if (DateFormat('HH:mm').format(DateTime.now()) == data['id']) {
-            if (response == "checked in succesfully !" ||
-                response == "checked out  succesfully !") {
+            if (response.toString() == "ok") {
               CustomRoutes().pop(context);
               CoolAlert.show(
                 context: context,
                 lottieAsset: "assets/animations/success.json",
                 type: CoolAlertType.success,
                 title: "Success",
-                text: "$response",
+                text: "Attendance Marked Successfully!!",
                 backgroundColor: AppColors.customBlue,
                 confirmBtnColor: AppColors.customBlue,
                 animType: CoolAlertAnimType.scale,
@@ -120,17 +119,18 @@ class _QRScreenState extends State<QRScreen> {
       }
     } on SocketException catch (_) {
       CoolAlert.show(
-          context: context,
-          type: CoolAlertType.warning,
-          title: "No Internet",
-          text: "Internet is not connected",
-          backgroundColor: AppColors.customBlue,
-          confirmBtnColor: AppColors.customBlue,
-          animType: CoolAlertAnimType.scale,
-          onConfirmBtnTap: () async {
-            CustomRoutes().pop(context);
-            await controller!.resumeCamera();
-          });
+        context: context,
+        type: CoolAlertType.warning,
+        title: "No Internet",
+        text: "Internet is not connected",
+        backgroundColor: AppColors.customBlue,
+        confirmBtnColor: AppColors.customBlue,
+        animType: CoolAlertAnimType.scale,
+        onConfirmBtnTap: () async {
+          CustomRoutes().pop(context);
+          await controller!.resumeCamera();
+        },
+      );
     }
   }
 

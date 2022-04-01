@@ -1,5 +1,7 @@
 bool obscureText = true;
 dynamic userData = [];
+dynamic checkInTime = "";
+dynamic checkOutTime = "";
 
 String baseUrl = "employee.mtechtesting.com";
 String version = "api/";
