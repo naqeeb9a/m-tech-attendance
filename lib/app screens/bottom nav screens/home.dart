@@ -23,9 +23,6 @@ class _HomePageState extends State<HomePage> {
   String locationName = "getting...";
   LocationPermission? permission;
 
-  final startTime = DateTime(10, 00);
-  final currentTime = DateTime.now();
-
   getLocation() async {
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
@@ -73,9 +70,14 @@ class _HomePageState extends State<HomePage> {
         .inMinutes;
   }
 
+  minutesDifference(time) {
+    return format
+        .parse(DateFormat('HH:mm').format(DateTime.now()).toString())
+        .difference(format.parse(time));
+  }
+
   @override
   Widget build(BuildContext context) {
-    print(currentTime.difference(startTime));
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.customWhite,
@@ -130,19 +132,16 @@ class _HomePageState extends State<HomePage> {
                             await getLocation();
                           });
                     } else {
-                      if (format
-                              .parse(DateFormat('HH:mm')
-                                  .format(DateTime.now())
-                                  .toString())
-                              .difference(format.parse("10:00"))
-                              .inMinutes >
-                          0) {
+                      if (timeDifference() <= 0
+                          ? minutesDifference("18:00").inMinutes < 0
+                          : minutesDifference("10:00").inMinutes > 0) {
                         CoolAlert.show(
                             context: context,
                             type: CoolAlertType.warning,
                             title: "Alert",
-                            text:
-                                "${format.parse(DateFormat('HH:mm').format(DateTime.now()).toString()).difference(format.parse("10:00")).inMinutes.toString()} Minutes Arrived Late !!!",
+                            text: timeDifference() <= 0
+                                ? "You are going ${minutesDifference("18:00").toString().substring(0, minutesDifference("18:00").toString().length - 10)} Hours Earlier!!!"
+                                : "You arrived ${minutesDifference("10:00").toString().substring(0, minutesDifference("10:00").toString().length - 10)} Hours Late!!!",
                             backgroundColor: AppColors.customBlue,
                             confirmBtnColor: AppColors.customBlue,
                             animType: CoolAlertAnimType.scale,
@@ -151,8 +150,7 @@ class _HomePageState extends State<HomePage> {
                               CustomRoutes().push(context, const QRScreen());
                             });
                       } else {
-                        CustomRoutes().push(context, const QRScreen()
-                        );
+                        CustomRoutes().push(context, const QRScreen());
                       }
                     }
                   },
