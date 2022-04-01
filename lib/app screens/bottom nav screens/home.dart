@@ -1,9 +1,9 @@
-import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
+import 'package:mtech_attendance/Widgets/alert.dart';
 import 'package:mtech_attendance/Widgets/text_widget.dart';
 import 'package:mtech_attendance/app%20screens/qr_screen.dart';
 import 'package:mtech_attendance/utils/app_routes.dart';
@@ -118,37 +118,25 @@ class _HomePageState extends State<HomePage> {
                 GestureDetector(
                   onTap: () {
                     if (locationName == "getting...") {
-                      CoolAlert.show(
-                          context: context,
-                          lottieAsset: "assets/animations/failed.json",
-                          type: CoolAlertType.error,
-                          title: "Error",
-                          text: "Enable the Location to further proceed!!!",
-                          backgroundColor: AppColors.customBlue,
-                          confirmBtnColor: AppColors.customBlue,
-                          animType: CoolAlertAnimType.scale,
-                          onConfirmBtnTap: () async {
-                            CustomRoutes().pop(context);
-                            await getLocation();
-                          });
+                      errorAlert(
+                          context, "Enable the Location to further proceed!!!",
+                          function: () async {
+                        CustomRoutes().pop(context);
+                        await getLocation();
+                      });
                     } else {
                       if (timeDifference() <= 0
                           ? minutesDifference("18:00").inMinutes < 0
                           : minutesDifference("10:00").inMinutes > 0) {
-                        CoolAlert.show(
-                            context: context,
-                            type: CoolAlertType.warning,
-                            title: "Alert",
-                            text: timeDifference() <= 0
+                        warningAlert(
+                            context,
+                            timeDifference() <= 0
                                 ? "You are going ${minutesDifference("18:00").toString().substring(0, minutesDifference("18:00").toString().length - 10)} Hours Earlier!!!"
                                 : "You arrived ${minutesDifference("10:00").toString().substring(0, minutesDifference("10:00").toString().length - 10)} Hours Late!!!",
-                            backgroundColor: AppColors.customBlue,
-                            confirmBtnColor: AppColors.customBlue,
-                            animType: CoolAlertAnimType.scale,
-                            onConfirmBtnTap: () async {
-                              CustomRoutes().pop(context);
-                              CustomRoutes().push(context, const QRScreen());
-                            });
+                            function: () {
+                          CustomRoutes().pop(context);
+                          CustomRoutes().push(context, const QRScreen());
+                        });
                       } else {
                         CustomRoutes().push(context, const QRScreen());
                       }

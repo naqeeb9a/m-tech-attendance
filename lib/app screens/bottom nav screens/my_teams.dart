@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mtech_attendance/Widgets/text_widget.dart';
 import 'package:mtech_attendance/app%20screens/individual_attendance.dart';
+import 'package:mtech_attendance/app%20screens/location_tracking.dart';
 import 'package:mtech_attendance/utils/app_routes.dart';
 import 'package:mtech_attendance/utils/dynamic_sizes.dart';
 
@@ -453,7 +454,9 @@ Widget topBarBox(context) {
       teamTopBox(context, Icons.check_box_outlined, "  Todo &\nSchedules",
           AppColors.customOrange, AppColors.customLightOrange),
       teamTopBox(context, Icons.location_on_outlined, "  Office &\nLocations",
-          AppColors.customLightPurple, AppColors.customDarkPurple),
+          AppColors.customLightPurple, AppColors.customDarkPurple,function: (){
+            CustomRoutes().push(context,const LocationTracking());
+          }),
       teamTopBox(
           context,
           Icons.person_search_outlined,
