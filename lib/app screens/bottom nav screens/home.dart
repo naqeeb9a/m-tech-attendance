@@ -57,25 +57,6 @@ class _HomePageState extends State<HomePage> {
     getLocation();
   }
 
-  var format = DateFormat("HH:mm");
-
-  timeDifference() {
-    return format
-        .parse(
-            DateFormat('EEEE').format(DateTime.now()).toString() == "Saturday"
-                ? "12:00"
-                : "14:00")
-        .difference(
-            format.parse(DateFormat('HH:mm').format(DateTime.now()).toString()))
-        .inMinutes;
-  }
-
-  minutesDifference(time) {
-    return format
-        .parse(DateFormat('HH:mm').format(DateTime.now()).toString())
-        .difference(format.parse(time));
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -125,12 +106,12 @@ class _HomePageState extends State<HomePage> {
                         await getLocation();
                       });
                     } else {
-                      if (timeDifference() <= 0
+                      if (timeDifference() <= 0 || checkInTime != "00:00"
                           ? minutesDifference("18:00").inMinutes < 0
                           : minutesDifference("10:00").inMinutes > 0) {
                         warningAlert(
                             context,
-                            timeDifference() <= 0
+                            (timeDifference() <= 0 || checkInTime != "00:00")
                                 ? "You are going ${minutesDifference("18:00").toString().substring(0, minutesDifference("18:00").toString().length - 10)} Hours Earlier!!!"
                                 : "You arrived ${minutesDifference("10:00").toString().substring(0, minutesDifference("10:00").toString().length - 10)} Hours Late!!!",
                             function: () {
@@ -150,15 +131,16 @@ class _HomePageState extends State<HomePage> {
                       gradient: LinearGradient(
                         begin: Alignment.topRight,
                         end: Alignment.bottomLeft,
-                        colors: timeDifference() <= 0
-                            ? [
-                                AppColors.customPurple,
-                                AppColors.customPink,
-                              ]
-                            : [
-                                AppColors.customBlue,
-                                AppColors.customPurple,
-                              ],
+                        colors:
+                            (timeDifference() <= 0 || checkInTime != "00:00")
+                                ? [
+                                    AppColors.customPurple,
+                                    AppColors.customPink,
+                                  ]
+                                : [
+                                    AppColors.customBlue,
+                                    AppColors.customPurple,
+                                  ],
                       ),
                       boxShadow: [
                         BoxShadow(
@@ -179,7 +161,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                         text(
                           context,
-                          timeDifference() <= 0 ? "CHECK OUT" : "CHECK IN",
+                          (timeDifference() <= 0 || checkInTime != "00:00")
+                              ? "CHECK OUT"
+                              : "CHECK IN",
                           .04,
                           AppColors.customWhite,
                         ),
@@ -199,16 +183,20 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     timeCard(
-                        context,
-                        format
-                            .parse(DateFormat('HH:mm')
-                                .format(DateTime.now())
-                                .toString())
-                            .difference(format.parse("10:50"))
-                            .toString(),
-                        "Check In"),
-                    timeCard(context, "06:00", "Check Out"),
-                    timeCard(context, "08:00", "Working Hrs"),
+                      context,
+                      checkInTime,
+                      "Check In",
+                    ),
+                    timeCard(
+                      context,
+                      checkOutTime,
+                      "Check Out",
+                    ),
+                    timeCard(
+                      context,
+                      "08:00",
+                      "Working Hrs",
+                    ),
                   ],
                 ),
               ],

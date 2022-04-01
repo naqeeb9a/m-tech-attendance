@@ -61,6 +61,14 @@ class _QRScreenState extends State<QRScreen> {
             long.toStringAsFixed(2) == data['long'].toStringAsFixed(2)) {
           if (DateFormat('HH:mm').format(DateTime.now()) == data['id']) {
             if (response.toString() == "ok") {
+              setState(() {
+                (timeDifference() <= 0 || checkInTime != "00:00")
+                    ? checkOutTime =
+                        DateFormat('hh:mm a').format(DateTime.now()).toString()
+                    : checkInTime =
+                        DateFormat('hh:mm a').format(DateTime.now()).toString();
+              });
+
               CustomRoutes().pop(context);
               successAlert(context, "Attendance Marked Successfully!!!");
             } else {
