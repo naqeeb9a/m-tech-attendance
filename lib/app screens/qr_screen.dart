@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:lottie/lottie.dart';
+import 'package:mtech_attendance/Widgets/alert.dart';
 import 'package:mtech_attendance/functions/apis.dart';
 import 'package:mtech_attendance/utils/config.dart';
 import 'package:mtech_attendance/utils/dynamic_sizes.dart';
@@ -63,70 +62,45 @@ class _QRScreenState extends State<QRScreen> {
           if (DateFormat('HH:mm').format(DateTime.now()) == data['id']) {
             if (response.toString() == "ok") {
               CustomRoutes().pop(context);
-              CoolAlert.show(
-                context: context,
-                lottieAsset: "assets/animations/success.json",
-                type: CoolAlertType.success,
-                title: "Success",
-                text: "Attendance Marked Successfully!!",
-                backgroundColor: AppColors.customBlue,
-                confirmBtnColor: AppColors.customBlue,
-                animType: CoolAlertAnimType.scale,
-              );
+              successAlert(context, "Attendance Marked Successfully!!!");
             } else {
-              CoolAlert.show(
-                  context: context,
-                  type: CoolAlertType.warning,
-                  title: "Alert",
-                  text: "$response",
-                  backgroundColor: AppColors.customBlue,
-                  confirmBtnColor: AppColors.customBlue,
-                  animType: CoolAlertAnimType.scale,
-                  onConfirmBtnTap: () async {
-                    CustomRoutes().pop(context);
-                    await controller!.resumeCamera();
-                  });
-            }
-          } else {
-            CoolAlert.show(
-                context: context,
-                type: CoolAlertType.warning,
-                title: "Alert",
-                text: "Scan Again!!! Time not matched",
-                backgroundColor: AppColors.customBlue,
-                confirmBtnColor: AppColors.customBlue,
-                animType: CoolAlertAnimType.scale,
-                onConfirmBtnTap: () async {
+              warningAlert(
+                context,
+                response,
+                function: () async {
                   CustomRoutes().pop(context);
                   await controller!.resumeCamera();
-                });
-          }
-        } else {
-          CoolAlert.show(
-              context: context,
-              lottieAsset: "assets/animations/failed.json",
-              type: CoolAlertType.error,
-              title: "Error",
-              text: "Location Not Matched",
-              backgroundColor: AppColors.customBlue,
-              confirmBtnColor: AppColors.customBlue,
-              animType: CoolAlertAnimType.scale,
-              onConfirmBtnTap: () async {
+                },
+              );
+            }
+          } else {
+            warningAlert(
+              context,
+              "Scan Again!!! Time not matched",
+              function: () async {
                 CustomRoutes().pop(context);
                 await controller!.resumeCamera();
-              });
+              },
+            );
+          }
+        } else {
+          errorAlert(
+            context,
+            "Location No Matched",
+            function: () async {
+              CustomRoutes().pop(context);
+              await controller!.resumeCamera();
+            },
+          );
         }
       }
     } on SocketException catch (_) {
-      CoolAlert.show(
-        context: context,
-        type: CoolAlertType.warning,
-        title: "No Internet",
-        text: "Internet is not connected",
-        backgroundColor: AppColors.customBlue,
-        confirmBtnColor: AppColors.customBlue,
-        animType: CoolAlertAnimType.scale,
-        onConfirmBtnTap: () async {
+      errorAlert(
+        context,
+        "Internet is not connected",
+        titlecheck: true,
+        alert: "No Internet",
+        function: () async {
           CustomRoutes().pop(context);
           await controller!.resumeCamera();
         },
@@ -241,19 +215,4 @@ class _QRScreenState extends State<QRScreen> {
       ),
     );
   }
-}
-
-Widget anime(context) {
-  return SizedBox(
-    width: CustomSizes().dynamicWidth(context, 0.8),
-    height: CustomSizes().dynamicHeight(context, 0.6),
-    child: Column(
-      children: [
-        LottieBuilder.asset(
-          "assets/animations/success.json",
-          height: CustomSizes().dynamicHeight(context, .16),
-        ),
-      ],
-    ),
-  );
 }
