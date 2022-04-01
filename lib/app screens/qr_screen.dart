@@ -120,9 +120,9 @@ class _QRScreenState extends State<QRScreen> {
               onQRViewCreated: qrCreated,
               overlay: QrScannerOverlayShape(
                 borderColor: AppColors.customBlue,
-                borderLength: 20,
-                borderRadius: 10,
-                borderWidth: 10,
+                borderLength: CustomSizes().dynamicHeight(context, .04),
+                borderRadius: CustomSizes().dynamicWidth(context, .03),
+                borderWidth: CustomSizes().dynamicWidth(context, .02),
                 cutOutSize: CustomSizes().dynamicWidth(context, 0.8),
               ),
             ),
