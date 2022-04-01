@@ -1,5 +1,4 @@
 import 'package:cool_alert/cool_alert.dart';
-import 'package:dialogs/dialogs/message_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -23,6 +22,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String locationName = "getting...";
   LocationPermission? permission;
+
+  final startTime = DateTime(10, 00);
+  final currentTime = DateTime.now();
 
   getLocation() async {
     permission = await Geolocator.checkPermission();
@@ -73,6 +75,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print(currentTime.difference(startTime));
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.customWhite,
@@ -122,13 +125,35 @@ class _HomePageState extends State<HomePage> {
                           backgroundColor: AppColors.customBlue,
                           confirmBtnColor: AppColors.customBlue,
                           animType: CoolAlertAnimType.scale,
-                          onConfirmBtnTap: ()async{
+                          onConfirmBtnTap: () async {
                             CustomRoutes().pop(context);
                             await getLocation();
-                          }
-                      );
+                          });
                     } else {
-                      CustomRoutes().push(context, const QRScreen());
+                      if (format
+                              .parse(DateFormat('HH:mm')
+                                  .format(DateTime.now())
+                                  .toString())
+                              .difference(format.parse("10:00"))
+                              .inMinutes >
+                          0) {
+                        CoolAlert.show(
+                            context: context,
+                            type: CoolAlertType.warning,
+                            title: "Alert",
+                            text:
+                                "${format.parse(DateFormat('HH:mm').format(DateTime.now()).toString()).difference(format.parse("10:00")).inMinutes.toString()} Minutes Arrived Late !!!",
+                            backgroundColor: AppColors.customBlue,
+                            confirmBtnColor: AppColors.customBlue,
+                            animType: CoolAlertAnimType.scale,
+                            onConfirmBtnTap: () async {
+                              CustomRoutes().pop(context);
+                              CustomRoutes().push(context, const QRScreen());
+                            });
+                      } else {
+                        CustomRoutes().push(context, const QRScreen()
+                        );
+                      }
                     }
                   },
                   child: Container(
@@ -187,7 +212,15 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    timeCard(context, "10:00", "Check In"),
+                    timeCard(
+                        context,
+                        format
+                            .parse(DateFormat('HH:mm')
+                                .format(DateTime.now())
+                                .toString())
+                            .difference(format.parse("10:50"))
+                            .toString(),
+                        "Check In"),
                     timeCard(context, "06:00", "Check Out"),
                     timeCard(context, "08:00", "Working Hrs"),
                   ],
