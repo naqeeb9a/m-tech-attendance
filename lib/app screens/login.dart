@@ -28,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController password = TextEditingController();
   bool loadingCheck = false;
   final _formKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     checkLoginStatus(context);
