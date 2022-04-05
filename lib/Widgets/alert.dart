@@ -27,12 +27,12 @@ Future warningAlert (context ,response ,{function}) {
     onConfirmBtnTap: function == "" ? () {} : function,);
 }
 
-Future errorAlert (context ,response ,{function,alert,titlecheck = false}) {
+Future errorAlert (context ,response ,{function,alert,titleCheck = false}) {
   return  CoolAlert.show(
     context: context,
     lottieAsset: "assets/animations/failed.json",
     type: CoolAlertType.error,
-    title: titlecheck ==  true ? alert :  "Error",
+    title: titleCheck ==  true ? alert :  "Error",
     text: response,
     backgroundColor: AppColors.customBlue,
     confirmBtnColor: AppColors.customBlue,

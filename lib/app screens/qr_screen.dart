@@ -107,7 +107,7 @@ class _QRScreenState extends State<QRScreen> {
       errorAlert(
         context,
         "Internet is not connected",
-        titlecheck: true,
+        titleCheck: true,
         alert: "No Internet",
         function: () async {
           Navigator.pop(context, widget.setState);
