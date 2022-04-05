@@ -63,7 +63,6 @@ class Functions {
     );
 
     if (response.statusCode == 200) {
-  
       return jsonDecode(response.body)["data"];
     } else {
       return jsonDecode(response.body)["message"];
