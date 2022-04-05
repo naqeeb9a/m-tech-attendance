@@ -24,26 +24,6 @@ class _HomePageState extends State<HomePage> {
   String locationName = "getting...";
   LocationPermission? permission;
 
-  dynamic attendanceCheckData = "";
-
-  attendanceCheck() async {
-    attendanceCheckData = await Functions().todayAttendance();
-
-    if (attendanceCheckData != null) {
-      setState(() {
-        checkInTime = attendanceCheckData["check_in"];
-      });
-    } else if (attendanceCheckData == null) {
-      setState(() {
-        attendanceCheckData = null;
-      });
-    } else if (attendanceCheckData["check_out"] != null) {
-      setState(() {
-        checkOutTime = attendanceCheckData["check_out"];
-      });
-    }
-  }
-
   getLocation() async {
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
@@ -74,7 +54,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    attendanceCheck();
+    // attendanceCheck();
     getLocation();
   }
 
@@ -83,180 +63,215 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.customWhite,
-        body: attendanceCheckData == ""
-            ? const Center(
+        body: FutureBuilder(
+          future: Functions().todayAttendance(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
                 child: CircularProgressIndicator.adaptive(),
-              )
-            : Center(
-                child: Container(
-                  width: CustomSizes().dynamicWidth(context, .9),
-                  height: CustomSizes().dynamicHeight(context, 1),
-                  padding: EdgeInsets.symmetric(
-                    vertical: CustomSizes().dynamicHeight(context, .06),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Image.asset(
-                        "assets/logo.png",
-                        height: CustomSizes().dynamicHeight(context, .06),
-                      ),
-                      CustomSizes().heightBox(context, .16),
-                      StreamBuilder(
-                        stream: Stream.periodic(const Duration(seconds: 30)),
-                        builder: (context, snapshot) {
-                          return text(
-                            context,
-                            DateFormat('hh:mm a').format(DateTime.now()),
-                            .07,
-                            AppColors.customDarkGrey,
-                            bold: true,
-                          );
-                        },
-                      ),
-                      text(
-                        context,
-                        DateFormat.yMMMMEEEEd()
-                            .format(DateTime.now())
-                            .toString(),
-                        .06,
-                        AppColors.customGrey,
-                      ),
-                      CustomSizes().heightBox(context, .1),
-                      GestureDetector(
-                        onTap: () {
-                          if (locationName == "getting...") {
-                            errorAlert(context,
-                                "Enable the Location to further proceed!!!",
-                                function: () async {
-                              CustomRoutes().pop(context);
-                              await getLocation();
-                            });
-                          } else {
-                            if (timeDifference() <= 0 || checkInTime != "00:00"
-                                ? minutesDifference(
-                                            userData["ending_hours"].toString())
-                                        .inMinutes <
-                                    0
-                                : minutesDifference("10:00").inMinutes > 0) {
-                              warningAlert(
-                                  context,
-                                  (timeDifference() <= 0 ||
-                                          checkInTime != "00:00")
-                                      ? "You are going ${minutesDifference(userData["ending_hours"].toString()).toString().substring(0, minutesDifference(userData["ending_hours"].toString()).toString().length - 10)} Hours Earlier!!!"
-                                      : "You arrived ${minutesDifference("10:00").toString().substring(0, minutesDifference("10:00").toString().length - 10)} Hours Late!!!",
-                                  function: () {
+              );
+            } else {
+              if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              } else {
+                print("hahahahah ${snapshot.data.toString()}");
+
+                return Center(
+                  child: Container(
+                    width: CustomSizes().dynamicWidth(context, .9),
+                    height: CustomSizes().dynamicHeight(context, 1),
+                    padding: EdgeInsets.symmetric(
+                      vertical: CustomSizes().dynamicHeight(context, .06),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Image.asset(
+                          "assets/logo.png",
+                          height: CustomSizes().dynamicHeight(context, .06),
+                        ),
+                        CustomSizes().heightBox(context, .16),
+                        StreamBuilder(
+                          stream: Stream.periodic(const Duration(seconds: 30)),
+                          builder: (context, snapshot) {
+                            return text(
+                              context,
+                              DateFormat('hh:mm a').format(DateTime.now()),
+                              .07,
+                              AppColors.customDarkGrey,
+                              bold: true,
+                            );
+                          },
+                        ),
+                        text(
+                          context,
+                          DateFormat.yMMMMEEEEd()
+                              .format(DateTime.now())
+                              .toString(),
+                          .06,
+                          AppColors.customGrey,
+                        ),
+                        CustomSizes().heightBox(context, .1),
+                        GestureDetector(
+                          onTap: () {
+                            if (locationName == "getting...") {
+                              errorAlert(context,
+                                  "Enable the Location to further proceed!!!",
+                                  function: () async {
                                 CustomRoutes().pop(context);
+                                await getLocation();
+                              });
+                            } else {
+                              if (timeDifference() <= 0 ||
+                                      checkInTime != "00:00"
+                                  ? minutesDifference(userData["ending_hours"]
+                                              .toString())
+                                          .inMinutes <
+                                      0
+                                  : minutesDifference("10:00").inMinutes > 0) {
+                                warningAlert(
+                                    context,
+                                    (timeDifference() <= 0 ||
+                                            checkInTime != "00:00")
+                                        ? "You are going ${minutesDifference(userData["ending_hours"].toString()).toString().substring(0, minutesDifference(userData["ending_hours"].toString()).toString().length - 10)} Hours Earlier!!!"
+                                        : "You arrived ${minutesDifference("10:00").toString().substring(0, minutesDifference("10:00").toString().length - 10)} Hours Late!!!",
+                                    function: () {
+                                  CustomRoutes().pop(context);
+                                  CustomRoutes().push(
+                                    context,
+                                    QRScreen(
+                                      type: snapshot.data == null
+                                          ? "in"
+                                          : (snapshot.data["check_in"] !=
+                                                      null &&
+                                                  snapshot.data["check_out"] ==
+                                                      null)
+                                              ? "out"
+                                              : "both",
+                                      setState: () {
+                                        setState(() {});
+                                      },
+                                    ),
+                                  );
+                                });
+                              } else {
                                 CustomRoutes().push(
                                   context,
                                   QRScreen(
-                                    type: attendanceCheckData == null
+                                    type: snapshot.data == null
                                         ? "in"
-                                        : "out",
+                                        : (snapshot.data["check_in"] != null &&
+                                                snapshot.data["check_out"] ==
+                                                    null)
+                                            ? "out"
+                                            : "both",
                                     setState: () {
                                       setState(() {});
                                     },
                                   ),
                                 );
-                              });
-                            } else {
-                              CustomRoutes().push(
-                                context,
-                                QRScreen(
-                                  type: attendanceCheckData == null
-                                      ? "in"
-                                      : "out",
-                                      setState: () {
-                                    setState(() {});
-                                  },
-                                ),
-                              );
+                              }
                             }
-                          }
-                        },
-                        child: Container(
-                          width: CustomSizes().dynamicWidth(context, .5),
-                          height: CustomSizes().dynamicWidth(context, .5),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: LinearGradient(
-                              begin: Alignment.topRight,
-                              end: Alignment.bottomLeft,
-                              colors: attendanceCheckData == null
-                                  ? [
-                                      AppColors.customBlue,
-                                      AppColors.customPurple,
-                                    ]
-                                  : [
-                                      AppColors.customPurple,
-                                      AppColors.customPink,
-                                    ],
+                          },
+                          child: Container(
+                            width: CustomSizes().dynamicWidth(context, .5),
+                            height: CustomSizes().dynamicWidth(context, .5),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              gradient: LinearGradient(
+                                begin: Alignment.topRight,
+                                end: Alignment.bottomLeft,
+                                colors: snapshot.data == null
+                                    ? [
+                                        AppColors.customBlue,
+                                        AppColors.customPurple,
+                                      ]
+                                    : [
+                                        AppColors.customPurple,
+                                        AppColors.customPink,
+                                      ],
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.customBlue.withOpacity(0.4),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: const Offset(
+                                      0, 3), // changes position of shadow
+                                ),
+                              ],
                             ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.customBlue.withOpacity(0.4),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset: const Offset(
-                                    0, 3), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              LottieBuilder.asset(
-                                "assets/animations/button_press.json",
-                                height:
-                                    CustomSizes().dynamicHeight(context, .16),
-                              ),
-                              text(
-                                context,
-                                attendanceCheckData == null ||
-                                        attendanceCheckData == ""
-                                    ? "CHECK IN"
-                                    : attendanceCheckData["check_out"] == null
-                                        ? "CHECK OUT"
-                                        : "---",
-                                .04,
-                                AppColors.customWhite,
-                              ),
-                            ],
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                LottieBuilder.asset(
+                                  "assets/animations/button_press.json",
+                                  height:
+                                      CustomSizes().dynamicHeight(context, .16),
+                                ),
+                                text(
+                                  context,
+                                  snapshot.data == null || snapshot.data == ""
+                                      ? "CHECK IN"
+                                      : (snapshot.data["check_in"] != null &&
+                                              snapshot.data["check_out"] ==
+                                                  null)
+                                          ? "CHECK OUT"
+                                          : "---",
+                                  .04,
+                                  AppColors.customWhite,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      CustomSizes().heightBox(context, .1),
-                      text(
-                        context,
-                        "Location: $locationName",
-                        .03,
-                        AppColors.customGrey,
-                      ),
-                      CustomSizes().heightBox(context, .14),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          timeCard(
-                            context,
-                            checkInTime,
-                            "Check In",
-                          ),
-                          timeCard(
-                            context,
-                            checkOutTime,
-                            "Check Out",
-                          ),
-                          timeCard(
-                            context,
-                            "08:00",
-                            "Working Hrs",
-                          ),
-                        ],
-                      ),
-                    ],
+                        CustomSizes().heightBox(context, .1),
+                        text(
+                          context,
+                          "Location: $locationName",
+                          .03,
+                          AppColors.customGrey,
+                        ),
+                        CustomSizes().heightBox(context, .14),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            timeCard(
+                              context,
+                              snapshot.data == null
+                                  ? "00:00"
+                                  : snapshot.data["check_in"].toString(),
+                              "Check In",
+                            ),
+                            timeCard(
+                              context,
+                              snapshot.data == null ||
+                                      snapshot.data["check_out"] == null
+                                  ? "00:00"
+                                  : snapshot.data["check_out"].toString(),
+                              "Check Out",
+                            ),
+                            timeCard(
+                              context,
+                              // DateTime.parse(
+                              //         snapshot.data["check_out"].toString().substring(0, 5))
+                              //     .difference(DateTime.parse(
+                              //         snapshot.data["check_in"].toString().substring(0, 5)))
+                              //     .inHours
+                              //     .toString(),
+                              "00:00",
+                              "Working Hrs",
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ),
+                );
+              }
+            }
+          },
+        ),
       ),
     );
   }

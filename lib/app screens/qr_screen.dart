@@ -10,7 +10,6 @@ import 'package:mtech_attendance/utils/dynamic_sizes.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../Widgets/text_widget.dart';
-import '../utils/app_routes.dart';
 import '../utils/constants.dart';
 
 class QRScreen extends StatefulWidget {
@@ -70,23 +69,15 @@ class _QRScreenState extends State<QRScreen> {
         if (lat.toStringAsFixed(2) == data['lat'].toStringAsFixed(2) &&
             long.toStringAsFixed(2) == data['long'].toStringAsFixed(2)) {
           if (DateFormat('HH:mm').format(DateTime.now()) == data['id']) {
-            if (response.toString() == "ok") {
-              setState(() {
-                widget.type == "out"
-                    ? checkOutTime =
-                        DateFormat('hh:mm a').format(DateTime.now()).toString()
-                    : checkInTime =
-                        DateFormat('hh:mm a').format(DateTime.now()).toString();
-              });
-
+            if (response["status"] == "200") {
               Navigator.pop(context, widget.setState);
-              successAlert(context, "Attendance Marked Successfully!!!");
+              successAlert(context, response["message"]);
             } else {
               warningAlert(
                 context,
-                response,
+                response["message"].toString(),
                 function: () async {
-                  CustomRoutes().pop(context);
+                  Navigator.pop(context, widget.setState);
                   await controller!.resumeCamera();
                 },
               );
@@ -96,7 +87,7 @@ class _QRScreenState extends State<QRScreen> {
               context,
               "Scan Again!!! Time not matched",
               function: () async {
-                CustomRoutes().pop(context);
+                Navigator.pop(context, widget.setState);
                 await controller!.resumeCamera();
               },
             );
@@ -106,7 +97,7 @@ class _QRScreenState extends State<QRScreen> {
             context,
             "Location No Matched",
             function: () async {
-              CustomRoutes().pop(context);
+              Navigator.pop(context, widget.setState);
               await controller!.resumeCamera();
             },
           );
@@ -119,7 +110,7 @@ class _QRScreenState extends State<QRScreen> {
         titlecheck: true,
         alert: "No Internet",
         function: () async {
-          CustomRoutes().pop(context);
+          Navigator.pop(context, widget.setState);
           await controller!.resumeCamera();
         },
       );

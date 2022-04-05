@@ -47,7 +47,7 @@ class Functions {
     );
 
     if (response.statusCode == 200) {
-      return "ok";
+      return jsonDecode(response.body);
     } else {
       return jsonDecode(response.body)["message"];
     }
