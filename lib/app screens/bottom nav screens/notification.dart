@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mtech_attendance/Widgets/text_widget.dart';
-import 'package:mtech_attendance/app%20screens/login.dart';
 
 import '../../utils/app_routes.dart';
 import '../../utils/config.dart';

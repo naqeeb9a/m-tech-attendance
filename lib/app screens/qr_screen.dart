@@ -70,14 +70,14 @@ class _QRScreenState extends State<QRScreen> {
             long.toStringAsFixed(2) == data['long'].toStringAsFixed(2)) {
           if (DateFormat('HH:mm').format(DateTime.now()) == data['id']) {
             if (response["status"] == "200") {
-              Navigator.pop(context, widget.setState);
+              Navigator.pop(context, widget.setState());
               successAlert(context, response["message"]);
             } else {
               warningAlert(
                 context,
                 response["message"].toString(),
                 function: () async {
-                  Navigator.pop(context, widget.setState);
+                  Navigator.pop(context, widget.setState());
                   await controller!.resumeCamera();
                 },
               );
@@ -87,7 +87,7 @@ class _QRScreenState extends State<QRScreen> {
               context,
               "Scan Again!!! Time not matched",
               function: () async {
-                Navigator.pop(context, widget.setState);
+                Navigator.pop(context, widget.setState());
                 await controller!.resumeCamera();
               },
             );
