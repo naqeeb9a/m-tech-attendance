@@ -114,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     loadingCheck = true;
                                   });
                                   var response = await Functions().loginFunc(
-                                    email.text.toString(),
+                                    email.text.toString().trim(),
                                     password.text.toString(),
                                   );
                                   if (response == "success") {
@@ -164,15 +164,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 }
                               },
                             ),
-                      // coloredButton(
-                      //   context,
-                      //   "Login",
-                      //   AppColors.customBlue,
-                      //   function: () => CustomRoutes().pushAndRemoveUntil(
-                      //     context,
-                      //     const AppTabBar(),
-                      //   ),
-                      // ),
                     ],
                   ),
                 ),

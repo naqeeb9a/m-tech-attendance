@@ -31,9 +31,11 @@ class Functions {
     }
   }
 
-  markAttendance() async {
+  markAttendance(checkIn, checkOut) async {
     var jsonBody = {
       "email": userData["email"],
+      "check_in": checkIn,
+      "check_out": checkOut,
     };
 
     var url = Uri.https(baseUrl, version + markAttendanceApi);
@@ -47,7 +49,23 @@ class Functions {
     if (response.statusCode == 200) {
       return "ok";
     } else {
-      return jsonDecode(response.body);
+      return jsonDecode(response.body)["message"];
+    }
+  }
+
+  todayAttendance() async {
+    var url = Uri.https(
+        baseUrl, version + todayAttendanceApi + userData["email"].toString());
+
+    final response = await http.get(
+      url,
+      headers: headers,
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)["data"];
+    } else {
+      return jsonDecode(response.body)["message"];
     }
   }
 }

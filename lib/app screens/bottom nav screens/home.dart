@@ -6,6 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:mtech_attendance/Widgets/alert.dart';
 import 'package:mtech_attendance/Widgets/text_widget.dart';
 import 'package:mtech_attendance/app%20screens/qr_screen.dart';
+import 'package:mtech_attendance/functions/apis.dart';
 import 'package:mtech_attendance/utils/app_routes.dart';
 import 'package:mtech_attendance/utils/config.dart';
 import 'package:mtech_attendance/utils/dynamic_sizes.dart';
@@ -22,6 +23,26 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String locationName = "getting...";
   LocationPermission? permission;
+
+  dynamic attendanceCheckData = "";
+
+  attendanceCheck() async {
+    var temp = await Functions().todayAttendance();
+
+    setState(() {
+      attendanceCheckData = temp;
+    });
+
+    if (attendanceCheckData != null) {
+      setState(() {
+        checkInTime = attendanceCheckData["check_in"];
+      });
+    } else if (attendanceCheckData["check_out"] != null) {
+      setState(() {
+        checkOutTime = attendanceCheckData["check_out"];
+      });
+    }
+  }
 
   getLocation() async {
     permission = await Geolocator.checkPermission();
@@ -54,6 +75,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    attendanceCheck();
     getLocation();
   }
 
@@ -62,147 +84,173 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.customWhite,
-        body: Center(
-          child: Container(
-            width: CustomSizes().dynamicWidth(context, .9),
-            height: CustomSizes().dynamicHeight(context, 1),
-            padding: EdgeInsets.symmetric(
-              vertical: CustomSizes().dynamicHeight(context, .06),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.asset(
-                  "assets/logo.png",
-                  height: CustomSizes().dynamicHeight(context, .06),
-                ),
-                CustomSizes().heightBox(context, .16),
-                StreamBuilder(
-                  stream: Stream.periodic(const Duration(seconds: 30)),
-                  builder: (context, snapshot) {
-                    return text(
-                      context,
-                      DateFormat('hh:mm a').format(DateTime.now()),
-                      .07,
-                      AppColors.customDarkGrey,
-                      bold: true,
-                    );
-                  },
-                ),
-                text(
-                  context,
-                  DateFormat.yMMMMEEEEd().format(DateTime.now()).toString(),
-                  .06,
-                  AppColors.customGrey,
-                ),
-                CustomSizes().heightBox(context, .1),
-                GestureDetector(
-                  onTap: () {
-                    if (locationName == "getting...") {
-                      errorAlert(
-                          context, "Enable the Location to further proceed!!!",
-                          function: () async {
-                        CustomRoutes().pop(context);
-                        await getLocation();
-                      });
-                    } else {
-                      if (timeDifference() <= 0 || checkInTime != "00:00"
-                          ? minutesDifference("18:00").inMinutes < 0
-                          : minutesDifference("10:00").inMinutes > 0) {
-                        warningAlert(
-                            context,
-                            (timeDifference() <= 0 || checkInTime != "00:00")
-                                ? "You are going ${minutesDifference("18:00").toString().substring(0, minutesDifference("18:00").toString().length - 10)} Hours Earlier!!!"
-                                : "You arrived ${minutesDifference("10:00").toString().substring(0, minutesDifference("10:00").toString().length - 10)} Hours Late!!!",
-                            function: () {
-                          CustomRoutes().pop(context);
-                          CustomRoutes().push(context, const QRScreen());
-                        });
-                      } else {
-                        CustomRoutes().push(context, const QRScreen());
-                      }
-                    }
-                  },
-                  child: Container(
-                    width: CustomSizes().dynamicWidth(context, .5),
-                    height: CustomSizes().dynamicWidth(context, .5),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft,
-                        colors:
-                            (timeDifference() <= 0 || checkInTime != "00:00")
-                                ? [
-                                    AppColors.customPurple,
-                                    AppColors.customPink,
-                                  ]
-                                : [
-                                    AppColors.customBlue,
-                                    AppColors.customPurple,
-                                  ],
+        body: attendanceCheckData == ""
+            ? const Center(
+                child: CircularProgressIndicator.adaptive(),
+              )
+            : Center(
+                child: Container(
+                  width: CustomSizes().dynamicWidth(context, .9),
+                  height: CustomSizes().dynamicHeight(context, 1),
+                  padding: EdgeInsets.symmetric(
+                    vertical: CustomSizes().dynamicHeight(context, .06),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Image.asset(
+                        "assets/logo.png",
+                        height: CustomSizes().dynamicHeight(context, .06),
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.customBlue.withOpacity(0.4),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset:
-                              const Offset(0, 3), // changes position of shadow
+                      CustomSizes().heightBox(context, .16),
+                      StreamBuilder(
+                        stream: Stream.periodic(const Duration(seconds: 30)),
+                        builder: (context, snapshot) {
+                          return text(
+                            context,
+                            DateFormat('hh:mm a').format(DateTime.now()),
+                            .07,
+                            AppColors.customDarkGrey,
+                            bold: true,
+                          );
+                        },
+                      ),
+                      text(
+                        context,
+                        DateFormat.yMMMMEEEEd()
+                            .format(DateTime.now())
+                            .toString(),
+                        .06,
+                        AppColors.customGrey,
+                      ),
+                      CustomSizes().heightBox(context, .1),
+                      GestureDetector(
+                        onTap: () {
+                          if (locationName == "getting...") {
+                            errorAlert(context,
+                                "Enable the Location to further proceed!!!",
+                                function: () async {
+                              CustomRoutes().pop(context);
+                              await getLocation();
+                            });
+                          } else {
+                            if (timeDifference() <= 0 || checkInTime != "00:00"
+                                ? minutesDifference(
+                                            userData["ending_hours"].toString())
+                                        .inMinutes <
+                                    0
+                                : minutesDifference("10:00").inMinutes > 0) {
+                              warningAlert(
+                                  context,
+                                  (timeDifference() <= 0 ||
+                                          checkInTime != "00:00")
+                                      ? "You are going ${minutesDifference(userData["ending_hours"].toString()).toString().substring(0, minutesDifference(userData["ending_hours"].toString()).toString().length - 10)} Hours Earlier!!!"
+                                      : "You arrived ${minutesDifference("10:00").toString().substring(0, minutesDifference("10:00").toString().length - 10)} Hours Late!!!",
+                                  function: () {
+                                CustomRoutes().pop(context);
+                                CustomRoutes().push(
+                                  context,
+                                  QRScreen(
+                                    type: attendanceCheckData == null
+                                        ? "in"
+                                        : "out",
+                                  ),
+                                );
+                              });
+                            } else {
+                              CustomRoutes().push(
+                                context,
+                                QRScreen(
+                                  type: attendanceCheckData == null
+                                      ? "in"
+                                      : "out",
+                                ),
+                              );
+                            }
+                          }
+                        },
+                        child: Container(
+                          width: CustomSizes().dynamicWidth(context, .5),
+                          height: CustomSizes().dynamicWidth(context, .5),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: LinearGradient(
+                              begin: Alignment.topRight,
+                              end: Alignment.bottomLeft,
+                              colors: attendanceCheckData == null
+                                  ? [
+                                      AppColors.customBlue,
+                                      AppColors.customPurple,
+                                    ]
+                                  : [
+                                      AppColors.customPurple,
+                                      AppColors.customPink,
+                                    ],
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.customBlue.withOpacity(0.4),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: const Offset(
+                                    0, 3), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              LottieBuilder.asset(
+                                "assets/animations/button_press.json",
+                                height:
+                                    CustomSizes().dynamicHeight(context, .16),
+                              ),
+                              text(
+                                context,
+                                attendanceCheckData == null
+                                    ? "CHECK IN"
+                                    : attendanceCheckData["check_out"] == null
+                                        ? "CHECK OUT"
+                                        : "---",
+                                .04,
+                                AppColors.customWhite,
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        LottieBuilder.asset(
-                          "assets/animations/button_press.json",
-                          height: CustomSizes().dynamicHeight(context, .16),
-                        ),
-                        text(
-                          context,
-                          (timeDifference() <= 0 || checkInTime != "00:00")
-                              ? "CHECK OUT"
-                              : "CHECK IN",
-                          .04,
-                          AppColors.customWhite,
-                        ),
-                      ],
-                    ),
+                      ),
+                      CustomSizes().heightBox(context, .1),
+                      text(
+                        context,
+                        "Location: $locationName",
+                        .03,
+                        AppColors.customGrey,
+                      ),
+                      CustomSizes().heightBox(context, .14),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          timeCard(
+                            context,
+                            checkInTime,
+                            "Check In",
+                          ),
+                          timeCard(
+                            context,
+                            checkOutTime,
+                            "Check Out",
+                          ),
+                          timeCard(
+                            context,
+                            "08:00",
+                            "Working Hrs",
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                CustomSizes().heightBox(context, .1),
-                text(
-                  context,
-                  "Location: $locationName",
-                  .03,
-                  AppColors.customGrey,
-                ),
-                CustomSizes().heightBox(context, .14),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    timeCard(
-                      context,
-                      checkInTime,
-                      "Check In",
-                    ),
-                    timeCard(
-                      context,
-                      checkOutTime,
-                      "Check Out",
-                    ),
-                    timeCard(
-                      context,
-                      "08:00",
-                      "Working Hrs",
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
+              ),
       ),
     );
   }

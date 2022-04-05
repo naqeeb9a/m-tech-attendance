@@ -9,6 +9,9 @@ String baseUrl = "employee.mtechtesting.com";
 String version = "api/";
 String login = "login";
 String markAttendanceApi = "checkin";
+String todayAttendanceApi = "idemp/";
+
+
 
 dynamic lat, long;
 dynamic headers = {

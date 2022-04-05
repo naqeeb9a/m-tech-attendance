@@ -14,7 +14,9 @@ import '../utils/app_routes.dart';
 import '../utils/constants.dart';
 
 class QRScreen extends StatefulWidget {
-  const QRScreen({Key? key}) : super(key: key);
+  final dynamic type, setState;
+
+  const QRScreen({Key? key, required this.type, this.setState}) : super(key: key);
 
   @override
   State<QRScreen> createState() => _QRScreenState();
@@ -56,13 +58,20 @@ class _QRScreenState extends State<QRScreen> {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        var response = await Functions().markAttendance();
+        var response = await Functions().markAttendance(
+          widget.type == "in"
+              ? DateFormat('hh:mm a').format(DateTime.now()).toString()
+              : "",
+          widget.type == "out"
+              ? DateFormat('hh:mm a').format(DateTime.now()).toString()
+              : "",
+        );
         if (lat.toStringAsFixed(2) == data['lat'].toStringAsFixed(2) &&
             long.toStringAsFixed(2) == data['long'].toStringAsFixed(2)) {
           if (DateFormat('HH:mm').format(DateTime.now()) == data['id']) {
             if (response.toString() == "ok") {
               setState(() {
-                (timeDifference() <= 0 || checkInTime != "00:00")
+                widget.type == "out"
                     ? checkOutTime =
                         DateFormat('hh:mm a').format(DateTime.now()).toString()
                     : checkInTime =
