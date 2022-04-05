@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mtech_attendance/Widgets/text_widget.dart';
 import 'package:mtech_attendance/app%20screens/about.dart';
@@ -20,9 +21,9 @@ class MoreScreen extends StatefulWidget {
 class _MoreScreenState extends State<MoreScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SizedBox(
+    return Scaffold(
+      body: SafeArea(
+        child: SizedBox(
           width: CustomSizes().dynamicWidth(context, 1),
           height: CustomSizes().dynamicHeight(context, 1),
           child: Stack(
@@ -70,11 +71,12 @@ class _MoreScreenState extends State<MoreScreen> {
                       SizedBox(
                         child: Column(
                           children: [
-                            CircleAvatar(
-                                radius:
-                                    CustomSizes().dynamicHeight(context, 0.05),
-                                backgroundImage: const NetworkImage(
-                                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOOFMe-CzzMAgkPdsGK1wsKLtoF33HXGK98A&usqp=CAU")),
+                            Icon(CupertinoIcons.person_alt_circle,size: CustomSizes().dynamicHeight(context, .08),color: AppColors.customBlue,),
+                            // CircleAvatar(
+                            //     radius:
+                            //         CustomSizes().dynamicHeight(context, 0.05),
+                            //     backgroundImage: const NetworkImage(
+                            //         "https://www.nicepng.com/png/detail/367-3671905_person-icon-person-icon-silhouette.png")),
                             text(
                               context,
                               "${userData["first_name"]} ${userData["last_name"]}",
@@ -247,10 +249,10 @@ class _MoreScreenState extends State<MoreScreen> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                CustomRoutes().push(
-                                  context,
-                                  const LeaveScreen(),
-                                );
+                                // CustomRoutes().push(
+                                //   context,
+                                //   const LeaveScreen(),
+                                // );
                               },
                               child: Row(
                                 children: [

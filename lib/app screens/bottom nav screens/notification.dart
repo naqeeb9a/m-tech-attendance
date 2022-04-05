@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mtech_attendance/Widgets/text_widget.dart';
 import 'package:mtech_attendance/app%20screens/login.dart';
 
@@ -18,9 +19,9 @@ class NotificationScreen extends StatefulWidget {
 class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SizedBox(
+    return Scaffold(
+      body: SafeArea(
+        child: SizedBox(
           width: CustomSizes().dynamicWidth(context, 1),
           height: CustomSizes().dynamicHeight(context, 1),
           child: Stack(
@@ -46,34 +47,45 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   width: CustomSizes().dynamicWidth(context, 0.15),
                 ),
               ),
-              Container(
-                width: CustomSizes().dynamicWidth(context, 1),
+              SizedBox(
+                width: CustomSizes().dynamicWidth(context,1),
                 height: CustomSizes().dynamicHeight(context, 1),
-                padding: EdgeInsets.symmetric(
-                  horizontal: CustomSizes().dynamicWidth(context, .04),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset("assets/animations/coming_soon.json",height:
+                    CustomSizes().dynamicHeight(context, .2),)
+                  ],
                 ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      topBar(context, "Notifications", settingIcon: true),
-                      customNotificationCard(context, approve: true),
-                      customNotificationCard(context, pending: true),
-                      notificationCard(context, 1),
-                      notificationCard(context, 4),
-                      notificationCard(context, 1),
-                      customNotificationCard(context, approved: true),
-
-                      // Expanded(
-                      //   child: ListView.builder(
-                      //       itemCount: 3,
-                      //       itemBuilder: (BuildContext context, int index) {
-                      //         return customNotificationCard(context,approve: true);
-                      //       }),
-                      // ),
-                    ],
-                  ),
-                ),
-              )
+              ),
+              // Container(
+              //   width: CustomSizes().dynamicWidth(context, 1),
+              //   height: CustomSizes().dynamicHeight(context, 1),
+              //   padding: EdgeInsets.symmetric(
+              //     horizontal: CustomSizes().dynamicWidth(context, .04),
+              //   ),
+              //   child: SingleChildScrollView(
+              //     child: Column(
+              //       children: [
+              //         topBar(context, "Notifications", settingIcon: true),
+              //         customNotificationCard(context, approve: true),
+              //         customNotificationCard(context, pending: true),
+              //         notificationCard(context, 1),
+              //         notificationCard(context, 4),
+              //         notificationCard(context, 1),
+              //         customNotificationCard(context, approved: true),
+              //
+              //         // Expanded(
+              //         //   child: ListView.builder(
+              //         //       itemCount: 3,
+              //         //       itemBuilder: (BuildContext context, int index) {
+              //         //         return customNotificationCard(context,approve: true);
+              //         //       }),
+              //         // ),
+              //       ],
+              //     ),
+              //   ),
+              // )
             ],
           ),
         ),

@@ -4,6 +4,7 @@ import 'package:date_time_picker/date_time_picker.dart';
 import 'package:dropdown_button2/custom_dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mtech_attendance/Widgets/text_widget.dart';
 import 'package:mtech_attendance/app%20screens/individual_attendance.dart';
 import 'package:mtech_attendance/app%20screens/location_tracking.dart';
@@ -132,310 +133,321 @@ class _MyTeamsState extends State<MyTeams> {
                 ),
               ),
               Center(
-                child: SizedBox(
-                  width: CustomSizes().dynamicWidth(context, 0.9),
+                child:SizedBox(
+                  width: CustomSizes().dynamicWidth(context,1),
                   height: CustomSizes().dynamicHeight(context, 1),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: CustomSizes().dynamicHeight(context, .025)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const SizedBox(),
-                            text(context, "My Teams", 0.05,
-                                AppColors.customBlack,
-                                bold: true),
-                            GestureDetector(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(CustomSizes()
-                                          .dynamicWidth(context, .1)),
-                                      topRight: Radius.circular(CustomSizes()
-                                          .dynamicWidth(context, .1)),
-                                    ),
-                                  ),
-                                  context: context,
-                                  builder: (context) {
-                                    return SizedBox(
-                                      height: CustomSizes()
-                                          .dynamicHeight(context, 0.75),
-                                      child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: CustomSizes()
-                                                .dynamicHeight(context, 0.07),
-                                            child: Center(
-                                              child: text(
-                                                  context,
-                                                  "Tech Department",
-                                                  0.045,
-                                                  AppColors.customBlack,
-                                                  bold: true),
-                                            ),
-                                          ),
-                                          const Divider(),
-                                          CustomSizes()
-                                              .heightBox(context, 0.01),
-                                          Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: CustomSizes()
-                                                    .dynamicWidth(
-                                                        context, .04)),
-                                            child: Column(
-                                              children: [
-                                                IntrinsicHeight(
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      timeWidget(context,
-                                                          "06/15", "Present"),
-                                                      VerticalDivider(
-                                                        thickness: CustomSizes()
-                                                            .dynamicWidth(
-                                                                context, .003),
-                                                      ),
-                                                      timeWidget(
-                                                          context,
-                                                          "09:25",
-                                                          "Avg Clock In"),
-                                                      VerticalDivider(
-                                                        thickness: CustomSizes()
-                                                            .dynamicWidth(
-                                                                context, .003),
-                                                      ),
-                                                      timeWidget(
-                                                          context,
-                                                          "05:56",
-                                                          "Avg Clock Out"),
-                                                    ],
-                                                  ),
-                                                ),
-                                                CustomSizes()
-                                                    .heightBox(context, 0.01),
-                                                const Divider(),
-                                                SizedBox(
-                                                  height: CustomSizes()
-                                                      .dynamicHeight(
-                                                          context, 0.585),
-                                                  child: ListView.builder(
-                                                    padding: EdgeInsets.symmetric(
-                                                        vertical: CustomSizes()
-                                                            .dynamicHeight(
-                                                                context, 0.01)),
-                                                    itemCount: teamData.length,
-                                                    itemBuilder:
-                                                        (BuildContext context,
-                                                            int index) {
-                                                      return myTeamCard(
-                                                          context,
-                                                          teamData[index]
-                                                              ["image"],
-                                                          teamData[index]
-                                                              ["name"],
-                                                          teamData[index]
-                                                              ["designation"],
-                                                          teamData[index]
-                                                              ["checkIn"],
-                                                          teamData[index]
-                                                              ["checkOut"],
-                                                          team: teamData[index]
-                                                              ['team']);
-                                                    },
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                              child: Icon(
-                                CupertinoIcons.square_grid_2x2_fill,
-                                color: AppColors.customBlue1,
-                                size: CustomSizes().dynamicWidth(context, .06),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      CustomSizes().heightBox(context, 0.08),
-                      topBarBox(context),
-                      CustomSizes().heightBox(context, 0.05),
-                      Row(
-                        children: [
-                          text(context, "Present", 0.03, AppColors.customGrey,
-                              bold: true),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: CustomSizes().dynamicHeight(context, .065),
-                            decoration: BoxDecoration(
-                              color: AppColors.customWhite,
-                              borderRadius: BorderRadius.circular(
-                                  CustomSizes().dynamicWidth(context, .01)),
-                              border: Border.all(color: AppColors.customBlack),
-                            ),
-                            child: CustomDropdownButton2(
-                              hint: 'Choose Dept',
-                              value: selectedValue,
-                              dropdownItems: items,
-                              dropdownWidth:
-                                  CustomSizes().dynamicWidth(context, .42),
-                              dropdownDecoration: BoxDecoration(
-                                color: AppColors.customWhite,
-                                borderRadius: BorderRadius.circular(
-                                  CustomSizes().dynamicWidth(context, .015),
-                                ),
-                                border: Border.all(color: AppColors.customBlue),
-                              ),
-                              buttonWidth:
-                                  CustomSizes().dynamicWidth(context, .42),
-                              icon: Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                size: CustomSizes().dynamicWidth(context, .06),
-                              ),
-                              buttonDecoration: BoxDecoration(
-                                color: AppColors.customWhite,
-                                borderRadius: BorderRadius.circular(
-                                  CustomSizes().dynamicWidth(context, .01),
-                                ),
-                              ),
-                              onChanged: (value) {
-                                setState(
-                                  () {
-                                    selectedValue = value;
-                                  },
-                                );
-                              },
-                            ),
-                          ),
-                          Container(
-                            width: CustomSizes().dynamicWidth(context, .42),
-                            height: CustomSizes().dynamicHeight(context, .065),
-                            padding: EdgeInsets.symmetric(
-                                horizontal:
-                                    CustomSizes().dynamicWidth(context, .02)),
-                            decoration: BoxDecoration(
-                              color: AppColors.customWhite,
-                              borderRadius: BorderRadius.circular(
-                                  CustomSizes().dynamicWidth(context, .01)),
-                              border: Border.all(color: AppColors.customBlack),
-                            ),
-                            child: Theme(
-                              data: ThemeData(
-                                inputDecorationTheme:
-                                    const InputDecorationTheme(
-                                  border: InputBorder.none,
-                                ),
-                                colorScheme:
-                                    const ColorScheme.highContrastLight(
-                                  primary: AppColors.customBlue,
-                                  // header background color
-                                  onPrimary: AppColors.customWhite,
-                                  // header text color
-                                  onSurface: AppColors
-                                      .customDarkGrey, // body text color
-                                ),
-                                textButtonTheme: TextButtonThemeData(
-                                  style: TextButton.styleFrom(
-                                    backgroundColor: AppColors.customBlue,
-                                    primary: AppColors.customWhite,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                        CustomSizes().dynamicWidth(context, .1),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              child: DateTimePicker(
-                                calendarTitle: "Choose Date",
-                                dateHintText: 'Choose Date',
-                                dateMask: 'dd MMM, yyyy',
-                                icon: Icon(
-                                  CupertinoIcons.calendar,
-                                  color: AppColors.customBlue,
-                                  size:
-                                      CustomSizes().dynamicHeight(context, .03),
-                                ),
-                                initialValue: '',
-                                firstDate: DateTime(2000),
-                                lastDate: DateTime(2100),
-                                onChanged: (value) {
-                                  setState(
-                                    () {
-                                      selectedDate = value;
-                                    },
-                                  );
-                                },
-                                validator: (value) {
-                                  return null;
-                                },
-                                onSaved: (value) {
-                                  setState(
-                                    () {
-                                      savedDate = value ?? "";
-                                    },
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      CustomSizes().heightBox(context, .03),
-                      IntrinsicHeight(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            timeWidget(context, "06/15", "Present"),
-                            VerticalDivider(
-                              thickness:
-                                  CustomSizes().dynamicWidth(context, .003),
-                            ),
-                            timeWidget(context, "09:25", "Avg Clock In"),
-                            VerticalDivider(
-                              thickness:
-                                  CustomSizes().dynamicWidth(context, .003),
-                            ),
-                            timeWidget(context, "05:56", "Avg Clock Out"),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: ListView.builder(
-                            padding: EdgeInsets.symmetric(
-                                vertical:
-                                    CustomSizes().dynamicHeight(context, 0.01)),
-                            itemCount: teamData.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return myTeamCard(
-                                  context,
-                                  teamData[index]["image"],
-                                  teamData[index]["name"],
-                                  teamData[index]["designation"],
-                                  teamData[index]["checkIn"],
-                                  teamData[index]["checkOut"],
-                                  team: teamData[index]['team']);
-                            }),
-                      ),
-                      CustomSizes().heightBox(context, 0.1),
+                      Lottie.asset("assets/animations/coming_soon.json",height:
+                      CustomSizes().dynamicHeight(context, .2),)
                     ],
                   ),
                 ),
+                // SizedBox(
+                //   width: CustomSizes().dynamicWidth(context, 0.9),
+                //   height: CustomSizes().dynamicHeight(context, 1),
+                //   child: Column(
+                //     children: [
+                //       Padding(
+                //         padding: EdgeInsets.only(
+                //             top: CustomSizes().dynamicHeight(context, .025)),
+                //         child: Row(
+                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //           children: [
+                //             const SizedBox(),
+                //             text(context, "My Teams", 0.05,
+                //                 AppColors.customBlack,
+                //                 bold: true),
+                //             GestureDetector(
+                //               onTap: () {
+                //                 showModalBottomSheet(
+                //                   isScrollControlled: true,
+                //                   shape: RoundedRectangleBorder(
+                //                     borderRadius: BorderRadius.only(
+                //                       topLeft: Radius.circular(CustomSizes()
+                //                           .dynamicWidth(context, .1)),
+                //                       topRight: Radius.circular(CustomSizes()
+                //                           .dynamicWidth(context, .1)),
+                //                     ),
+                //                   ),
+                //                   context: context,
+                //                   builder: (context) {
+                //                     return SizedBox(
+                //                       height: CustomSizes()
+                //                           .dynamicHeight(context, 0.75),
+                //                       child: Column(
+                //                         children: [
+                //                           SizedBox(
+                //                             height: CustomSizes()
+                //                                 .dynamicHeight(context, 0.07),
+                //                             child: Center(
+                //                               child: text(
+                //                                   context,
+                //                                   "Tech Department",
+                //                                   0.045,
+                //                                   AppColors.customBlack,
+                //                                   bold: true),
+                //                             ),
+                //                           ),
+                //                           const Divider(),
+                //                           CustomSizes()
+                //                               .heightBox(context, 0.01),
+                //                           Padding(
+                //                             padding: EdgeInsets.symmetric(
+                //                                 horizontal: CustomSizes()
+                //                                     .dynamicWidth(
+                //                                         context, .04)),
+                //                             child: Column(
+                //                               children: [
+                //                                 IntrinsicHeight(
+                //                                   child: Row(
+                //                                     mainAxisAlignment:
+                //                                         MainAxisAlignment
+                //                                             .spaceBetween,
+                //                                     children: [
+                //                                       timeWidget(context,
+                //                                           "06/15", "Present"),
+                //                                       VerticalDivider(
+                //                                         thickness: CustomSizes()
+                //                                             .dynamicWidth(
+                //                                                 context, .003),
+                //                                       ),
+                //                                       timeWidget(
+                //                                           context,
+                //                                           "09:25",
+                //                                           "Avg Clock In"),
+                //                                       VerticalDivider(
+                //                                         thickness: CustomSizes()
+                //                                             .dynamicWidth(
+                //                                                 context, .003),
+                //                                       ),
+                //                                       timeWidget(
+                //                                           context,
+                //                                           "05:56",
+                //                                           "Avg Clock Out"),
+                //                                     ],
+                //                                   ),
+                //                                 ),
+                //                                 CustomSizes()
+                //                                     .heightBox(context, 0.01),
+                //                                 const Divider(),
+                //                                 SizedBox(
+                //                                   height: CustomSizes()
+                //                                       .dynamicHeight(
+                //                                           context, 0.585),
+                //                                   child: ListView.builder(
+                //                                     padding: EdgeInsets.symmetric(
+                //                                         vertical: CustomSizes()
+                //                                             .dynamicHeight(
+                //                                                 context, 0.01)),
+                //                                     itemCount: teamData.length,
+                //                                     itemBuilder:
+                //                                         (BuildContext context,
+                //                                             int index) {
+                //                                       return myTeamCard(
+                //                                           context,
+                //                                           teamData[index]
+                //                                               ["image"],
+                //                                           teamData[index]
+                //                                               ["name"],
+                //                                           teamData[index]
+                //                                               ["designation"],
+                //                                           teamData[index]
+                //                                               ["checkIn"],
+                //                                           teamData[index]
+                //                                               ["checkOut"],
+                //                                           team: teamData[index]
+                //                                               ['team']);
+                //                                     },
+                //                                   ),
+                //                                 ),
+                //                               ],
+                //                             ),
+                //                           ),
+                //                         ],
+                //                       ),
+                //                     );
+                //                   },
+                //                 );
+                //               },
+                //               child: Icon(
+                //                 CupertinoIcons.square_grid_2x2_fill,
+                //                 color: AppColors.customBlue1,
+                //                 size: CustomSizes().dynamicWidth(context, .06),
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //       CustomSizes().heightBox(context, 0.08),
+                //       topBarBox(context),
+                //       CustomSizes().heightBox(context, 0.05),
+                //       Row(
+                //         children: [
+                //           text(context, "Present", 0.03, AppColors.customGrey,
+                //               bold: true),
+                //         ],
+                //       ),
+                //       Row(
+                //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //         children: [
+                //           Container(
+                //             height: CustomSizes().dynamicHeight(context, .065),
+                //             decoration: BoxDecoration(
+                //               color: AppColors.customWhite,
+                //               borderRadius: BorderRadius.circular(
+                //                   CustomSizes().dynamicWidth(context, .01)),
+                //               border: Border.all(color: AppColors.customBlack),
+                //             ),
+                //             child: CustomDropdownButton2(
+                //               hint: 'Choose Dept',
+                //               value: selectedValue,
+                //               dropdownItems: items,
+                //               dropdownWidth:
+                //                   CustomSizes().dynamicWidth(context, .42),
+                //               dropdownDecoration: BoxDecoration(
+                //                 color: AppColors.customWhite,
+                //                 borderRadius: BorderRadius.circular(
+                //                   CustomSizes().dynamicWidth(context, .015),
+                //                 ),
+                //                 border: Border.all(color: AppColors.customBlue),
+                //               ),
+                //               buttonWidth:
+                //                   CustomSizes().dynamicWidth(context, .42),
+                //               icon: Icon(
+                //                 Icons.keyboard_arrow_down_rounded,
+                //                 size: CustomSizes().dynamicWidth(context, .06),
+                //               ),
+                //               buttonDecoration: BoxDecoration(
+                //                 color: AppColors.customWhite,
+                //                 borderRadius: BorderRadius.circular(
+                //                   CustomSizes().dynamicWidth(context, .01),
+                //                 ),
+                //               ),
+                //               onChanged: (value) {
+                //                 setState(
+                //                   () {
+                //                     selectedValue = value;
+                //                   },
+                //                 );
+                //               },
+                //             ),
+                //           ),
+                //           Container(
+                //             width: CustomSizes().dynamicWidth(context, .42),
+                //             height: CustomSizes().dynamicHeight(context, .065),
+                //             padding: EdgeInsets.symmetric(
+                //                 horizontal:
+                //                     CustomSizes().dynamicWidth(context, .02)),
+                //             decoration: BoxDecoration(
+                //               color: AppColors.customWhite,
+                //               borderRadius: BorderRadius.circular(
+                //                   CustomSizes().dynamicWidth(context, .01)),
+                //               border: Border.all(color: AppColors.customBlack),
+                //             ),
+                //             child: Theme(
+                //               data: ThemeData(
+                //                 inputDecorationTheme:
+                //                     const InputDecorationTheme(
+                //                   border: InputBorder.none,
+                //                 ),
+                //                 colorScheme:
+                //                     const ColorScheme.highContrastLight(
+                //                   primary: AppColors.customBlue,
+                //                   // header background color
+                //                   onPrimary: AppColors.customWhite,
+                //                   // header text color
+                //                   onSurface: AppColors
+                //                       .customDarkGrey, // body text color
+                //                 ),
+                //                 textButtonTheme: TextButtonThemeData(
+                //                   style: TextButton.styleFrom(
+                //                     backgroundColor: AppColors.customBlue,
+                //                     primary: AppColors.customWhite,
+                //                     shape: RoundedRectangleBorder(
+                //                       borderRadius: BorderRadius.circular(
+                //                         CustomSizes().dynamicWidth(context, .1),
+                //                       ),
+                //                     ),
+                //                   ),
+                //                 ),
+                //               ),
+                //               child: DateTimePicker(
+                //                 calendarTitle: "Choose Date",
+                //                 dateHintText: 'Choose Date',
+                //                 dateMask: 'dd MMM, yyyy',
+                //                 icon: Icon(
+                //                   CupertinoIcons.calendar,
+                //                   color: AppColors.customBlue,
+                //                   size:
+                //                       CustomSizes().dynamicHeight(context, .03),
+                //                 ),
+                //                 initialValue: '',
+                //                 firstDate: DateTime(2000),
+                //                 lastDate: DateTime(2100),
+                //                 onChanged: (value) {
+                //                   setState(
+                //                     () {
+                //                       selectedDate = value;
+                //                     },
+                //                   );
+                //                 },
+                //                 validator: (value) {
+                //                   return null;
+                //                 },
+                //                 onSaved: (value) {
+                //                   setState(
+                //                     () {
+                //                       savedDate = value ?? "";
+                //                     },
+                //                   );
+                //                 },
+                //               ),
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //       CustomSizes().heightBox(context, .03),
+                //       IntrinsicHeight(
+                //         child: Row(
+                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //           children: [
+                //             timeWidget(context, "06/15", "Present"),
+                //             VerticalDivider(
+                //               thickness:
+                //                   CustomSizes().dynamicWidth(context, .003),
+                //             ),
+                //             timeWidget(context, "09:25", "Avg Clock In"),
+                //             VerticalDivider(
+                //               thickness:
+                //                   CustomSizes().dynamicWidth(context, .003),
+                //             ),
+                //             timeWidget(context, "05:56", "Avg Clock Out"),
+                //           ],
+                //         ),
+                //       ),
+                //       Expanded(
+                //         child: ListView.builder(
+                //             padding: EdgeInsets.symmetric(
+                //                 vertical:
+                //                     CustomSizes().dynamicHeight(context, 0.01)),
+                //             itemCount: teamData.length,
+                //             itemBuilder: (BuildContext context, int index) {
+                //               return myTeamCard(
+                //                   context,
+                //                   teamData[index]["image"],
+                //                   teamData[index]["name"],
+                //                   teamData[index]["designation"],
+                //                   teamData[index]["checkIn"],
+                //                   teamData[index]["checkOut"],
+                //                   team: teamData[index]['team']);
+                //             }),
+                //       ),
+                //       CustomSizes().heightBox(context, 0.1),
+                //     ],
+                //   ),
+                // ),
               ),
             ],
           ),
