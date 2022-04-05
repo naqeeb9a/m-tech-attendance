@@ -10,8 +10,6 @@ import '../Widgets/text_widget.dart';
 import '../utils/config.dart';
 import 'dart:math' as math;
 
-import 'approval.dart';
-import 'leave_history.dart';
 
 class LeaveScreen extends StatefulWidget {
   const LeaveScreen({Key? key}) : super(key: key);

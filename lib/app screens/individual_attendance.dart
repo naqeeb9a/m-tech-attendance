@@ -94,14 +94,14 @@ class _IndividualAttendanceState extends State<IndividualAttendance> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                          children: [
-                           Icon(Icons.arrow_back_ios),
+                           const Icon(Icons.arrow_back_ios),
                            Row(
                              children: [
-                               Icon(Icons.calendar_month,color: AppColors.customBlue,),
+                               const Icon(Icons.calendar_month,color: AppColors.customBlue,),
                                text(context, "December 2022", 0.05, AppColors.customBlue),
                              ],
                            ),
-                           Icon(Icons.arrow_forward_ios),
+                           const Icon(Icons.arrow_forward_ios),
                          ],
                         ),
                       ),

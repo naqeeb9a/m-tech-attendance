@@ -38,6 +38,7 @@ PreferredSizeWidget customAppBar(context,
     onlyText = false,
     titleText,
     image = ""}) {
+  // ignore: prefer_typing_uninitialized_variables
   var gender;
   return PreferredSize(
     preferredSize: Size.fromHeight(

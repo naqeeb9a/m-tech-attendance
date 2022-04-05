@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/config.dart';
@@ -76,17 +75,17 @@ Widget inputTextField(context, label, myController,
 
 Widget inputTextField3(context, label, myController,
     {function,
-      function2,
-      password = false,
-      white = false,
-      icon = false,
-      dynamic iconData = ""}) {
+    function2,
+    password = false,
+    white = false,
+    icon = false,
+    dynamic iconData = ""}) {
   return TextFormField(
     autovalidateMode: AutovalidateMode.onUserInteraction,
     validator: (function == "")
         ? () {
-      return null;
-    }
+            return null;
+          }
         : function,
     controller: myController,
     textInputAction: TextInputAction.next,
@@ -107,36 +106,36 @@ Widget inputTextField3(context, label, myController,
       fillColor: AppColors.customWhite,
       suffixIcon: icon == true
           ? Icon(
-        iconData,
-        size: CustomSizes().dynamicHeight(context, 0.02),
-        color: AppColors.customGrey,
-      )
+              iconData,
+              size: CustomSizes().dynamicHeight(context, 0.02),
+              color: AppColors.customGrey,
+            )
           : const SizedBox(),
       hintStyle: TextStyle(
           color: white == true ? AppColors.customWhite : AppColors.customGrey),
       enabledBorder: OutlineInputBorder(
         borderRadius:
-        BorderRadius.circular(CustomSizes().dynamicWidth(context, .01)),
+            BorderRadius.circular(CustomSizes().dynamicWidth(context, .01)),
         borderSide: BorderSide(
             width: CustomSizes().dynamicWidth(context, 0),
             color:
-            white == true ? AppColors.customWhite : AppColors.customGrey),
+                white == true ? AppColors.customWhite : AppColors.customGrey),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius:
-        BorderRadius.circular(CustomSizes().dynamicWidth(context, .01)),
+            BorderRadius.circular(CustomSizes().dynamicWidth(context, .01)),
         borderSide: BorderSide(
             width: CustomSizes().dynamicWidth(context, 0.004),
             color:
-            white == true ? AppColors.customWhite : AppColors.customBlue),
+                white == true ? AppColors.customWhite : AppColors.customBlue),
       ),
       border: OutlineInputBorder(
         borderRadius:
-        BorderRadius.circular(CustomSizes().dynamicWidth(context, 0.01)),
+            BorderRadius.circular(CustomSizes().dynamicWidth(context, 0.01)),
         borderSide: BorderSide(
             width: CustomSizes().dynamicWidth(context, 0),
             color:
-            white == true ? AppColors.customWhite : AppColors.customGrey),
+                white == true ? AppColors.customWhite : AppColors.customGrey),
       ),
       contentPadding: EdgeInsets.symmetric(
         horizontal: CustomSizes().dynamicWidth(context, .05),

@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:dialogs/dialogs/message_dialog.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mtech_attendance/Widgets/form_fields.dart';
+import 'package:mtech_attendance/utils/constants.dart';
 import 'package:mtech_attendance/utils/dynamic_sizes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Widgets/buttons.dart';
 import '../Widgets/text_widget.dart';
@@ -24,6 +28,30 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController password = TextEditingController();
   bool loadingCheck = false;
   final _formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    checkLoginStatus(context);
+    super.initState();
+  }
+
+  checkLoginStatus(context) async {
+    SharedPreferences loginUser = await SharedPreferences.getInstance();
+    dynamic temp = loginUser.getString("LoginResponse");
+
+    var tempData = temp == null ? "" : await jsonDecode(temp);
+
+    userData = tempData;
+
+    if (temp != null) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context1) => const AppTabBar(),
+        ),
+        (route) => false,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

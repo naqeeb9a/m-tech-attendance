@@ -39,7 +39,7 @@ class _AboutState extends State<About> {
               ),
             ),
             Center(
-              child: Container(
+              child: SizedBox(
                 height: CustomSizes().dynamicHeight(context, 1),
                 width: CustomSizes().dynamicWidth(context, 0.9),
                 child: Column(
@@ -72,7 +72,7 @@ class _AboutState extends State<About> {
                       },
                       child: Row(
                         children: [
-                          Icon(Icons.phone_enabled_outlined),
+                          const Icon(Icons.phone_enabled_outlined),
                           text(
                             context,
                             "   +92 323 6674022",
@@ -89,7 +89,7 @@ class _AboutState extends State<About> {
                       },
                       child: Row(
                         children: [
-                          Icon(Icons.phone_enabled_outlined),
+                          const Icon(Icons.phone_enabled_outlined),
                           text(
                             context,
                             "   +92 320 4176454",
@@ -106,7 +106,7 @@ class _AboutState extends State<About> {
                       },
                       child: Row(
                         children: [
-                          Icon(Icons.email_outlined),
+                          const Icon(Icons.email_outlined),
                           text(
                             context,
                             "   info@cmcmtech.com",
@@ -123,7 +123,7 @@ class _AboutState extends State<About> {
                       },
                       child: Row(
                         children: [
-                          Icon(Icons.work_outline_rounded),
+                          const Icon(Icons.work_outline_rounded),
                           text(
                             context,
                             "   cmcmtech.com",
@@ -140,7 +140,7 @@ class _AboutState extends State<About> {
                       },
                       child: Row(
                         children: [
-                          Icon(Icons.location_on_outlined),
+                          const Icon(Icons.location_on_outlined),
                           text(
                             context,
                             "   59/9A Sher Khan Rd, Cantt, Lahore, Punjab",

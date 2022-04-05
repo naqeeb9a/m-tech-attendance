@@ -529,7 +529,7 @@ Widget detailContainer(context, image) {
 }
 
 Widget inputTextField2(context, label, myController,
-    {function, function2, password = false, white = false, icon: false}) {
+    {function, function2, password = false, white = false, icon= false}) {
   return TextFormField(
     autovalidateMode: AutovalidateMode.onUserInteraction,
     validator: (function == "")

@@ -23,6 +23,7 @@ class _AppTabBarState extends State<AppTabBar>
   TabController? _tabController;
   double iconSize = .03;
 
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -122,3 +123,5 @@ Widget customTab(context, iconSize, icon) {
     ),
   );
 }
+
+

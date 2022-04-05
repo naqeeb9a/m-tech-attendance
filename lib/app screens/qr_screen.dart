@@ -16,7 +16,8 @@ import '../utils/constants.dart';
 class QRScreen extends StatefulWidget {
   final dynamic type, setState;
 
-  const QRScreen({Key? key, required this.type, this.setState}) : super(key: key);
+  const QRScreen({Key? key, required this.type, this.setState})
+      : super(key: key);
 
   @override
   State<QRScreen> createState() => _QRScreenState();
@@ -78,7 +79,7 @@ class _QRScreenState extends State<QRScreen> {
                         DateFormat('hh:mm a').format(DateTime.now()).toString();
               });
 
-              CustomRoutes().pop(context);
+              Navigator.pop(context, widget.setState);
               successAlert(context, "Attendance Marked Successfully!!!");
             } else {
               warningAlert(

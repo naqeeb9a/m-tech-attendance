@@ -30,9 +30,9 @@ class _MarkAttendanceState extends State<MarkAttendance> {
 
               Text(jsonDecode(widget.qrApi).toString()),
 
-              Text("lat=>"),
+              const Text("lat=>"),
               Text(lat.toString()),
-              Text("long=>"),
+              const Text("long=>"),
               Text(long.toString()),
               // Text(data[0]['lat']),
               // Text(data[0]['long']),

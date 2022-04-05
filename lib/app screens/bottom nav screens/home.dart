@@ -27,15 +27,15 @@ class _HomePageState extends State<HomePage> {
   dynamic attendanceCheckData = "";
 
   attendanceCheck() async {
-    var temp = await Functions().todayAttendance();
-
-    setState(() {
-      attendanceCheckData = temp;
-    });
+    attendanceCheckData = await Functions().todayAttendance();
 
     if (attendanceCheckData != null) {
       setState(() {
         checkInTime = attendanceCheckData["check_in"];
+      });
+    } else if (attendanceCheckData == null) {
+      setState(() {
+        attendanceCheckData = null;
       });
     } else if (attendanceCheckData["check_out"] != null) {
       setState(() {
@@ -73,7 +73,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     attendanceCheck();
     getLocation();
@@ -154,6 +153,9 @@ class _HomePageState extends State<HomePage> {
                                     type: attendanceCheckData == null
                                         ? "in"
                                         : "out",
+                                    setState: () {
+                                      setState(() {});
+                                    },
                                   ),
                                 );
                               });
@@ -164,6 +166,9 @@ class _HomePageState extends State<HomePage> {
                                   type: attendanceCheckData == null
                                       ? "in"
                                       : "out",
+                                      setState: () {
+                                    setState(() {});
+                                  },
                                 ),
                               );
                             }
@@ -207,7 +212,8 @@ class _HomePageState extends State<HomePage> {
                               ),
                               text(
                                 context,
-                                attendanceCheckData == null
+                                attendanceCheckData == null ||
+                                        attendanceCheckData == ""
                                     ? "CHECK IN"
                                     : attendanceCheckData["check_out"] == null
                                         ? "CHECK OUT"
