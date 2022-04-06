@@ -11,8 +11,6 @@ String login = "login";
 String markAttendanceApi = "checkin";
 String todayAttendanceApi = "idemp/";
 
-
-
 dynamic lat, long;
 dynamic headers = {
   'Content-Type': 'application/json',
@@ -35,4 +33,8 @@ minutesDifference(time) {
   return format
       .parse(DateFormat('HH:mm').format(DateTime.now()).toString())
       .difference(format.parse(time));
+}
+
+minutesDifference2(time1, time2) {
+  return format.parse(time1).difference(format.parse(time2));
 }

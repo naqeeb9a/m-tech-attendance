@@ -253,13 +253,11 @@ class _HomePageState extends State<HomePage> {
                             ),
                             timeCard(
                               context,
-                              // DateTime.parse(
-                              //         snapshot.data["check_out"].toString().substring(0, 5))
-                              //     .difference(DateTime.parse(
-                              //         snapshot.data["check_in"].toString().substring(0, 5)))
-                              //     .inHours
-                              //     .toString(),
-                              "00:00",
+                              snapshot.data == null
+                                  ? "00:00"
+                                  : snapshot.data["check_out"] != null
+                                      ? snapshot.data["type"].toString()
+                                      : "00:00",
                               "Working Hrs",
                             ),
                           ],
