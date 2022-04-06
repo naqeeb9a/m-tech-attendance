@@ -94,9 +94,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       Image.asset(
                         "assets/logo.png",
-                        height: CustomSizes().dynamicHeight(context, .08),
+                        height: CustomSizes().dynamicHeight(context, .14),
                       ),
-                      CustomSizes().heightBox(context, .2),
+                      CustomSizes().heightBox(context, .1),
                       inputTextField(
                         context,
                         "Employee Email",

@@ -88,9 +88,9 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Image.asset(
                           "assets/logo.png",
-                          height: CustomSizes().dynamicHeight(context, .06),
+                          height: CustomSizes().dynamicHeight(context, .12),
                         ),
-                        CustomSizes().heightBox(context, .16),
+                        CustomSizes().heightBox(context, .08),
                         StreamBuilder(
                           stream: Stream.periodic(const Duration(seconds: 30)),
                           builder: (context, snapshot) {
