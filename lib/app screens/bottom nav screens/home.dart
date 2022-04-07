@@ -3,15 +3,15 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
-import 'package:mtech_attendance/Widgets/alert.dart';
 import 'package:mtech_attendance/Widgets/text_widget.dart';
-import 'package:mtech_attendance/app%20screens/qr_screen.dart';
 import 'package:mtech_attendance/functions/apis.dart';
-import 'package:mtech_attendance/utils/app_routes.dart';
 import 'package:mtech_attendance/utils/config.dart';
 import 'package:mtech_attendance/utils/dynamic_sizes.dart';
 
+import '../../Widgets/alert.dart';
+import '../../utils/app_routes.dart';
 import '../../utils/constants.dart';
+import '../qr_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -74,8 +74,6 @@ class _HomePageState extends State<HomePage> {
               if (snapshot.hasError) {
                 return Center(child: Text('Error: ${snapshot.error}'));
               } else {
-                // print("hahahahah ${snapshot.data.toString()}");
-
                 return Center(
                   child: Container(
                     width: CustomSizes().dynamicWidth(context, .9),
@@ -92,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         CustomSizes().heightBox(context, .08),
                         StreamBuilder(
-                          stream: Stream.periodic(const Duration(seconds: 30)),
+                          stream: Stream.periodic(const Duration(seconds: 10)),
                           builder: (context, snapshot) {
                             return text(
                               context,
@@ -115,60 +113,56 @@ class _HomePageState extends State<HomePage> {
                         GestureDetector(
                           onTap: () {
                             if (locationName == "getting...") {
-                              errorAlert(context,
-                                  "Enable the Location to further proceed!!!",
-                                  function: () async {
-                                CustomRoutes().pop(context);
-                                await getLocation();
-                              });
+                              errorAlert(
+                                context,
+                                "Enable the Location to further proceed!!!",
+                                function: () async {
+                                  CustomRoutes().pop(context);
+                                  await getLocation();
+                                },
+                              );
                             } else {
-                              if (timeDifference() <= 0 ||
-                                      checkInTime != "00:00"
-                                  ? minutesDifference(userData["ending_hours"]
-                                              .toString())
-                                          .inMinutes <
-                                      0
-                                  : minutesDifference("10:00").inMinutes > 0) {
+                              if (snapshot.data == null) {
                                 warningAlert(
                                     context,
-                                    (timeDifference() <= 0 ||
-                                            checkInTime != "00:00")
-                                        ? "You are going ${minutesDifference(userData["ending_hours"].toString()).toString().substring(0, minutesDifference(userData["ending_hours"].toString()).toString().length - 10)} Hours Earlier!!!"
-                                        : "You arrived ${minutesDifference("10:00").toString().substring(0, minutesDifference("10:00").toString().length - 10)} Hours Late!!!",
-                                    function: () {
+                                    "You arrived "
+                                    "${minutesDifference(userData["starting_hours"].toString())}"
+                                    " Hours Late!!!", function: () {
                                   CustomRoutes().pop(context);
                                   CustomRoutes().push(
                                     context,
                                     QRScreen(
-                                      type: snapshot.data == null
-                                          ? "in"
-                                          : (snapshot.data["check_in"] !=
-                                                      null &&
-                                                  snapshot.data["check_out"] ==
-                                                      null)
-                                              ? "out"
-                                              : "both",
+                                      type: "in",
                                       setState: () {
                                         setState(() {});
                                       },
                                     ),
                                   );
                                 });
-                              } else {
-                                CustomRoutes().push(
+                              } else if (snapshot.data["check_in"] != null &&
+                                  snapshot.data["check_out"] == null) {
+                                warningAlert(
                                   context,
-                                  QRScreen(
-                                    type: snapshot.data == null
-                                        ? "in"
-                                        : (snapshot.data["check_in"] != null &&
-                                                snapshot.data["check_out"] ==
-                                                    null)
-                                            ? "out"
-                                            : "both",
-                                    setState: () {
-                                      setState(() {});
-                                    },
-                                  ),
+                                  "You are going "
+                                  "${minutesDifference(userData["ending_hours"].toString())}"
+                                  " Hours Earlier!!!",
+                                  function: () {
+                                    CustomRoutes().pop(context);
+                                    CustomRoutes().push(
+                                      context,
+                                      QRScreen(
+                                        type: "out",
+                                        setState: () {
+                                          setState(() {});
+                                        },
+                                      ),
+                                    );
+                                  },
+                                );
+                              } else if (snapshot.data["check_out"] != null) {
+                                warningAlert(
+                                  context,
+                                  "You have already marked your Attendance!!!",
                                 );
                               }
                             }
@@ -217,7 +211,7 @@ class _HomePageState extends State<HomePage> {
                                               snapshot.data["check_out"] ==
                                                   null)
                                           ? "CHECK OUT"
-                                          : "---",
+                                          : "Signed Out",
                                   .04,
                                   AppColors.customWhite,
                                 ),
@@ -257,7 +251,9 @@ class _HomePageState extends State<HomePage> {
                                   ? "00:00"
                                   : snapshot.data["check_out"] != null
                                       ? snapshot.data["type"].toString()
-                                      : "00:00",
+                                      : snapshot.data["type"] == null
+                                          ? "00:00"
+                                          : "00:00",
                               "Working Hrs",
                             ),
                           ],

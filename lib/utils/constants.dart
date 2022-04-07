@@ -19,22 +19,10 @@ dynamic headers = {
 
 var format = DateFormat("HH:mm");
 
-timeDifference() {
-  return format
-      .parse(DateFormat('EEEE').format(DateTime.now()).toString() == "Saturday"
-          ? "12:00"
-          : "14:00")
-      .difference(
-          format.parse(DateFormat('HH:mm').format(DateTime.now()).toString()))
-      .inMinutes;
-}
-
 minutesDifference(time) {
   return format
       .parse(DateFormat('HH:mm').format(DateTime.now()).toString())
-      .difference(format.parse(time));
-}
-
-minutesDifference2(time1, time2) {
-  return format.parse(time1).difference(format.parse(time2));
+      .difference(format.parse(time))
+      .toString()
+      .substring(0, 5);
 }

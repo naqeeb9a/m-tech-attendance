@@ -31,8 +31,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    checkLoginStatus(context);
     super.initState();
+    checkLoginStatus(context);
   }
 
   checkLoginStatus(context) async {
@@ -58,148 +58,156 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SizedBox(
-          width: CustomSizes().dynamicWidth(context, 1),
-          height: CustomSizes().dynamicHeight(context, 1),
-          child: Stack(
-            children: [
-              Positioned(
-                left: 0,
-                top: 0,
-                child: Image.asset(
-                  'assets/signup_top.png',
-                  color: AppColors.customBlue,
-                  width: CustomSizes().dynamicWidth(context, 0.35),
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: Image.asset(
-                  "assets/loginbottom.png",
-                  color: AppColors.customBlue,
-                  width: CustomSizes().dynamicWidth(context, 0.4),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                    vertical: CustomSizes().dynamicHeight(context, .02),
-                    horizontal: CustomSizes().dynamicWidth(context, 0.04)),
+        body: userData.isEmpty
+            ? const CircularProgressIndicator.adaptive()
+            : SizedBox(
                 width: CustomSizes().dynamicWidth(context, 1),
                 height: CustomSizes().dynamicHeight(context, 1),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        "assets/logo.png",
-                        height: CustomSizes().dynamicHeight(context, .14),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      left: 0,
+                      top: 0,
+                      child: Image.asset(
+                        'assets/signup_top.png',
+                        color: AppColors.customBlue,
+                        width: CustomSizes().dynamicWidth(context, 0.35),
                       ),
-                      CustomSizes().heightBox(context, .1),
-                      inputTextField(
-                        context,
-                        "Employee Email",
-                        email,
-                        icon: true,
-                        iconData: CupertinoIcons.person_crop_circle,
-                        function: (value) {
-                          if (EmailValidator.validate(value)) {
-                          } else {
-                            return "Enter Valid Email";
-                          }
-                          return null;
-                        },
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Image.asset(
+                        "assets/loginbottom.png",
+                        color: AppColors.customBlue,
+                        width: CustomSizes().dynamicWidth(context, 0.4),
                       ),
-                      CustomSizes().heightBox(context, .06),
-                      inputTextField(
-                        context,
-                        "Password",
-                        password,
-                        function: (value) {
-                          if (value.isEmpty) {
-                            return 'Enter Valid Password';
-                          }
-                          return null;
-                        },
-                      ),
-                      CustomSizes().heightBox(context, 0.04),
-                      loadingCheck == true
-                          ? const CircularProgressIndicator.adaptive(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                AppColors.customBlue,
-                              ),
-                            )
-                          : coloredButton(
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: CustomSizes().dynamicHeight(context, .02),
+                          horizontal:
+                              CustomSizes().dynamicWidth(context, 0.04)),
+                      width: CustomSizes().dynamicWidth(context, 1),
+                      height: CustomSizes().dynamicHeight(context, 1),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              "assets/logo.png",
+                              height: CustomSizes().dynamicHeight(context, .14),
+                            ),
+                            CustomSizes().heightBox(context, .1),
+                            inputTextField(
                               context,
-                              "Login",
-                              AppColors.customBlue,
-                              width: CustomSizes().dynamicWidth(context, 0.75),
-                              function: () async {
-                                if (!_formKey.currentState!.validate()) {
-                                  return;
+                              "Employee Email",
+                              email,
+                              icon: true,
+                              iconData: CupertinoIcons.person_crop_circle,
+                              function: (value) {
+                                if (EmailValidator.validate(value)) {
                                 } else {
-                                  setState(() {
-                                    loadingCheck = true;
-                                  });
-                                  var response = await Functions().loginFunc(
-                                    email.text.toString().trim(),
-                                    password.text.toString(),
-                                  );
-                                  if (response == "success") {
-                                    MessageDialog messageDialog = MessageDialog(
-                                      dialogBackgroundColor:
-                                          AppColors.customWhite,
-                                      buttonOkColor: AppColors.customBlue,
-                                      title: '$response',
-                                      titleColor: AppColors.customBlack,
-                                      message: 'Login Successfully',
-                                      messageColor: AppColors.customBlack,
-                                      dialogRadius: CustomSizes()
-                                          .dynamicWidth(context, 0.025),
-                                    );
-                                    messageDialog.show(
-                                      context,
-                                      barrierColor: Colors.white,
-                                    );
-
-                                    CustomRoutes().pushAndRemoveUntil(
-                                      context,
-                                      const AppTabBar(),
-                                    );
-                                    email.clear();
-                                    password.clear();
-                                  } else {
-                                    setState(() {
-                                      loadingCheck = false;
-                                    });
-                                    MessageDialog messageDialog = MessageDialog(
-                                      dialogBackgroundColor:
-                                          AppColors.customWhite,
-                                      buttonOkColor: AppColors.customBlack,
-                                      title: 'error',
-                                      titleColor: AppColors.customBlack,
-                                      message: "$response",
-                                      messageColor: AppColors.customBlack,
-                                      buttonOkText: 'Ok',
-                                      dialogRadius: CustomSizes()
-                                          .dynamicWidth(context, 0.025),
-                                      buttonRadius: CustomSizes()
-                                          .dynamicWidth(context, 0.05),
-                                    );
-                                    messageDialog.show(context,
-                                        barrierColor: Colors.white);
-                                  }
+                                  return "Enter Valid Email";
                                 }
+                                return null;
                               },
                             ),
-                    ],
-                  ),
+                            CustomSizes().heightBox(context, .06),
+                            inputTextField(
+                              context,
+                              "Password",
+                              password,
+                              function: (value) {
+                                if (value.isEmpty) {
+                                  return 'Enter Valid Password';
+                                }
+                                return null;
+                              },
+                            ),
+                            CustomSizes().heightBox(context, 0.04),
+                            loadingCheck == true
+                                ? const CircularProgressIndicator.adaptive(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      AppColors.customBlue,
+                                    ),
+                                  )
+                                : coloredButton(
+                                    context,
+                                    "Login",
+                                    AppColors.customBlue,
+                                    width: CustomSizes()
+                                        .dynamicWidth(context, 0.75),
+                                    function: () async {
+                                      if (!_formKey.currentState!.validate()) {
+                                        return;
+                                      } else {
+                                        setState(() {
+                                          loadingCheck = true;
+                                        });
+                                        var response =
+                                            await Functions().loginFunc(
+                                          email.text.toString().trim(),
+                                          password.text.toString(),
+                                        );
+                                        if (response == "success") {
+                                          MessageDialog messageDialog =
+                                              MessageDialog(
+                                            dialogBackgroundColor:
+                                                AppColors.customWhite,
+                                            buttonOkColor: AppColors.customBlue,
+                                            title: '$response',
+                                            titleColor: AppColors.customBlack,
+                                            message: 'Login Successfully',
+                                            messageColor: AppColors.customBlack,
+                                            dialogRadius: CustomSizes()
+                                                .dynamicWidth(context, 0.025),
+                                          );
+                                          messageDialog.show(
+                                            context,
+                                            barrierColor: Colors.white,
+                                          );
+
+                                          CustomRoutes().pushAndRemoveUntil(
+                                            context,
+                                            const AppTabBar(),
+                                          );
+                                          email.clear();
+                                          password.clear();
+                                        } else {
+                                          setState(() {
+                                            loadingCheck = false;
+                                          });
+                                          MessageDialog messageDialog =
+                                              MessageDialog(
+                                            dialogBackgroundColor:
+                                                AppColors.customWhite,
+                                            buttonOkColor:
+                                                AppColors.customBlack,
+                                            title: 'error',
+                                            titleColor: AppColors.customBlack,
+                                            message: "$response",
+                                            messageColor: AppColors.customBlack,
+                                            buttonOkText: 'Ok',
+                                            dialogRadius: CustomSizes()
+                                                .dynamicWidth(context, 0.025),
+                                            buttonRadius: CustomSizes()
+                                                .dynamicWidth(context, 0.05),
+                                          );
+                                          messageDialog.show(context,
+                                              barrierColor: Colors.white);
+                                        }
+                                      }
+                                    },
+                                  ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
       ),
     );
   }
