@@ -58,17 +58,17 @@ class _QRScreenState extends State<QRScreen> {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        var response = await Functions().markAttendance(
-          widget.type == "in"
-              ? DateFormat('hh:mm a').format(DateTime.now()).toString()
-              : "",
-          widget.type == "out"
-              ? DateFormat('hh:mm a').format(DateTime.now()).toString()
-              : "",
-        );
         if (lat.toStringAsFixed(2) == data['lat'].toStringAsFixed(2) &&
             long.toStringAsFixed(2) == data['long'].toStringAsFixed(2)) {
           if (DateFormat('HH:mm').format(DateTime.now()) == data['id']) {
+            var response = await Functions().markAttendance(
+              widget.type == "in"
+                  ? DateFormat('hh:mm a').format(DateTime.now()).toString()
+                  : "",
+              widget.type == "out"
+                  ? DateFormat('hh:mm a').format(DateTime.now()).toString()
+                  : "",
+            );
             if (response["status"] == "200") {
               Navigator.pop(context, widget.setState());
               successAlert(context, response["message"]);
