@@ -27,6 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   bool loadingCheck = false;
+  bool loginCheck = false;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -40,6 +41,10 @@ class _LoginScreenState extends State<LoginScreen> {
     dynamic temp = loginUser.getString("LoginResponse");
 
     var tempData = temp == null ? "" : await jsonDecode(temp);
+
+    setState(() {
+      loginCheck = true;
+    });
 
     userData = tempData;
 
@@ -58,8 +63,10 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: userData.isEmpty
-            ? const CircularProgressIndicator.adaptive()
+        body: loginCheck == false
+            ? const Center(
+                child: CircularProgressIndicator.adaptive(),
+              )
             : SizedBox(
                 width: CustomSizes().dynamicWidth(context, 1),
                 height: CustomSizes().dynamicHeight(context, 1),
