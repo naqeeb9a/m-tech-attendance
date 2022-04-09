@@ -21,10 +21,12 @@ class _MoreScreenState extends State<MoreScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.customBlack,
       body: SafeArea(
-        child: SizedBox(
+        child: Container(
           width: CustomSizes().dynamicWidth(context, 1),
           height: CustomSizes().dynamicHeight(context, 1),
+          color: AppColors.customWhite,
           child: Stack(
             children: [
               Positioned(
@@ -70,12 +72,11 @@ class _MoreScreenState extends State<MoreScreen> {
                       SizedBox(
                         child: Column(
                           children: [
-                            Icon(CupertinoIcons.person_alt_circle,size: CustomSizes().dynamicHeight(context, .08),color: AppColors.customBlue,),
-                            // CircleAvatar(
-                            //     radius:
-                            //         CustomSizes().dynamicHeight(context, 0.05),
-                            //     backgroundImage: const NetworkImage(
-                            //         "https://www.nicepng.com/png/detail/367-3671905_person-icon-person-icon-silhouette.png")),
+                            Icon(
+                              CupertinoIcons.person_alt_circle,
+                              size: CustomSizes().dynamicHeight(context, .08),
+                              color: AppColors.customBlue,
+                            ),
                             text(
                               context,
                               "${userData["first_name"]} ${userData["last_name"]}",
@@ -85,7 +86,7 @@ class _MoreScreenState extends State<MoreScreen> {
                             ),
                             text(
                               context,
-                              userData["department"] ?? "-----",
+                              userData["designation"] ?? "-----",
                               0.03,
                               AppColors.customGrey,
                             ),

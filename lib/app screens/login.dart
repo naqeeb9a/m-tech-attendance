@@ -61,15 +61,19 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: loginCheck == false
-            ? const Center(
+    return Scaffold(
+      backgroundColor: AppColors.customBlack,
+      body: loginCheck == false
+          ? const SafeArea(
+              child: Center(
                 child: CircularProgressIndicator.adaptive(),
-              )
-            : SizedBox(
+              ),
+            )
+          : SafeArea(
+              child: Container(
                 width: CustomSizes().dynamicWidth(context, 1),
                 height: CustomSizes().dynamicHeight(context, 1),
+                color: AppColors.customWhite,
                 child: Stack(
                   children: [
                     Positioned(
@@ -215,7 +219,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
               ),
-      ),
+            ),
     );
   }
 }

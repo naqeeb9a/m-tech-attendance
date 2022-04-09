@@ -90,11 +90,12 @@ class _MyTeamsState extends State<MyTeams> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.customWhite,
+      backgroundColor: AppColors.customBlack,
       body: SafeArea(
-        child: SizedBox(
+        child: Container(
           width: CustomSizes().dynamicWidth(context, 1),
           height: CustomSizes().dynamicHeight(context, 1),
+          color: AppColors.customWhite,
           child: Stack(
             children: [
               Positioned(

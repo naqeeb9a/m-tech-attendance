@@ -19,10 +19,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.customBlack,
       body: SafeArea(
-        child: SizedBox(
+        child: Container(
           width: CustomSizes().dynamicWidth(context, 1),
           height: CustomSizes().dynamicHeight(context, 1),
+          color: AppColors.customWhite,
           child: Stack(
             children: [
               Positioned(
@@ -47,13 +49,15 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 ),
               ),
               SizedBox(
-                width: CustomSizes().dynamicWidth(context,1),
+                width: CustomSizes().dynamicWidth(context, 1),
                 height: CustomSizes().dynamicHeight(context, 1),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Lottie.asset("assets/animations/coming_soon.json",height:
-                    CustomSizes().dynamicHeight(context, .2),)
+                    Lottie.asset(
+                      "assets/animations/coming_soon.json",
+                      height: CustomSizes().dynamicHeight(context, .2),
+                    )
                   ],
                 ),
               ),
@@ -490,7 +494,7 @@ Widget detailContainer(context, image) {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       InkWell(
-                        onTap: (){
+                        onTap: () {
                           CustomRoutes().pop(context);
                         },
                         child: Container(
@@ -509,7 +513,7 @@ Widget detailContainer(context, image) {
                         ),
                       ),
                       InkWell(
-                        onTap: (){
+                        onTap: () {
                           CustomRoutes().pop(context);
                         },
                         child: Container(
@@ -540,7 +544,7 @@ Widget detailContainer(context, image) {
 }
 
 Widget inputTextField2(context, label, myController,
-    {function, function2, password = false, white = false, icon= false}) {
+    {function, function2, password = false, white = false, icon = false}) {
   return TextFormField(
     autovalidateMode: AutovalidateMode.onUserInteraction,
     validator: (function == "")

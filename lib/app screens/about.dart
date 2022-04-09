@@ -48,9 +48,13 @@ class _AboutState extends State<About> {
                     topBar(context, "About"),
                     CustomSizes().heightBox(context, 0.25),
                     Center(
-                      child: text(context, "HOW WE STARTED IT", 0.05,
-                          AppColors.customBlack,
-                          bold: true),
+                      child: text(
+                        context,
+                        "HOW WE STARTED IT",
+                        0.05,
+                        AppColors.customBlack,
+                        bold: true,
+                      ),
                     ),
                     CustomSizes().heightBox(context, 0.05),
                     text(
@@ -62,20 +66,27 @@ class _AboutState extends State<About> {
                     CustomSizes().heightBox(context, 0.12),
                     Center(
                       child: text(
-                          context, "CONTACT US", 0.05, AppColors.customBlack,
-                          bold: true),
+                        context,
+                        "CONTACT US",
+                        0.05,
+                        AppColors.customBlack,
+                        bold: true,
+                      ),
                     ),
                     CustomSizes().heightBox(context, 0.07),
                     GestureDetector(
-                      onTap: ()async{
-                        if (!await launch("tel:+92 323 6674022")) throw 'Could not launch +92 323 6674022';
+                      onTap: () async {
+                        if (!await launch("tel:+923236674022")) {
+                          throw 'Could not launch +92 323 6674022';
+                        }
                       },
                       child: Row(
                         children: [
                           const Icon(Icons.phone_enabled_outlined),
+                          CustomSizes().widthBox(context, .03),
                           text(
                             context,
-                            "   +92 323 6674022",
+                            "+92 323 6674022",
                             0.04,
                             AppColors.customBlack,
                           ),
@@ -84,15 +95,18 @@ class _AboutState extends State<About> {
                     ),
                     CustomSizes().heightBox(context, 0.07),
                     GestureDetector(
-                      onTap: ()async{
-                        if (!await launch("tel:+92 320 4176454")) throw 'Could not launch +92 320 4176454';
+                      onTap: () async {
+                        if (!await launch("tel: +923204176454")) {
+                          throw 'Could not launch +92 320 4176454';
+                        }
                       },
                       child: Row(
                         children: [
                           const Icon(Icons.phone_enabled_outlined),
+                          CustomSizes().widthBox(context, .03),
                           text(
                             context,
-                            "   +92 320 4176454",
+                            "+92 320 4176454",
                             0.04,
                             AppColors.customBlack,
                           ),
@@ -101,15 +115,18 @@ class _AboutState extends State<About> {
                     ),
                     CustomSizes().heightBox(context, 0.07),
                     GestureDetector(
-                      onTap: ()async{
-                        if (!await launch("mailto:info@cmcmtech.com")) throw 'Could not launch info@cmcmtech.com';
+                      onTap: () async {
+                        if (!await launch("mailto:info@cmcmtech.com")) {
+                          throw 'Could not launch info@cmcmtech.com';
+                        }
                       },
                       child: Row(
                         children: [
                           const Icon(Icons.email_outlined),
+                          CustomSizes().widthBox(context, .03),
                           text(
                             context,
-                            "   info@cmcmtech.com",
+                            "info@cmcmtech.com",
                             0.04,
                             AppColors.customBlack,
                           ),
@@ -118,15 +135,18 @@ class _AboutState extends State<About> {
                     ),
                     CustomSizes().heightBox(context, 0.07),
                     GestureDetector(
-                      onTap: ()async{
-                        if (!await launch("http://cmcmtech.com/")) throw 'Could not launch cmcmtech.com';
+                      onTap: () async {
+                        if (!await launch("http://cmcmtech.com/")) {
+                          throw 'Could not launch cmcmtech.com';
+                        }
                       },
                       child: Row(
                         children: [
                           const Icon(Icons.work_outline_rounded),
+                          CustomSizes().widthBox(context, .03),
                           text(
                             context,
-                            "   cmcmtech.com",
+                            "cmcmtech.com",
                             0.04,
                             AppColors.customBlack,
                           ),
@@ -135,17 +155,24 @@ class _AboutState extends State<About> {
                     ),
                     CustomSizes().heightBox(context, 0.07),
                     GestureDetector(
-                      onTap: ()async{
-                        if (!await launch("https://www.google.com/maps/place/CMC+M-Tech/@31.524716,74.383661,16z/data=!4m5!3m4!1s0x0:0x5aea979fb54ee09!8m2!3d31.5247155!4d74.383661?hl=en")) throw 'Could not launch location';
+                      onTap: () async {
+                        if (!await launch(
+                            "https://www.google.com/maps/place/CMC+M-Tech/@31.524716,74.383661,16z/data=!4m5!3m4!1s0x0:0x5aea979fb54ee09!8m2!3d31.5247155!4d74.383661?hl=en")) {
+                          throw 'Could not launch location';
+                        }
                       },
                       child: Row(
                         children: [
                           const Icon(Icons.location_on_outlined),
-                          text(
-                            context,
-                            "   59/9A Sher Khan Rd, Cantt, Lahore, Punjab",
-                            0.04,
-                            AppColors.customBlack,
+                          CustomSizes().widthBox(context, .03),
+                          Flexible(
+                            child: text(
+                              context,
+                              "59/9A Sher Khan Rd, Cantt, Lahore, Punjab",
+                              0.04,
+                              AppColors.customBlack,
+                              maxLines: 2,
+                            ),
                           ),
                         ],
                       ),
