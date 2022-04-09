@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                             "assets/logo.png",
                             height: CustomSizes().dynamicHeight(context, .12),
                           ),
-                          CustomSizes().heightBox(context, .08),
+                          // CustomSizes().heightBox(context, .08),
                           StreamBuilder(
                             stream:
                                 Stream.periodic(const Duration(seconds: 10)),
@@ -113,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                             .06,
                             AppColors.customGrey,
                           ),
-                          CustomSizes().heightBox(context, .1),
+                          CustomSizes().heightBox(context, .04),
                           GestureDetector(
                             onTap: () {
                               if (locationName == "getting...") {
@@ -224,14 +224,14 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                           ),
-                          CustomSizes().heightBox(context, .1),
+                          CustomSizes().heightBox(context, .04),
                           text(
                             context,
                             "Location: $locationName",
                             .03,
                             AppColors.customGrey,
                           ),
-                          CustomSizes().heightBox(context, .14),
+                          CustomSizes().heightBox(context, .08),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -263,6 +263,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
+                          CustomSizes().heightBox(context, .04),
                         ],
                       ),
                     ),
