@@ -4,6 +4,7 @@ import 'package:dialogs/dialogs/message_dialog.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mtech_attendance/Widgets/alert.dart';
 import 'package:mtech_attendance/Widgets/form_fields.dart';
 import 'package:mtech_attendance/utils/constants.dart';
 import 'package:mtech_attendance/utils/dynamic_sizes.dart';
@@ -136,6 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 }
                                 return null;
                               },
+                              password: true,
                             ),
                             CustomSizes().heightBox(context, 0.04),
                             loadingCheck == true
@@ -163,23 +165,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                           password.text.toString(),
                                         );
                                         if (response == "success") {
-                                          MessageDialog messageDialog =
-                                              MessageDialog(
-                                            dialogBackgroundColor:
-                                                AppColors.customWhite,
-                                            buttonOkColor: AppColors.customBlue,
-                                            title: '$response',
-                                            titleColor: AppColors.customBlack,
-                                            message: 'Login Successfully',
-                                            messageColor: AppColors.customBlack,
-                                            dialogRadius: CustomSizes()
-                                                .dynamicWidth(context, 0.025),
-                                          );
-                                          messageDialog.show(
-                                            context,
-                                            barrierColor: Colors.white,
-                                          );
-
                                           CustomRoutes().pushAndRemoveUntil(
                                             context,
                                             const AppTabBar(),
@@ -190,24 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           setState(() {
                                             loadingCheck = false;
                                           });
-                                          MessageDialog messageDialog =
-                                              MessageDialog(
-                                            dialogBackgroundColor:
-                                                AppColors.customWhite,
-                                            buttonOkColor:
-                                                AppColors.customBlack,
-                                            title: 'error',
-                                            titleColor: AppColors.customBlack,
-                                            message: "$response",
-                                            messageColor: AppColors.customBlack,
-                                            buttonOkText: 'Ok',
-                                            dialogRadius: CustomSizes()
-                                                .dynamicWidth(context, 0.025),
-                                            buttonRadius: CustomSizes()
-                                                .dynamicWidth(context, 0.05),
-                                          );
-                                          messageDialog.show(context,
-                                              barrierColor: Colors.white);
+                                          errorAlert(context, "Credential not matehed",titleCheck: true,alert : response);
                                         }
                                       }
                                     },
