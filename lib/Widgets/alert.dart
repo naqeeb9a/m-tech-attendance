@@ -30,7 +30,7 @@ Future warningAlert (context ,response ,{function}) {
 Future errorAlert (context ,response ,{function,alert,titleCheck = false}) {
   return  CoolAlert.show(
     context: context,
-    lottieAsset: "assets/animations/failed.json",
+    // lottieAsset: "assets/animations/failed.json",
     type: CoolAlertType.error,
     title: titleCheck ==  true ? alert :  "Error",
     text: response,
